@@ -1,0 +1,61 @@
+<h1>商品</h1>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="20">id</th>
+    <th width="120">款式</th>
+    <th width="50">尺寸</th>
+    <th width="100">狀態</th>
+    <th width="50">樂天</th>
+    <th width="50">PCh</th>
+    <th width="50">Goh</th>
+    <th width="50">PayE</th>
+    <th width="100">補單日</th>
+    <th width="100">到貨日</th>
+    <th></th>
+  </tr>
+  <tr class="even">
+    <td><%= @pair.id %></td>
+    <td><%=h @pair.style.name %></td>
+    <td align="center"><%=h @pair.size %></td>
+    <td align="center"><%= show_pair_status(@pair.status) %></td>
+    <td align="center"><%= show_yes( @pair.at_rakuten ) %></td>
+    <td align="center"><%= show_yes( @pair.at_pchome ) %></td>
+    <td align="center"><%= show_yes( @pair.at_gohappy ) %></td>
+    <td align="center"><%= show_yes( @pair.at_payeasy ) %></td>   
+    <td align="center"><%= link_to @pair.refill.order_date, :controller => 'refills', :action => 'show', :id => @pair.refill_id if not @pair.refill.nil? %></td>
+    <td align="center"><%=h @pair.refill.arrive_date if not @pair.refill.nil? %></td>
+    <td><%= link_to edit_image, edit_pair_path(@pair) %></td>
+  </tr>
+</table>
+
+<p>
+  <b>備註：</b><%=h @pair.note %>
+</p>
+
+<%= link_to 'Back', :back %>
+<br/>
+
+<h2>商品::訂單出貨紀錄</h2>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<th width="80">item.id</th>
+    <th width="60">狀態</th>
+    <th width="60">購買人</th>
+    <th width="100">出貨日期</th>
+    <th width="80">配送方式</th>
+    <th width="100">購買地點</th>
+		<th> </th>
+  </tr>
+<% @pair.items.each do |item| %>
+  <tr>
+  	<td><%= item.id %></td>
+  	<td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
+    <td><%= item.order.customer.name %></td>
+		<td><%= item.shipped_date %></td>
+		<td><%= Order::SHIPPING_METHOD.rassoc(item.order.shipping_method)[0] if item.order.shipping_method %></td>
+		<td><%= Order::ORDER_LOCATION.rassoc(item.order.order_from)[0] %></td>
+		<td><%= link_to edit_image, :controller => 'items', :action => 'edit', :id => item.id %></td>
+  </tr>
+<% end %>
+</table>

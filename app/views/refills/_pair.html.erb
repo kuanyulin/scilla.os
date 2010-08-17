@@ -1,0 +1,16 @@
+<div class="child">
+<table cellspacing="0" cellpadding="0" border="0" class="entryTable">
+  <tr>
+    <td width="90"><%= f.select :status, Pair::PAIR_STATUS, :prompt => "狀態" %></td>
+		<td width="110"><%= f.select :style_id, @styles.map{|x| [x.name, x.id]}, :prompt => "鞋款" -%></td>
+    <td width="30"><%= f.text_field :size, :size => 2 %></td>
+    <td width="50"><%= f.check_box :at_rakuten %></td>
+    <td width="50"><%= f.check_box :at_pchome %></td>
+    <td width="50"><%= f.check_box :at_gohappy %></td>
+    <td width="50"><%= f.check_box :at_payeasy %></td>
+    <td width="50"><%= f.check_box :special %></td>
+    <td width="200"><%= f.text_field :note, :row => 1, :col => 10 %></td>
+    <td width="60"> <%= f.hidden_field :_delete, :class => 'delete' %><%= remove_child_link '刪除', f %></td>
+  </tr>
+</table>
+</div>

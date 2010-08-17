@@ -1,0 +1,51 @@
+<h1>會員購買分析報告</h1>
+<% form_tag :action => 'calculate_membership' do %>
+<%= submit_tag '重新整理' %>
+<% end %>
+
+<p>會員總數：<%= @customer_count %></p>
+
+<center><table cellspacing="0" cellpadding="0" width="650">
+  <tr valign="center">
+    <td width="35%" align="left"> </td>
+    <td width="15%" align="right"> </td>
+    <td width="25%" align="right"><%= @style_members.length %> 位風格會員 <%= show_member_icon(Customer::STYLE_MEMBER) %></td>
+    <td width="25%" align="right"><%= @elite_members.length %> 位頂級會員 <%= show_member_icon(Customer::ELITE_MEMBER) %></td>
+  </tr>
+</table>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="880">  
+  <tr>
+    <th> </th>
+    <th width="120">姓名</th>
+		<th width="100">總計</th>
+    <th width="100">手機</th>
+    <th width="100">電話</th>
+    <th width="400">地址</th>
+    <th width="50"> </th>
+  </tr>
+
+<% @elite_members.each do |customer| %>
+  <tr>
+    <td><%= link_to '＋', :controller => 'orders', :action => 'new', :customer_id => customer %></td>
+    <td><%= show_member_icon(customer.membership) %> <%= link_to customer.name, :action => 'show', :id => customer %></td>
+		<td><%= show_currency(customer.total_purchase) %></td>
+    <td><%=h customer.mobile %></td>
+    <td><%=h customer.phone %></td>
+    <td><%=h customer.address %></td>
+    <td><%= link_to '更新', edit_customer_path(customer) %><br/><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<% @style_members.each do |customer| %>
+  <tr>
+    <td><%= link_to '＋', :controller => 'orders', :action => 'new', :customer_id => customer %></td>
+    <td><%= show_member_icon(customer.membership) %> <%= link_to customer.name, :action => 'show', :id => customer %></td>
+		<td><%= show_currency(customer.total_purchase) %></td>
+    <td><%=h customer.mobile %></td>
+    <td><%=h customer.phone %></td>
+    <td><%=h customer.address %></td>
+    <td><%= link_to '更新', edit_customer_path(customer) %><br/><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+
+
+</table>

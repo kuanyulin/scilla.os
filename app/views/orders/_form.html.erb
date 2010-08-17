@@ -1,0 +1,79 @@
+<script type="text/javascript">
+function sum() {
+	var theForm = document.forms[0];
+	var total_text = document.getElementById('order_total_amount');
+	var re = new RegExp(/_price$/);
+	var re2 = new RegExp(/_discount$/);
+	
+	var total_amount = 0;
+	for(i = 0; i < theForm.elements.length; i++) {
+	  var m = re.test(theForm.elements[i].id);
+	  if (m) {
+			total_amount += parseFloat(theForm.elements[i].value);
+	  }
+		var m2 = re2.test(theForm.elements[i].id);
+		if (m2) {
+			total_amount -= theForm.elements[i].value;
+		}
+	}
+	
+	total_amount += parseFloat(document.getElementById('order_shipping_charge').value);
+	
+	total_text.value = total_amount;
+}
+</script>
+
+<%= f.error_messages %>
+
+  <%= f.hidden_field :customer_id %>
+
+<table cellspacing="2" cellpadding="0" border="0" width="770">
+	<tr>
+		<th><%= f.label '購買人' %></th><td width="220"><%= @order.customer.name %> <%= show_member_icon(@order.customer.membership) %></td>
+		<th><%= f.label '訂單狀態' %></th><td><%= f.select :status, Order::ORDER_STATUS %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '收件人' %></th><td><%= f.text_field :recipient, :size => 10 %></td>
+		<th><%= f.label '購買日期' %></th><td><%= f.date_select :order_date, :use_month_numbers => true, :start_year => 2009, :default => Date.today %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '電話' %></th><td colspan="3"><%= f.text_field :phone, :size => 15 %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '收件地址' %></th><td colspan="3"><%= f.text_field :shipping_address, :size => 60 %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '寄貨方式' %></th><td><%= f.select :shipping_method, Order::SHIPPING_METHOD %></td>
+		<th><%= f.label '付款方式' %></th><td><%= f.select :payment_type, Order::PAYMENT_TYPE %></td>
+	</tr>
+	<tr>
+    <th><%= f.label '郵費' %></th><td><%= f.text_field :shipping_charge, :size => 10 %></td>
+		<th><%= f.label '付款日期' %></th><td><%= f.date_select :paid_date, :use_month_numbers => true, :start_year => 2009, :prompt => { :year => '年', :month => '月', :day => '日' } %></td>
+  </tr>
+  <tr>
+    <th><%= f.label '總金額' %></th><td><%= f.text_field :total_amount, :size => 10 %> <a href="javascript:void(0);" onclick="sum()">總計</a></td>
+		<th><%= f.label '購買地點' %></th><td><%= f.select :order_from, Order::ORDER_LOCATION %></td>
+  </tr>
+	<tr>
+		<th valign="top"><%= f.label '備註' %></th><td><%= f.text_area :note, :cols => 40, :rows => 5 %></td>
+		<th valign="top"><%= f.label '訂單編號' %></th><td valign="top"><%= f.text_field :order_number %></td>
+	</tr>
+</table>
+<table cellspacing="0" cellpadding="0" border="0" class="entryTable" width="790">
+  <tr>
+    <th width="100"><%= add_child_link '＋訂購商品', 'item', f %></th>
+		<th width="40"><%= f.label '取消' %></th>
+		<th width="70"><%= f.label '狀態' %></th> 
+    <th width="140"><%= f.label '款式' %></th>
+    <th width="50"><%= f.label '尺寸' %></th>
+    <th width="60"><%= f.label '售價' %></th>
+    <th width="85"><%= f.label '折扣' %></th>
+    <th width="180"><%= f.label '出貨日' %></th>
+    <th width="65"><%= f.label '貨品' %></th>	
+  </tr>
+</table>
+<div id='item_children'>
+  <% f.fields_for :items do |item_form| %>
+    <%= render :partial => 'item', :locals => { :f => item_form } %>
+  <% end %>
+</div>

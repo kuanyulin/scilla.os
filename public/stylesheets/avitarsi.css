@@ -1,0 +1,201 @@
+/* Global styles */
+#notice { 
+/*	border: 2px solid red; */
+	padding: 1em; 
+	margin-bottom: 2em; 
+	background-color: #FFCCCC; 
+	font-family: sans-serif;
+	font-weight: bold;
+}
+
+a { color: #115588; text-decoration:none;}
+
+a:visited { color: #115588; text-decoration:none; }
+a:hover { color:#ccaa00; text-decoration:none;}
+
+span.red a {color:#CC0000; text-decoration:none; }
+span.red a:visited {color:#CC0000; text-decoration:none; }
+span.red a:hover {color:#CCAA00; text-decoration:none; }
+
+ul {padding-left:20px;}
+/* Styles main page */
+#banner { 
+  background: #9c9;
+  padding-top: 10px; 
+  padding-bottom: 10px;
+  border-bottom: 2px solid; 
+  font-family: serif; 
+	font-size: 40px;
+	font-variant: small-caps;
+  color: #282; text-align: center;
+}
+#banner img { 
+  float: left;
+}
+#columns { /* contains "side" and "main" */
+}
+#main {   
+  margin-left: 15em; 
+  padding-top: 4ex; 
+  padding-left: 2em; 
+  background: white;
+  color: #333;
+  width: 720px;
+}
+#side { 
+  float: left; 
+  padding-top: 1em; 
+  padding-left: 1em; 
+  padding-bottom: 1em; 
+  width: 14em; 
+  background: #333;
+  color: #aaa;
+}
+#side a { 
+  color: #aaa; 
+  font-size: small;
+}
+h1 { 
+  font: 150% sans-serif; 
+  color: #226; 
+  border-bottom: 3px dotted #77d;
+}
+h2 {
+	padding-left: 120px;
+	color:#224444; 
+	font: 120% sans-serif; 
+}
+table.tableList {
+	border-right: 1px dotted #333;
+}
+table.tableList th {
+	background-color:#555;
+	color:#fff;
+	border-left: 1px dotted #ccc;
+}
+table.tableList tr.even {
+	background-color:#eee;
+	color:#333;
+}
+table.tableList tr.odd {
+  background-color:#ccc;
+  color:#333;
+}
+table.tableList td {
+	padding:2px 5px;
+	border-bottom: 1px dotted #666;
+  border-left: 1px dotted #666;
+}
+
+table.showDetail th {
+  background-color:#999999;
+  color:#fff;
+	text-align:right;
+	padding:2px 8px;
+}
+/* Styles for products/index */
+
+#product-list .list-title { 
+	color:	#244 ; 
+	font-weight: bold;
+	font-size: larger;
+}
+#product-list .list-image { 
+	width:	60px; 
+	height:	70px;
+}
+#product-list .list-actions { 
+	font-size: x-small; 
+	text-align: right; 
+	padding-left: 1em;
+}
+#product-list .list-line-even {
+	background: #e0f8f8;
+}
+#product-list .list-line-odd {
+	background: #f8b0f8;
+}
+
+/* Styles for avi tarsi form */
+
+.at-form fieldset { 
+	background: #fff;
+	padding-left:30px;
+}
+.at-form legend { 
+	color: #eee; 
+	background: #333; 
+	font-family: sans-serif; 
+	padding: 0.2em 1em;
+}
+.at-form label { 
+	width: 8em;
+	float: left; 
+	text-align: right; 
+	padding-top: 0.1em;
+	padding-right: 0.5em;
+	margin-right: 0.2em; 
+	display: block;
+	background-color:#ccc;
+	color:#333;
+}
+.at-form .submit { 
+	margin-left: 4em;
+}
+.at-form div {
+	margin: 0.5em 0;
+}
+
+.acctTable tr th label {
+	width:auto;
+  background-color:#99CC99;
+}
+.acctTable tr th {
+	background-color:#99CC99;
+	color:#333;
+}
+
+.entryTable tr th label {
+  width:auto;
+  background-color:#E0F8F8;
+}
+.entryTable tr th {
+  background-color:#E0F8F8;
+  color:#333;
+}
+input.acctPrice {
+	text-align:right;
+}
+
+td.subtotal {
+	border-top: 1px #333 solid;
+	font-weight:bold;
+}
+td.netincome {
+  border-top: 1px #333 solid;
+	border-bottom: 2px #333 solid;
+	font-weight:bold;
+}
+/* The error box */
+.fieldWithErrors { padding: 2px; background-color: red; display: table;
+}
+#errorExplanation { width: 400px; border: 2px solid red; padding: 7px; padding-bottom: 12px; margin-bottom: 20px; background-color: #f0f0f0;
+}
+#errorExplanation h2 { 
+	text-align: left; 
+	font-weight: bold; 
+	padding: 5px 5px 5px 15px; 
+	font-size: 12px;
+	margin: -7px; 
+	background-color: #c00; 
+	color: #fff;
+}
+#errorExplanation p { 
+	color: #333; 
+	margin-bottom: 0; 
+	padding: 5px;
+}
+#errorExplanation ul li { 
+	font-size: 12px; 
+	list-style: square;
+}

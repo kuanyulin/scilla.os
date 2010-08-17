@@ -1,0 +1,38 @@
+<%= f.error_messages %>
+
+<table cellspacing="0" cellpadding="0" border="0" class="acctTable" width="680">
+	<tr>
+    <th width="20"><%= f.label 'c' %></th>
+		<th width="220"><%= f.label '日期' %></th>
+		<th width="280"><%= f.label '內容' %></th>
+		<th width="80"><%= f.label '借方金額' %></th>
+		<th width="80"><%= f.label '貸方金額' %></th>
+	</tr>
+	
+	<tr>
+    <td><%= f.check_box :balanced %></td>
+    <td><%= f.date_select :entry_date, :default => Date.today %></td>
+		<td><%= f.text_field :title, :size => 36 %></td>
+		<td><%= f.text_field :total_debit, :size => 8, :class => 'acctPrice', :readonly => true %></td>
+		<td><%= f.text_field :total_credit, :size => 8, :class => 'acctPrice', :readonly => true %></td> 
+	</tr>	
+</table>
+<%= f.hidden_field :edited_by, :value => session[:user].id %>
+<br/><br/>
+<table cellspacing="0" cellpadding="0" border="0" class="entryTable" width="680">
+  <tr>
+  	<th width="120"><%= add_child_link '增加項目', 'entry', f %></th>
+    <th width="120"><%= f.label '科目' %></th>
+    <th width="280"><%= f.label '內容' %></th>
+    <th width="80"><%= f.label '借方金額' %></th>
+    <th width="80"><%= f.label '貸方金額' %></th>
+  </tr>
+</table>
+
+<div id='entry_children'>
+  <% f.fields_for :entries do |entry_form| %>
+    <%= render :partial => 'entry', :locals => { :f => entry_form } %>
+  <% end %>
+</div>
+<% if @journal.user %><p><small>(Last edited by <%= @journal.user.name %> on <%= @journal.updated_at %>)</small></p><% end %>
+

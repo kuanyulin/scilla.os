@@ -1,0 +1,12 @@
+<div class="child">
+	<table cellspacing="0" cellpadding="0" class="entryTable" width="660">
+		<tr>
+			<td width="90"><%= f.hidden_field :_destroy, :class => 'delete' %><%= remove_child_link '刪除', f %></td>
+			<td width="100"><%= f.collection_select :account_id, @accounts, :id, :subject %></td>
+			<td width="280"><%= f.text_field :description, :size => 36, :readonly => true %> </td>
+			<td width="80"><%= f.text_field :debit,  :size => 9, :class => 'acctPrice' %></td>
+			<td width="80"><%= f.text_field :credit, :size => 9, :class => 'acctPrice' %></td>
+		</tr>
+	</table>
+
+</div>

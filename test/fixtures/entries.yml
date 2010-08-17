@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  entry_date: 2010-03-24
+  description: MyString
+  credit: 9.99
+  debit: 9.99
+  account_id: 1
+  journal_id: 1
+
+two:
+  entry_date: 2010-03-24
+  description: MyString
+  credit: 9.99
+  debit: 9.99
+  account_id: 1
+  journal_id: 1

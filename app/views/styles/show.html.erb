@@ -1,0 +1,65 @@
+<table class="showDetail">
+	<tr>
+	  <th>商品</th><td><%=h @style.name %></td>
+    <th>類別</th><td><% @style.categories.each do |cat| %>
+      <%=h cat.name %> &nbsp; &nbsp; &nbsp; 
+      <% end %></td>
+	</tr>
+	<tr>
+	  <th>廠商型號</th><td>（<%=h @style.vendor.name -%>）<%=h @style.vendor_model -%></td>
+    <th width="100">Avi Tarsi 型號</th><td><%=h @style.at_model %></td>
+	</tr>
+	<tr>
+    <th>規格</th><td colspan="3"><%=h @style.spec %></td>
+	</tr>
+<% if session[:user].is_manager %>
+  <tr>
+    <th>成本</th><td colspan="3"><%=h show_currency(@style.cost) if @style.cost %></td>
+  </tr>
+<% end %>
+	<tr rowspan="2">
+    <th>Thumbnail</th><td><img src="<%=h @style.thumbnail %>" border="0" /></td>
+    <th>備註</th><td colspan="3"><%=h @style.note %></td>
+  </tr>
+<!--	<tr>
+	  <th>Picture1</th><td><%=h @style.picture1 %></td>
+	</tr>
+	<tr>
+	  <th>Picture2</th> <td><%=h @style.picture2 %></td>
+	</tr>
+	<tr>
+	  <th>Picture3</th> <td><%=h @style.picture3 %></td>
+	</tr>
+	<tr>
+	  <th>Picture4</th> <td><%=h @style.picture4 %></td>
+	</tr>
+	<tr>
+	  <th>Picture5</th> <td><%=h @style.picture5 %></td>
+	</tr>
+	<tr>
+	  <th>Picture6</th> <td><%=h @style.picture6 %></td>
+	</tr> -->
+	<tr>
+		<th>可做尺寸</th><td colspan="3"> <% for size in @style.sizes %><%= size.size %> &nbsp;  
+    <% end %>
+		</td>
+	</tr>
+	<tr>
+		<th>售價</th><td colspan="3"><% @style.prices.each do |price| %>
+  <div class="child">
+    <p>
+      <b>起始日期：</b><%=h price.start_date.to_date %> &nbsp; &nbsp; &nbsp; 
+			<b><%=h show_currency(price.price) %></b> 
+    </p>
+  </div>
+<% end %></td>
+	</tr>
+  <tr>
+  	<td colspan="4"><%= link_to '更新', edit_style_path(@style) %> | <%= link_to 'Back', styles_path %></td>
+  </tr>
+</table>
+
+<h1>庫存</h1>
+
+<%= render(:partial => "pairs/pair_list", :object => @style.pairs ) %>
+

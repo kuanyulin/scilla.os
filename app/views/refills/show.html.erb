@@ -1,0 +1,27 @@
+<p>
+  <b>訂購日：</b><%=h @refill.order_date -%>
+</p>
+
+<p>
+  <b>預計到貨日/實際到貨日：</b><%=h @refill.arrive_date -%> &nbsp; &nbsp; <b>已到貨：</b><%= @refill.arrived? ? '是' : '否' -%>
+</p>
+
+<p>
+  <b>摘要：</b><%=h @refill.description -%>
+</p>
+
+<p>
+  <b>訂購人：</b><%=h @refill.user.name -%>
+</p>
+
+<p>
+  <b>備註：</b><%=h @refill.note -%>
+</p>
+
+<%= render(:partial => "pairs/pair_list", :object => @refill.pairs ) %>
+
+<br/>
+<% if @refill.user %><p><small>(Last edited by <%= @refill.user.name %> on <%= @refill.updated_at %>)</small></p><% end %>
+<br/>
+
+<%= link_to '修改', edit_refill_path(@refill) %> | <%= link_to 'Back', refills_path %>

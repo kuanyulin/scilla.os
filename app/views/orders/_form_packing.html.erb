@@ -1,0 +1,52 @@
+<%= f.error_messages %>
+
+  <%= f.hidden_field :customer_id %>
+
+<table cellspacing="2" cellpadding="0" border="0">
+	<tr>
+		<th><%= f.label '購買人' %></th><td width="220"><%= @order.customer.name %> <%= show_member_icon(@order.customer.membership) %></td>
+		<th><%= f.label '訂單狀態' %></th><td><%= f.select :status, Order::ORDER_STATUS %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '收件人' %></th><td><%= @order.recipient %></td>
+		<th><%= f.label '購買日期' %></th><td><%= @order.order_date %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '電話' %></th><td><%= @order.phone %></td>
+		<th valign="top"><%= f.label '訂單編號' %></th><td valign="top"><%= @order.order_number %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '收件地址' %></th><td colspan="3"><%= @order.shipping_address %></td>
+	</tr>
+	<tr>
+		<th><%= f.label '寄貨方式' %></th><td><%= Order::SHIPPING_METHOD.rassoc(@order.shipping_method)[0] if @order.shipping_method %></td>
+		<th><%= f.label '付款方式' %></th><td><%= Order::PAYMENT_TYPE.rassoc(@order.payment_type)[0] if @order.payment_type %></td>
+	</tr>
+	<tr>
+    <th><%= f.label '郵費' %></th><td><%= @order.shipping_charge %></td>
+		<th><%= f.label '付款日期' %></th><td width="240"><%= f.date_select :paid_date, :use_month_numbers => true, :start_year => 2009, :end_year => 2015, :prompt => { :year => '年', :month => '月', :day => '日' } %></td>
+  </tr>
+  <tr>
+    <th><%= f.label '總金額' %></th><td><%= @order.total_amount %></td>
+		<th><%= f.label '購買地點' %></th><td><%= Order::ORDER_LOCATION.rassoc(@order.order_from)[0] %></td>
+  </tr>
+	<tr>
+		<th valign="top"><%= f.label '備註' %></th><td colspan="3"><%= f.text_area :note, :cols => 40, :rows => 5 %></td>
+	</tr>
+</table>
+<br/>
+<table cellspacing="0" cellpadding="0" border="0" class="entryTable">
+  <tr>
+		<th width="40"><!-- <%= f.label '取消' %> --></td>
+    <th width="140"><%= f.label '款式' %></th>
+    <th width="50"><%= f.label '尺寸' %></th>
+    <th width="200"><%= f.label '出貨日' %></th>
+    <th width="120"><%= f.label '貨品(id)' %></th>		
+    <th width="70"><%= f.label '狀態' %></th> 
+  </tr>
+</table>
+<div id='item_children'>
+  <% f.fields_for :items do |item_form| %>
+    <%= render :partial => 'item_pack', :locals => { :f => item_form } %>
+  <% end %>
+</div>

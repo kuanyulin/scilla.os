@@ -1,0 +1,17 @@
+
+  <table cellspacing="0" cellpadding="0" class="entryTable">
+    <tr>
+    	<td width="30"><!-- <%= f.check_box :cancelled %> --></td>  
+      <td width="150"><%= f.select :style_id, @styles, {:disabled => 1..1000, :prompt => "鞋款"} -%></td>
+      <td width="40"><%= f.object.size -%></td>
+      <td width="200"><%= f.date_select :shipped_date,:use_month_numbers => true, :start_year => 2009, :end_year => 2015, :prompt => { :year => '年', :month => '月', :day => '日' } %></td>
+			<td width="100"><%= f.object.pair ? link_to( "("+f.object.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => f.object.pair_id) + show_pair_status(f.object.pair.status) : 
+                                          link_to('未處理', edit_item_path(f.object.id)) %></td>
+      <td width="70"><%= f.select :status, Item::ITEM_STATUS %></td>
+    </tr>
+		<tr>
+			<td> </td>
+			<td colspan="2" align="center"><%= show_currency(f.object.price, false) %> - <%= show_currency(f.object.discount, false) %> </td>
+		  <td colspan="3" valign="top" align="right">備註：<%= f.text_area :note, :cols => 35, :rows => 4 %></td> 
+    </tr>
+  </table> 

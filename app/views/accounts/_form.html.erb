@@ -1,0 +1,14 @@
+  <%= f.error_messages %>
+	<div>
+    <%= f.label :privilege, "權限" %>
+    <%= f.select :account_type, Account::ACCOUNT_TYPES, :prompt => "科目類別" %>
+  </div>
+  <div>
+    <%= f.label '科目' %> <%= f.text_field :subject %>
+  </div>
+  <div>
+    <%= f.label '科目代碼' %> <%= f.text_field :subject_num %>
+  </div>
+  <div>
+    <%= f.label '內容' %> <%= f.text_field :description, :size => 70 %>
+  </div>

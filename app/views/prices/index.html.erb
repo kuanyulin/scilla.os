@@ -1,0 +1,24 @@
+<h1>Listing prices</h1>
+
+<table>
+  <tr>
+    <th>Style</th>
+    <th>Price</th>
+    <th>Start date</th>
+  </tr>
+
+<% @prices.each do |price| %>
+  <tr>
+    <td><%=h price.style_id %></td>
+    <td><%=h price.price %></td>
+    <td><%=h price.start_date %></td>
+    <td><%= link_to 'Show', price %></td>
+    <td><%= link_to 'Edit', edit_price_path(price) %></td>
+    <td><%= link_to 'Destroy', price, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New price', new_price_path %>

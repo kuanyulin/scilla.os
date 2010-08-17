@@ -1,0 +1,48 @@
+<p>
+  <b>Entry date:</b>
+  <%=h @journal.entry_date %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @journal.title %>
+</p>
+
+<p>
+  <b>Balanced:</b>
+  <%=h @journal.balanced %>
+</p>
+
+<p>
+  <b>Total credit:</b>
+  <%=h show_currency(@journal.total_credit) %>
+</p>
+
+<p>
+  <b>Total debit:</b>
+  <%=h show_currency(@journal.total_debit) %>
+</p>
+
+<% @journal.entries.each do |entry| %>
+  <div class="child">
+    <p>
+      <b>Entry Entry date:</b>
+      <%=h entry.entry_date %>
+    </p>
+    <p>
+      <b>Entry Description:</b>
+      <%=h entry.description %>
+    </p>
+    <p>
+      <b>Entry Credit:</b>
+      <%=h show_currency(entry.credit) %>
+    </p>
+    <p>
+      <b>Entry Debit:</b>
+      <%=h show_currency(entry.debit) %>
+    </p>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_journal_path(@journal) %> |
+<%= link_to 'Back', journals_path %>

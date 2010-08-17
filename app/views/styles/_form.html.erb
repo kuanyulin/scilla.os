@@ -1,0 +1,89 @@
+<%= f.error_messages %>
+
+  <div>
+    <%= f.label '廠商' %>  <%= f.collection_select :vendor_id, @vendors, :id, :name %>
+  </div>
+  <div>
+    <%= f.label '廠商型號' %> <%= f.text_field :vendor_model %>
+  </div>
+  <div>
+    <%= f.label 'Avi Tarsi 款名' %> <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label 'Avi Tarsi 型號' %> <%= f.text_field :at_model %>
+  </div>
+<% if session[:user].is_manager %>
+  <div>
+    <%= f.label '價格' %> <%= f.text_field :cost %>
+  </div>
+<% end %>
+  <div>
+    <%= f.label '規格' %> <%= f.text_area :spec, :cols => 40, :rows => 5 %>
+  </div>
+  <div>
+    <%= f.label :thumbnail %> <%= f.text_field :thumbnail, :size => 60 %>
+  </div>
+  <div>
+    <%= f.label :picture1 %> <%= f.text_field :picture1, :size => 60 %>
+  </div>
+  <div>
+    <%= f.label :picture2 %> <%= f.text_field :picture2, :size => 60 %>
+  </div>
+<!--  <div>
+    <%= f.label :picture3 %> <%= f.text_field :picture3, :size => 60 %>
+  </div>
+  <div>
+    <%= f.label :picture4 %> <%= f.text_field :picture4, :size => 60 %>
+  </div>
+  <div>
+    <%= f.label :picture5 %> <%= f.text_field :picture5, :size => 60 %>
+  </div>
+  <div>
+    <%= f.label :picture6 %> <%= f.text_field :picture6, :size => 60 %>
+  </div> -->
+  <div>
+    <%= f.label :note %> <%= f.text_area :note, :cols => 40, :rows => 5 %>
+  </div>
+  <div>
+  	<%= f.label '尺寸' %>
+    <table cellspacing=0 cellspadding=0 border=1>
+    	<tr>
+		<% for size in @sizes %>
+      <td width="60"><%= size.size %></td>
+		<% end %>
+		  </tr>
+			<tr>
+    <% for size in @sizes %>
+      <td><%= check_box_tag "style[size_ids][]", size.id, @style.sizes.include?(size) %></td>
+    <% end %>
+			</tr>
+    </table>
+	</div>
+<hr/>
+  <div id='price_children'>
+  <% f.fields_for :prices do |price_form| %>
+    <%= render :partial => 'price', :locals => { :f => price_form } %>
+  <% end %>
+  </div>
+  <p>
+    <%= add_child_link '新增售價', 'price', f %>
+  </p>
+<hr/>
+  <div>
+  	<%= f.label '類別' %>
+    <table cellspacing=0 cellspadding=3 border=1>
+      <tr>
+      	<% for category in @categories %>
+        <td align=center><%= category.name %></td>
+			  <% end %>
+			</tr>
+			<tr>
+				<% for category in @categories %>
+        <td align=center><%= check_box_tag "style[category_ids][]", category.id, @style.categories.include?(category) %></td>
+        <% end %>
+			</tr>
+		</table>
+	</div>
+	
+
+

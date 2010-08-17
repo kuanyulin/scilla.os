@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<%= stylesheet_link_tag "avitarsi_print", :media => "all"%>
+  <title>周林時尚訂購單 <%= @refill.order_date %></title>
+</head>
+<body>
+<% if @styles.size == 0 %>
+<h2>沒有訂單資料</h2>
+<% else 
+    style_list = @styles.keys 
+    vendor = @styles[style_list[0]][0].vendor
+%>
+<table cellspacing="0" cellpadding="0" border="0" width="700">
+	<tr>
+		<td colspan="3" align="center">
+<h2>訂購單</h2>
+<p>訂單日期：<%= @refill.order_date %></p>			
+		</td>
+  </tr>
+  <tr>
+    <td width="30%">
+<div id="buyer">
+周林時尚國際有限公司<br/>
+聯絡人：周源清<br/>
+電話：(02) 8772-6879<br/>  
+</div>
+    </td>
+		<td width="30%">&nbsp;</td>
+    <td>
+<div id="vendor"> 
+<%= vendor.name %><br/>
+傳真：<%= vendor.fax %><br/>
+</div>      
+    </td>
+  </tr>
+</table> 
+<br/>
+<table cellspacing="0" cellpadding="0" border="0" class="outside">
+	<tr>
+		<td width="70">
+			<table cellspacing="0" cellpadding="0" border="0" class="replenish" width="70">
+				  <tr><th width="70">型號</th></tr>
+					<tr height="120"><th>皮色</th></tr>
+					<tr><th>33</th></tr>
+					<tr><th>33.5</th></tr>
+					<tr><th>34</th></tr>
+					<tr><th>34.5</th></tr>
+					<tr><th>35</th></tr>
+					<tr><th>35.5</th></tr>
+					<tr><th>36</th></tr>
+					<tr><th>36.5</th></tr>
+					<tr><th>37</th></tr>
+					<tr><th>37.5</th></tr>
+					<tr><th>38</th></tr>
+					<tr><th>38.5</th></tr>
+          <tr><th>39</th></tr>
+          <tr><th>39.5</th></tr>
+          <tr><th>40</th></tr>
+					<tr><th>單價</th></tr>
+          <tr><th>小計</th></tr>
+			</table>
+		</td>
+<%  
+    total_amount = 0
+    style_list.each do |stylename|
+       num_pair = 0
+%>
+		<td width="70">
+      <table cellspacing="0" cellpadding="0" border="0" class="replenish" width="120">
+          <tr><td width="120"><%= @styles[stylename][0].vendor_model %></td></tr>
+          <tr height="120"><td><%= @styles[stylename][0].spec %> &nbsp;</td></tr>
+					<% sizes = @styles[stylename][1] %>
+					<% sizes.each do |size| %>
+					<%    num_pair += size %>
+					<tr><td><%= size unless size == 0 %> &nbsp;</td></tr>
+					<% end %>
+					<tr><td><%=h show_currency(@styles[stylename][0].cost) %></td></tr>
+					<tr><td><%=h show_currency(@styles[stylename][0].cost * num_pair ) %></td></tr>
+					<% total_amount += @styles[stylename][0].cost * num_pair %>
+      </table>
+    </td>
+<%  end %>		
+		
+	</tr>
+</table>
+總計：<%=h show_currency(total_amount) %>
+<% end %>
+</body>

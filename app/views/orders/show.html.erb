@@ -1,0 +1,73 @@
+<p>
+  <b>Customer:</b>
+  <%=h @order.customer_id %>
+</p>
+
+<p>
+  <b>Order date:</b>
+  <%=h @order.order_date %>
+</p>
+
+<p>
+  <b>Recipient:</b>
+  <%=h @order.recipient %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%=h @order.phone %>
+</p>
+
+<p>
+  <b>Shipping address:</b>
+  <%=h @order.shipping_address %>
+</p>
+
+<p>
+  <b>Shipping method:</b>
+  <%=h @order.shipping_method %>
+</p>
+
+<p>
+  <b>Shipping charge:</b>
+  <%=h @order.shipping_charge %>
+</p>
+
+<p>
+  <b>Total amount:</b>
+  <%=h @order.total_amount %>
+</p>
+
+<p>
+  <b>Payment type:</b>
+  <%=h @order.payment_type %>
+</p>
+
+<p>
+  <b>Paid date:</b>
+  <%=h @order.paid_date %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @order.status %>
+</p>
+
+<p>
+  <b>Order from:</b>
+  <%=h @order.order_from %>
+</p>
+
+<p>
+  <b>Order number:</b>
+  <%=h @order.order_number %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%=h @order.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

@@ -1,0 +1,23 @@
+<h1>款式分類</h1>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="200px">類別</th>
+    <th width="400px">商品</th>
+		<th> </th>
+  </tr>
+
+<% @categories.each do |category| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td><%= link_to category.name, category %></td>
+    <td><% category.styles.each do |style| %><%= link_to style.name, style %> &nbsp; <% end %>
+    </td>
+    <td><%= link_to '修改', edit_category_path(category) %> | 
+	<%= link_to '刪除', category, :confirm => '確定要刪除此類別嗎?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br/>
+
+<%= link_to '新增類別', new_category_path %>

@@ -1,0 +1,57 @@
+ <%= f.error_messages %>
+
+  <div>
+    <%= f.label '訂購日期' %> <%= f.date_select :order_date %>
+  </div>
+  <div>
+    <%= f.label '預計到貨日/實際到貨日' %> <%= f.date_select :arrive_date %><br/>
+		已到貨 <%= f.check_box :arrived %>
+  </div>
+  <div>
+    <%= f.label '摘要' %> <%= f.text_field :description %> <font color="red"><small>（必填）</small></font>
+  </div>
+  <div>
+    <%= f.label '備註' %> <%= f.text_area :note, :cols => 40, :rows => 5 %>
+  </div>
+	<%= f.hidden_field :made_by, :value => session[:user].id %>
+	<% style_list = "<option value="">鞋款</option>" + options_from_collection_for_select(@styles, :id, :name) %>
+  <%= select_tag :style_id_1, style_list %>
+  <%= observe_field :style_id_1,
+                    :frequency => 0.5,
+                    :update => 'sizes_1',
+                    :url => { :action => 'get_sizes', :only_path => false },
+                    :with => "'style_id=' + value" -%>
+  <div id="sizes_1"></div>
+
+  <%= select_tag :style_id_2, style_list %>
+  <%= observe_field :style_id_2,
+                    :frequency => 0.5,
+                    :update => 'sizes_2',
+                    :url => { :action => 'get_sizes', :only_path => false },
+                    :with => "'style_id=' + value" -%>
+  <div id="sizes_2"></div>
+
+  <%= select_tag :style_id_3, style_list %>
+  <%= observe_field :style_id_3,
+                    :frequency => 0.5,
+                    :update => 'sizes_3',
+                    :url => { :action => 'get_sizes', :only_path => false },
+                    :with => "'style_id=' + value" -%>
+  <div id="sizes_3"></div>
+
+  <%= select_tag :style_id_4, style_list %>
+  <%= observe_field :style_id_4,
+                    :frequency => 0.5,
+                    :update => 'sizes_4',
+                    :url => { :action => 'get_sizes', :only_path => false },
+                    :with => "'style_id=' + value" -%>
+  <div id="sizes_4"></div>
+
+  <%= select_tag :style_id_5, style_list %>
+  <%= observe_field :style_id_5,
+                    :frequency => 0.5,
+                    :update => 'sizes_5',
+                    :url => { :action => 'get_sizes', :only_path => false },
+                    :with => "'style_id=' + value" -%>
+  <div id="sizes_5"></div>
+	

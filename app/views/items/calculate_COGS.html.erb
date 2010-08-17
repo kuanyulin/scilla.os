@@ -1,0 +1,67 @@
+<div class='at-form'>
+<fieldset>
+  <legend>計算銷貨成本 Cost of Goods Sold </legend>
+  
+<% form_tag do %>
+  
+  <div>
+    <%= label '起始日', '起始日' %><%= date_select :range, :start_date, :default => 1.month.ago, :use_month_numbers => true, :start_year => 2009 %> &nbsp; &nbsp; 依訂購日<input id="use_order_date" name="use_order_date" type="checkbox" value="0" />    
+  </div>
+  <div>
+    <%= label '結束日', '結束日' %><%= date_select :range, :end_date, :default => Date.today, :use_month_numbers => true, :start_year => 2009 %> &nbsp; &nbsp; <%= submit_tag 'Build' %>
+  </div>
+  
+<% end %>
+
+</fieldset>
+</div>
+
+<br/><br/>
+
+<% if @has_result %>
+<div class="f_report">
+<h2><%= @start_date %> ~ <%= @end_date %> 銷貨成本總計：<%= show_currency(@total_COGS) %></h2>
+
+<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+    <th width="100">總銷售額</th><th width="100">總折扣</th><th width="100">總銷貨成本</th><th width="100">淨收入</th><th width="200" align="right">總銷售數</th>
+	</tr>
+	<tr>
+		<td><%= show_currency(@total_sales) %></td>
+		<td>- <%= show_currency(@total_discount, false) %></td>
+		<td>- <%= show_currency(@total_COGS) %></td>
+		<td>= <%= show_currency(@net_income) %></td>
+		<td align="right"><%= @items.length %></td>
+	</tr>
+</table>
+<br/>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="780">
+  <tr>
+    <th width="80">item.id</th>
+    <th width="60">狀態</th>
+    <th width="80">購買人</th>
+		<th width="100">訂購日期</th>
+    <th width="100">出貨日期</th>
+    <th width="120">款式</th>
+    <th width="80">成本</th>
+    <th width="80">售價</th>
+		<th width="80">折扣</th>
+  </tr>
+<% @items.each do |item| %>
+  <tr>
+    <td><%= link_to item.id, :controller => 'items', :action => 'edit', :id => item.id %></td>
+    <td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
+    <td><%= item.order.customer.name %></td>
+		<td><%= item.order.order_date %></td>
+    <td><%= item.shipped_date %></td>
+    <td><%= item.style.name %></td>
+    <td align="right"><%= show_currency(item.style.cost) %></td>
+		<td align="right"><%= show_currency(item.price, false) %></td>
+		<td align="right"><%= show_currency(item.discount) %></td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+
+<% end %>

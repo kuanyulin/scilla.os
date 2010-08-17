@@ -1,0 +1,14 @@
+  <h1>出貨</h1>
+
+<div class='at-form'>
+
+<% form_for(@order) do |f| %>
+  <%= render :partial => 'form_packing', :locals => { :f => f } %>
+  <p>
+    <%= f.submit '更新狀態' %>
+  </p>
+<% end %>
+
+</div>
+
+<%= link_to '< Back', :back %>

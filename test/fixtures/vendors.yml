@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  address: MyString
+  contact1: MyString
+  contact2: MyString
+  phone1: MyString
+  phone2: MyString
+  fax: MyString
+  bank_name: MyString
+  bank_account: MyString
+  note: MyText
+
+two:
+  name: MyString
+  address: MyString
+  contact1: MyString
+  contact2: MyString
+  phone1: MyString
+  phone2: MyString
+  fax: MyString
+  bank_name: MyString
+  bank_account: MyString
+  note: MyText

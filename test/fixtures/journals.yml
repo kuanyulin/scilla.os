@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  entry_date: 2010-03-24
+  title: MyString
+  balanced: false
+  edited_by: 1
+  total_credit: 9.99
+  total_debit: 9.99
+
+two:
+  entry_date: 2010-03-24
+  title: MyString
+  balanced: false
+  edited_by: 1
+  total_credit: 9.99
+  total_debit: 9.99

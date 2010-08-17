@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  vendor_id: 1
+  name: MyString
+  vendor_model: MyString
+  at_model: MyString
+  spec: MyText
+  picture1: MyString
+  picture2: MyString
+  picture3: MyString
+  picture5: MyString
+  picture6: MyString
+  note: MyText
+  cost: 9.99
+
+two:
+  vendor_id: 1
+  name: MyString
+  vendor_model: MyString
+  at_model: MyString
+  spec: MyText
+  picture1: MyString
+  picture2: MyString
+  picture3: MyString
+  picture5: MyString
+  picture6: MyString
+  note: MyText
+  cost: 9.99

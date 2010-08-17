@@ -1,0 +1,274 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+cash:
+  id: 1
+  account_type: 1000
+  subject_num: 1101
+  subject: 庫存現金
+  description: 凡庫存之當地通用貨幣屬之。收款之數，記入借方；支付之數，記入貸方。
+
+bank1:
+  id: 2
+  account_type: 1000
+  subject_num: 1102
+  subject: 彰化銀行
+  description: 彰化銀行存款。
+
+bank2:
+  id: 3
+  account_type: 1000
+  subject_num: 1103
+  subject: 中國信託
+  description: 中國信託存款。
+
+bank3:
+  id: 4
+  account_type: 1000
+  subject_num: 1104
+  subject: 上海商銀
+  description: 上海商銀存款。
+
+acctReceivable:
+  id: 5
+  account_type: 1000
+  subject_num: 1144
+  subject: 應收帳款
+  description: 凡因業務經營或賒銷商品、原物料及提供勞務等發生應收未收之帳款屬之，惟一年以上分期收取者，記入「應收分期帳款」。應收之數，記入借方；收現或轉入相當科目之數，記入貸方。
+
+inventory:
+  id: 6
+  account_type: 1000
+  subject_num: 1201
+  subject: 商品存貨
+  description: 凡現存供銷售之商品等成本屬之。購入、退庫、盤盈及銷售退回之數，記入借方；銷售或盤損之數，記入貸方。
+
+consignment:
+  id: 7
+  account_type: 1000
+  subject_num: 1231
+  subject: 寄銷品
+  description: 凡委託他人代銷之各種商品或產品成本屬之。撥交寄銷之數，記入借方；銷售或退回之數，記入貸方。
+  
+prepaid_goods:
+  id: 8
+  account_type: 1000
+  subject_num: 1251
+  subject: 預付貨款
+  description: 凡訂購商品、原料等而預付之貨款屬之。支付之數，記入借方；收回及轉入相當科目之數，記入貸方。
+
+tax_paid:
+  id: 9
+  account_type: 1000
+  subject_num: 1256
+  subject: 進項稅額
+  description: 凡依營業稅法之規定，進貨或購買勞務所支付之營業稅，可用以扣抵銷項稅額屬之。增加之數，記入借方；減少之數，記入貸方。
+  
+equipment:
+  id: 10
+  account_type: 1000
+  subject_num: 1561
+  subject: 辦公設備
+  description: 凡購置自有辦公設備及其備件成本屬之。設計、購進、裝置之數，記入借方；售出、毀損、廢棄或減少之數，記入貸方。
+
+acct_payable:
+  id: 11
+  account_type: 2000
+  subject_num: 2144
+  subject: 應付帳款
+  description: 凡因業務經營或賒購商品、原物料及勞務等所發生應付未付之帳款屬之。應付之數，記入貸方；轉付票據或支付之數，記入借方。
+  
+short_borrow:
+  id: 12
+  account_type: 2000
+  subject_num: 2102
+  subject: 短期借款
+  description: 凡向銀行或其他機關借入款項（銀行透支除外）償還期限在一年以內屬之。借入之數，記入貸方；償還之數，記入借方。
+  
+accrued_expense:
+  id: 13
+  account_type: 2000
+  subject_num: 2147
+  subject: 應付費用
+  description: 凡應付未付之各項費用屬之。應付之數，記入貸方；支付之數，記入借方。
+
+commission_payable:
+  id: 14
+  account_type: 2000
+  subject_num: 2153
+  subject: 應付佣金
+  description: 凡應付未付之各項佣金屬之。應付之數，記入貸方；支付之數，記入借方。
+
+capital:
+  id: 15
+  account_type: 3000
+  subject_num: 3110
+  subject: 資本
+  description: 凡經核定撥交或額定之資本總額屬之。核（額）定之數，記入貸方；減資之數，記入借方。
+
+acc_profit_loss:
+  id: 16
+  account_type: 3000
+  subject_num: 3351
+  subject: 累積盈虧
+  description: 凡截至本期止未經指撥或分配之盈餘屬之。盈餘分配時未經分派盈餘之數，記入貸方；分配盈餘之數，記入借方。
+
+sales:
+  id: 17
+  account_type: 4000
+  subject_num: 4111
+  subject: 銷貨收入
+  description: 凡銷售各種產品（或商品）之收入總額屬之。
+
+sales_return:
+  id: 18
+  account_type: 4000
+  subject_num: 4171
+  subject: 銷貨退回
+  description: 凡銷售產品（或商品）經顧客退回而未能獲得之收入屬之。（本科目係「4111銷貨收入」之抵銷科目）
+
+service_income:
+  id: 19
+  account_type: 4000
+  subject_num: 4204
+  subject: 服務收入
+  description: 凡為客戶服務所獲得之收入屬之。  
+  
+cogs:
+  id: 20
+  account_type: 5000
+  subject_num: 5111
+  subject: 銷貨成本
+  description: 凡銷售各種產品（或商品）之生產（或進貨）成本屬之。
+
+packaging:
+  id: 21
+  account_type: 5000
+  subject_num: 5158
+  subject: 包裝成本
+  description: 凡銷售各種產品（或商品）之生產（或進貨）成本屬之。
+  
+transportation:
+  id: 22
+  account_type: 5000
+  subject_num: 5401
+  subject: 運輸成本
+  description: 凡各項運輸費用屬之。
+  
+commission:
+  id: 23
+  account_type: 5000
+  subject_num: 5607
+  subject: 佣金成本
+  description: 此為紀錄平台佣金成本。
+
+misc_cost:
+  id: 24
+  account_type: 5000
+  subject_num: 5929
+  subject: 什項費用
+  description: 凡不屬以上各項之其他營業外費用屬之。
+  
+salary_exp:
+  id: 25  
+  account_type: 6000
+  subject_num: 6251
+  subject: 薪資費用
+  description: 員工薪水支出。
+  
+rent_exp:
+  id: 26
+  account_type: 6000
+  subject_num: 6252
+  subject: 租金費用
+  description: 租金、管理費。
+  
+stationery_exp:
+  id: 27
+  account_type: 6000
+  subject_num: 6253
+  subject: 文具費用
+  description: 文具用品支出。
+
+travel_exp:
+  id: 28
+  account_type: 6000
+  subject_num: 6254 
+  subject: 旅費
+  description: 旅行出差費用。 
+
+freight_exp:
+  id: 29
+  account_type: 6000
+  subject_num: 6255 
+  subject: 運費
+  description: 非成交商品購買其他運費。（寄至消費者屬於運輸成本）
+   
+phone_exp:
+  id: 30
+  account_type: 6000
+  subject_num: 6256  
+  subject: 電話費用
+  description: 電話費用。
+
+book_exp:
+  id: 31
+  account_type: 6000
+  subject_num: 6157 
+  subject: 書報雜誌費用
+  description: 書報雜誌費用。
+  
+pr_exp:
+  id: 32
+  account_type: 6000
+  subject_num: 6264
+  subject: 交際費用
+  description: 交際費用。 
+
+marketing_exp:
+  id: 33
+  account_type: 6000
+  subject_num: 6259
+  subject: 廣告費用
+  description: 廣告行銷費用。
+  
+utility_exp:
+  id: 34
+  account_type: 6000
+  subject_num: 6261  
+  subject: 水電瓦斯費用
+  description: 水費、電費、瓦斯費用支出。
+  
+benefit_exp:
+  id: 35
+  account_type: 6000
+  subject_num: 6163  
+  subject: 員工福利
+  description: 員工福利開銷。
+  
+rd_exp:
+  id: 36
+  account_type: 6000
+  subject_num: 6378 
+  subject: 研發費用
+  description: 研究開發產品費用支出。
+  
+other_exp:
+  id: 37
+  account_type: 6000
+  subject_num: 6888 
+  subject: 雜項支出
+  description: 不屬於以上營業用支出之其他開銷。
+ 
+interest_income:
+  id: 38  
+  account_type: 7000
+  subject_num: 7111
+  subject: 利息收入
+  description: 凡金融保險業融資授信、各種存款及投資金融資產所產生之利息收入屬之。
+  
+inventory_loss:
+  id: 39
+  account_type: 7000
+  subject_num: 7585
+  subject: 存貨盤損
+  description: 因任何原因產生之存貨商品損失。

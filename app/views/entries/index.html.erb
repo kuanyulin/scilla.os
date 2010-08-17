@@ -1,0 +1,32 @@
+<h1>Listing entries</h1>
+
+<p><%= will_paginate @journals %></p>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Account</th>
+    <th>Description</th>
+    <th>Debit</th>
+    <th>Credit</th>
+    <th>Journal</th>
+		<th> </th>
+  </tr>
+
+<% @entries.each do |entry| %>
+  <tr>
+    <td><%=h entry.entry_date %></td>
+    <td><%= link_to entry.account_id, entry %></td>
+    <td><%=h entry.description %></td>
+    <td><%=h entry.debit %></td>
+    <td><%=h entry.credit %></td>
+    <td><%=h entry.journal_id %></td>
+    <td><%= link_to 'Edit', edit_entry_path(entry) %> | <%= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<p><%= will_paginate @journals %></p>
+
+<!--
+<br /><%= link_to 'New entry', new_entry_path %> -->

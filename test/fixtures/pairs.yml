@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  style_id: 1
+  refill_id: 1
+  size: 1
+  special: false
+  status: 1
+  at_rakuten: false
+  at_pchome: false
+  at_gohappy: false
+  at_payeasy: false
+  note: MyString
+
+two:
+  style_id: 1
+  refill_id: 1
+  size: 1
+  special: false
+  status: 1
+  at_rakuten: false
+  at_pchome: false
+  at_gohappy: false
+  at_payeasy: false
+  note: MyString

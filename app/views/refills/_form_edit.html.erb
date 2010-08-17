@@ -1,0 +1,41 @@
+<%= f.error_messages %>
+  <div>
+    <%= f.label '訂購日期' %> <%= f.date_select :order_date %>
+  </div>
+  <div>
+    <%= f.label '預計到貨日/實際到貨日' %> <%= f.date_select :arrive_date %><br/>
+    已到貨 <%= f.check_box :arrived %>
+  </div>
+  <div>
+    <%= f.label '摘要' %> <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label '備註' %> <%= f.text_area :note, :cols => 40, :rows => 5 %>
+  </div>
+  <%= f.hidden_field :made_by, :value => session[:user].id %>
+<% if @refill.user %><p><small>(Last edited by <%= @refill.user.name %> on <%= @refill.updated_at %>)</small></p><% end %>
+<% #style_list = "<option value="">鞋款</option>" + options_from_collection_for_select(@styles, :id, :name) %>
+<% style_list = @styles.map{ |x| [x.name, x.id] } %>
+<br/>
+<p>
+  <%= add_child_link 'Add a Pair', 'pair', f %>
+</p>
+<table cellspacing="0" cellpadding="0" border="0" class="entryTable">
+  <tr>
+    <th width="100">狀態</th>
+  	<th width="110">鞋款</th>
+		<th width="40">尺寸</th>
+		<th width="40">樂天</th>
+		<th width="40">PCh</th>
+		<th width="40">GoH</th>
+		<th width="40">PayE</th>
+    <th width="50">特殊訂製</th>
+		<th width="200">備註</th>
+		<th width="60"> </th>
+  </tr>
+</table>
+<div id='pair_children'>
+  <% f.fields_for :pairs do |pair_form| %>
+    <%= render :partial => 'pair', :locals => { :f => pair_form } %>
+  <% end %>
+</div>

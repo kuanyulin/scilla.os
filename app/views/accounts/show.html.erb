@@ -1,0 +1,25 @@
+<h1><%=h @account.subject %> （<%=h @account.subject_num %>）</h1>
+<p><%=h @account.description %></p>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="100">日期</th>
+    <th width="280">內容</th>
+    <th width="120">借方金額 (debit)</th>
+    <th width="120">貸方金額 (credit)</th>
+		<th width="130">Subtotal</th>
+  </tr>
+<% subtotal = 0 %>
+<% @account.entries.each do |entry| %>
+  <% subtotal = entry.add_to_subtotal(subtotal) %>
+	<tr class="<%= cycle('even', 'odd') %>">
+	  <td><% if entry.journal.blank? -%><%= entry.entry_date -%><%= "**" + entry.id.to_s -%><% else %><%= link_to entry.entry_date, edit_journal_path(entry.journal) -%><% end %></td>
+    <td><%=h entry.description %></td>
+    <td align="right"><%=h show_currency(entry.debit) -%></td>
+    <td align="right"><%=h show_currency(entry.credit) -%></td>
+    <td align="right"><%=h show_currency(subtotal) -%></td>
+	</tr>
+<% end %>
+</table>
+<br/>
+<%= link_to 'Back', accounts_path %>

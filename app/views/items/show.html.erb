@@ -1,0 +1,48 @@
+<p>
+  <b>Order:</b>
+  <%=h @item.order_id %>
+</p>
+
+<p>
+  <b>Pair:</b>
+  <%=h @item.pair_id %>
+</p>
+
+<p>
+  <b>Style:</b>
+  <%=h @item.style_id %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%=h @item.size %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @item.price %>
+</p>
+
+<p>
+  <b>Discount:</b>
+  <%=h @item.discount %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @item.status %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%=h @item.note %>
+</p>
+
+<p>
+  <b>Cancelled:</b>
+  <%=h @item.cancelled %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

@@ -1,0 +1,15 @@
+<script type="text/javascript">
+	
+	var item_price = <%= @style.prices.size != 0 ? @style.prices[@style.prices.length-1].price.to_s : "0" %>
+  document.getElementById('order_items_attributes_<%= @temp_record %>_price').value = item_price;
+	
+  var size_options = new Array();
+	var size_select =  document.getElementById('order_items_attributes_<%= @temp_record %>_size');
+	
+	size_select.options.length = 0;
+
+<% for size in @sizes %>
+  size_select.options[size_select.options.length] = new Option("<%= size.size %>", "<%= size.size %>", false, false);
+<% end %>
+
+</script>

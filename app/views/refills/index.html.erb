@@ -1,0 +1,29 @@
+<h1>補單歷史</h1>
+
+<%= link_to '新增鞋款補單', new_refill_path %>
+<br />
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="770">
+	<tr>
+    <th width="120">訂購日期</th>
+    <th width="120">預計到貨日/到貨日</th>
+		<th width="40">到貨</th>
+		<th width="40">總數</th>
+    <th width="300">摘要</th>
+		<th width="150"> </th>
+  </tr>
+
+<% @refills.each do |refill| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td><%= link_to refill.order_date, refill -%></td>
+    <td><%=h refill.arrive_date %></td>
+		<td><%= refill.arrived ? '是' : '<font color="red">否</font>' %></td>
+		<td><%= refill.pairs.size %></td>
+    <td><%=h refill.description %></td>
+    <td><%= link_to '修改', edit_refill_path(refill) %>
+		 | <%= link_to '列印', :action => 'print_fax', :id => refill %> 
+		 <% if session[:user].is_admin %>
+		 | <%= link_to '刪除', refill, :confirm => 'Are you sure?', :method => :delete %><% end %></td>
+  </tr>
+<% end %>
+</table>
+

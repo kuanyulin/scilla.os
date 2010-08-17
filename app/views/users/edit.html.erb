@@ -1,0 +1,40 @@
+<div class='at-form'>
+
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+  
+  <fieldset>
+  <legend>更改使用者資料</legend>
+  
+  <div>
+    <%= f.label :name %>: <%= f.text_field :name, :size => 40 %>
+  </div>
+  
+  <div>
+    <%= f.label :email %>: <%= f.text_field :email %>
+  </div>
+  
+  <div>
+    <%= f.label :privilege, "權限" %>
+    <%= f.select :privilege, User::PRIVILEGE_TYPES, :prompt => "權限" %>
+  </div>
+  
+  <div>
+    <%= f.label :password, 'Password' %>: <%= f.password_field :password, :size => 40 %>
+  </div>
+  
+  <div>
+    <%= f.label :password_confirmation, 'Confirm' %>: <%= f.password_field :password_confirmation, :size => 40 %>
+  </div>
+  
+  <div>
+    <%= f.submit 'Update', :class => "submit" %>
+  </div>
+  
+  </fieldset>
+  
+<% end %>
+
+</div>
+
+<%= link_to 'Back', users_path %>

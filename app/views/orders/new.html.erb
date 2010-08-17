@@ -1,0 +1,14 @@
+<div class='at-form'>
+<fieldset>
+  <legend>新增訂單</legend>
+
+<% form_for(@order) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit '新增訂單' %>
+  </p>
+<% end %>
+
+</div>
+
+<%= link_to '< Back', :back %>

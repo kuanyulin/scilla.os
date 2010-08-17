@@ -1,0 +1,50 @@
+<% if not @stats.nil? %>
+共進貨：<%= @stats['total'] %> 雙。<br/>
+共售出：<%= @stats['num_sold'] %> 雙。<br/>
+樂天（<%= @stats['count_platform'][Order::ORDER_RAKUTEN] %> 雙）, PChome（<%= @stats['count_platform'][Order::ORDER_PCHOME] %> 雙 ）, 
+PayEasy（<%= @stats['count_platform'][Order::ORDER_PAYEASY] %> 雙）, GoHappy（<%= @stats['count_platform'][Order::ORDER_GOHAPPY] %> 雙）, 
+直購（<%= @stats['count_platform'][Order::ORDER_OFFICE] %>, <%= @stats['count_platform'][Order::ORDER_PHONE] %> 雙）<br/><br/>
+<% end %>
+	
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="900">
+  <tr>
+  	<th width="20">id</th>
+    <th width="120">款式</th>
+    <th width="50">尺寸</th>
+    <th width="100">狀態</th>
+    <th width="50">樂天</th>
+    <th width="50">PCh</th>
+    <th width="50">Goh</th>
+    <th width="50">PayE</th>
+    <th width="90">補單日</th>
+    <th width="90">到貨日</th>
+		<th width="100">購買人</th>
+    <th width="90">出貨日</th>
+    <th width="40"></th>
+  </tr>
+
+<% shade = cycle('even', 'odd')  
+  last_size = 0 
+  pair_list.each do |p| 
+    if last_size != p.size 
+      last_size = p.size
+      shade = cycle('even', 'odd')
+    end  
+%> 
+  <tr class="<%= shade %>">
+  	<td><%= link_to p.id, p %></td>
+    <td><%=h p.style.name %></td>
+    <td align="center"><%=h p.size %></td>
+    <td align="center"><%= show_pair_status(p.status) %></td>
+    <td align="center"><%= show_yes( p.at_rakuten ) %></td>
+    <td align="center"><%= show_yes( p.at_pchome ) %></td>
+    <td align="center"><%= show_yes( p.at_gohappy ) %></td>
+    <td align="center"><%= show_yes( p.at_payeasy ) %></td>   
+    <td align="center"><small><%= link_to p.refill.order_date, :controller => 'refills', :action => 'show', :id => p.refill_id if not p.refill.nil? %></small></td>
+    <td align="center"><small><%=h p.refill.arrive_date if not p.refill.nil? %></small></td>
+		<td align="center"><%= link_to p.items[p.items.length-1].order.customer.name, :controller => 'customers', :action => 'show', :id => p.items[p.items.length-1].order.customer.id if not p.items.empty?  %></td>
+    <td align="center"><small><%= p.items[p.items.length-1].shipped_date if not p.items.empty?  %></small></td>
+    <td><%= link_to edit_image, edit_pair_path(p.id) %></td> 
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,14 @@
+<div class='at-form'>
+<fieldset>
+  <legend>新增廠商資料</legend>
+  
+<% form_for(@vendor) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit '新增' %>
+  </p>
+<% end %> 
+
+</div>
+
+<%= link_to 'Back', vendors_path %>

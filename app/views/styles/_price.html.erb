@@ -1,0 +1,12 @@
+<div class="child">
+  <div>
+    <%= f.label '售價' %> <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label '起始日期' %> <%= f.date_select :start_date, :start_year => 2009, :end_year => 2015, :default => Time.now %>
+  </div>
+  <div>
+    <%= f.hidden_field :_delete, :class => 'delete' %>
+    <%= remove_child_link '刪除', f %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<center><table cellspacing="0" cellpadding="0" width="650">
+	<tr valign="center">
+		<td width="55%" align="left">（共 <%= @customers.length %> 筆資料）</td>
+		<td width="15%" align="right">一般會員 <%= show_member_icon(Customer::STANDARD_MEMBER) %></td>
+		<td width="15%" align="right">風格會員 <%= show_member_icon(Customer::STYLE_MEMBER) %></td>
+    <td width="15%" align="right">頂級會員 <%= show_member_icon(Customer::ELITE_MEMBER) %></td>
+	</tr>
+</table>
+</center>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="880">  
+  <tr>
+  	<th> </th>
+    <th width="120">姓名</th>
+    <th width="80">生日</th>
+    <th width="100">手機</th>
+    <th width="100">電話</th>
+    <th width="400">地址</th>
+    <th width="50"> </th>
+  </tr>
+
+<% @customers.each do |customer| %>
+  <tr>
+  	<td><%= link_to '＋', :controller => 'orders', :action => 'new', :customer_id => customer %></td>
+    <td><%= show_member_icon(customer.membership) %> <%= link_to customer.name, :action => 'show', :id => customer %></td>
+    <td><%=h customer.birthdate %></td>
+    <td><%=h customer.mobile %></td>
+    <td><%=h customer.phone %></td>
+    <td><%=h customer.address %></td>
+    <td><%= link_to '更新', edit_customer_path(customer) %><br/><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+

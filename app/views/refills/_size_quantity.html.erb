@@ -1,0 +1,12 @@
+<table cellspacing="0" cellpadding="0" class="pairTable">
+  <tr>
+    <% @sizes.each do |s| %>
+		  <td width="50"><%=h s.size -%></td>
+		<% end %>
+  </tr>
+	<tr>
+		<% @sizes.each do |s| %>
+		<td><input id="stylesize" name="style_size[<%= @style.id -%>][<%= s.size -%>]" type="text" value="" size="2"></td>
+		<% end %>
+	</tr>
+</table>

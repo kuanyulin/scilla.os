@@ -1,0 +1,24 @@
+<h1>尺寸</h1>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="100">尺寸</th>
+		<th width="400">款式</th>
+		<th> </th>
+  </tr>
+
+<% @sizes.each do |size| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td align="center"><%= link_to size.size, size %></td>
+		<td><% size.styles.each do |style| %>
+		  <%= link_to style.name, style %> &nbsp;
+		<% end %></td>
+    <td><%= link_to '修改', edit_size_path(size) %> |
+		<%= link_to '刪除', size, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '新增', new_size_path %>

@@ -1,0 +1,51 @@
+<h1>New pair</h1>
+
+<% form_for(@pair) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :style_id %><br />
+    <%= f.text_field :style_id %>
+  </p>
+  <p>
+    <%= f.label :refill_id %><br />
+    <%= f.text_field :refill_id %>
+  </p>
+  <p>
+    <%= f.label :size %><br />
+    <%= f.text_field :size %>
+  </p>
+  <p>
+    <%= f.label :special %><br />
+    <%= f.check_box :special %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :at_rakuten %><br />
+    <%= f.check_box :at_rakuten %>
+  </p>
+  <p>
+    <%= f.label :at_pchome %><br />
+    <%= f.check_box :at_pchome %>
+  </p>
+  <p>
+    <%= f.label :at_gohappy %><br />
+    <%= f.check_box :at_gohappy %>
+  </p>
+  <p>
+    <%= f.label :at_payeasy %><br />
+    <%= f.check_box :at_payeasy %>
+  </p>
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_field :note %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', pairs_path %>

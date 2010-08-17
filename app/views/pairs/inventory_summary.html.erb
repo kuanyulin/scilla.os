@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <%= stylesheet_link_tag "avitarsi_print", :media => "all"%>
+  <title>庫存一覽 <%= Date.today %></title>
+</head>
+<body>
+<h3>庫存一覽 <%= Date.today %></h3>
+
+<table cellspacing="0" cellpadding="0" border="0" class="invent">
+  <tr>
+    <th width="110">款式</th>
+		<th width="40">33</th>
+    <th width="40">33.5</th>
+    <th width="40">34</th>
+    <th width="40">34.5</th>
+    <th width="40">35</th>
+    <th width="40">35.5</th>
+    <th width="40">36</th>
+    <th width="40">36.5</th>
+    <th width="40">37</th>
+    <th width="40">37.5</th>
+    <th width="40">38</th>
+    <th width="40">38.5</th>
+    <th width="40">39</th>
+    <th width="40">39.5</th>
+    <th width="40">40</th>
+		<th width="50">小計</th>
+		<% if session[:user].is_manager %>
+		<th width="70">成本</th>
+		<th width="80">總價</th>
+		<% end %>
+  </tr>
+<%  
+  total_cost = 0 
+  sold_out_list = Array.new
+  @style_list.each do |style|
+
+    if @styles.has_key?(style.name)
+%>
+  <tr>
+    <td class="left"><%= style.name %></td>
+    <% sizes = @styles[style.name] %>
+		
+    <% sizes.each_with_index do |size, i| %>
+    <td<%= " class='ligray'" if i == 7 -%><%= " class='dark'" if i == 15 -%>><%= size unless size == 0 %></td>
+    <% end %>
+		<% if session[:user].is_manager %>
+		<td><%= show_currency(style.cost) %></td>
+		<% 
+       style_cost = style.cost * sizes[15] 
+       total_cost += style_cost 
+    %>
+		<td><%= show_currency(style_cost) %></td>
+		<% end %>
+	</tr>
+	
+<%  else 
+      sold_out_list << style.name
+    end
+  end 
+%>
+  <tr>
+  	<th><small>總數</small></th>
+		<% @size_total.each do |size| %>
+    <th><%= size unless size == 0 %> &nbsp;</th>
+    <% end %>
+		<% if session[:user].is_manager %>
+		<th><small>總價</small></th>
+		<th><%= show_currency(total_cost) %></th>
+		<% end %>
+	</tr>
+</table>
+<p>0 庫存商品：<% sold_out_list.each do |x| %>
+<%= x + "／" -%>
+<% end %></p>
+		
+</body>
+</html>
+		

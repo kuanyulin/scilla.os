@@ -1,0 +1,33 @@
+<p>
+  <b>Entry date:</b>
+  <%=h @entry.entry_date %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @entry.description %>
+</p>
+
+<p>
+  <b>Credit:</b>
+  <%=h @entry.credit %>
+</p>
+
+<p>
+  <b>Debit:</b>
+  <%=h @entry.debit %>
+</p>
+
+<p>
+  <b>Account:</b>
+  <%=h @entry.account_id %>
+</p>
+
+<p>
+  <b>Journal:</b>
+  <%=h @entry.journal_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

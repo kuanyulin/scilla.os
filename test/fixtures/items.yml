@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  order_id: 1
+  pair_id: 1
+  style_id: 1
+  size: 9.99
+  price: 9.99
+  discount: 9.99
+  status: 1
+  note: MyText
+  cancelled: false
+
+two:
+  order_id: 1
+  pair_id: 1
+  style_id: 1
+  size: 9.99
+  price: 9.99
+  discount: 9.99
+  status: 1
+  note: MyText
+  cancelled: false

@@ -1,0 +1,38 @@
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+  	<th width="10"> </th>
+  	<th width="20">id</th>
+    <th width="120">款式</th>
+    <th width="50">尺寸</th>
+    <th width="100">狀態</th>
+    <th width="50">樂天</th>
+    <th width="50">PCh</th>
+    <th width="50">Goh</th>
+    <th width="50">PayE</th>
+    <th width="100">補單日</th>
+    <th width="100">到貨日</th>
+  </tr>
+
+<% shade = cycle('even', 'odd')  
+  last_size = 0 
+  pair_pack_list.each do |p| 
+    if last_size != p.size 
+      last_size = p.size
+      shade = cycle('even', 'odd')
+    end  
+%>
+  <tr class="<%= shade %>">
+  	<td><input name="p" type="radio" value="<%= p.id%>" onclick="document.getElementById('item_pair_id').value=this.value;"/></td>
+  	<td><%= p.id %></td>
+    <td><%=h p.style.name %></td>
+    <td align="center"><%=h p.size %></td>
+    <td align="center"><%= show_pair_status(p.status) %></td>
+    <td align="center"><%= show_yes( p.at_rakuten ) %></td>
+    <td align="center"><%= show_yes( p.at_pchome ) %></td>
+    <td align="center"><%= show_yes( p.at_gohappy ) %></td>
+    <td align="center"><%= show_yes( p.at_payeasy ) %></td>   
+    <td align="center"><%= link_to p.refill.order_date, :controller => 'refills', :action => 'show', :id => p.refill_id %></td>
+    <td align="center"><%=h p.refill.arrive_date %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,19 @@
+<h1>客戶資料</h1>
+
+<table cellspacing="0" cellpadding="0" width="650">
+<tr>
+	<td width="50%">快速搜尋：<%= text_field_tag 'search' %></td>
+	<td width="50%" align="right"><%= link_to '＋新增客戶', new_customer_path %></td>
+</tr>
+</table>
+<%= observe_field :search, 
+                  :frequency => 0.5, 
+                  :update => 'customer_search',
+                  :url => {:action => 'search', :only_path => false},
+                  :with => "'search=' + encodeURIComponent(value)" %>
+<br/>
+<div id="customer_search">
+<%= render :partial => "search" %>
+</div>
+
+

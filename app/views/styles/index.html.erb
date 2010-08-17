@@ -1,0 +1,8 @@
+<h1>商品款式</h1>
+
+</p><%= link_to '新增商品', new_style_path %><br/><br/>
+
+<%= render(:partial => "styles", 
+           :object  => @styles,
+           :locals  => {:vendors => @vendors } ) %>
+

@@ -1,0 +1,35 @@
+<h1>傳票列表（共 <%= @journal_count %> 筆）</h1>
+
+<p><%= link_to '新增傳票', new_journal_path %></p>
+<%= will_paginate @journals %>
+<br/>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th> </th>
+    <th width="100">日期</th>
+    <th width="360" colspan="2">內容</th>
+ <!--   <th>Balanced</th> -->
+    <th width="100">借方金額 (debit)</th>
+    <th width="100">貸方金額 (credit)</th>
+  </tr>
+
+<% @journals.each do |journal| %>
+<%   shading = cycle('even', 'odd') %>
+<%   journal.entries.each_with_index do |entry, i| %>
+	<tr class="<%= shading %>">
+    <% if i == 0 then %>
+      <td rowspan="<%= journal.entries.size %>"> <%= link_to '刪除', journal, :confirm => '確定刪除？', :method => :delete %></td>
+      <td rowspan="<%= journal.entries.size %>"> <%= link_to journal.entry_date, edit_journal_path(journal) %></td>
+		<% end %>
+		<td width="100"><%= ' &nbsp; &nbsp; &nbsp; ' if entry.credit > 0.0 %><%= link_to entry.account.subject, entry.account %></td>
+    <td><%=h entry.description %></td>
+ <!--   <td><%=h journal.balanced? %></td> -->
+    <td align="right"><%=h show_currency(entry.debit) %></td>
+    <td align="right"><%=h show_currency(entry.credit) %></td>
+  </tr>
+	<% end %>
+<% end %>
+</table>
+
+<hr/>
+<%= will_paginate @journals %>

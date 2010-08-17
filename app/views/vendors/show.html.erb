@@ -1,0 +1,46 @@
+<div class='at-form'>
+<fieldset>
+  <legend><%=h @vendor.name %></legend>
+
+  <table class="showDetail">
+  <tr>
+  	<th>連絡人</th><td><%=h @vendor.contact1 %></td>
+  </tr>	
+	<tr>
+		<th>地址</th><td><%=h @vendor.address %></td>
+  </tr>
+  <tr>
+    <th>電話</th><td><%=h @vendor.phone1 %></td>
+  </tr>
+<!--  <tr>
+    <th>連絡人2</th><td><%=h @vendor.contact2 %></td>
+  </tr>
+  <tr>
+    <th>電話2</th><td><%=h @vendor.phone2 %></td>
+  </tr> -->
+  <tr>
+    <th>傳真</th><td><%=h @vendor.fax %></td>
+  </tr>
+  <tr>
+    <th>銀行</th><td><%=h @vendor.bank_name %></td>
+  </tr>
+  <tr>
+    <th>銀行帳號</th><td><%=h @vendor.bank_account %></td>
+  </tr>
+  <tr>
+    <th>統一編號</th><td><%=h @vendor.tax_id %></td>
+  </tr>
+  <tr>
+    <th>Note</th><td><%=h @vendor.note %></td>
+  </tr>
+	</table>
+	<br/>
+	<%= link_to '修改', edit_vendor_path(@vendor) %> |
+<%= link_to 'Back', vendors_path %>
+</fieldset>
+</div>
+
+<%= render(:partial => "styles/styles", 
+           :object  => @vendor.styles, 
+           :locals  => { :vendors => [[@vendor.id, @vendor.name]] } ) %>
+

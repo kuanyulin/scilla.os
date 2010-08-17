@@ -1,0 +1,73 @@
+<h1>庫存總表</h1>
+<script type="text/javascript">
+	function get_soldvalue()
+	{
+		sessionStorage.setItem('show_sold', document.getElementById("show_sold").checked);
+    return document.getElementById("show_sold").checked;
+	}
+	function get_styleId(resetCat)
+	{			
+    sessionStorage.setItem('style_id', document.getElementById("style_id").value);
+    sessionStorage.setItem('style_selectIndex', document.getElementById("style_id").selectedIndex);
+		return document.getElementById("style_id").value;
+	}
+
+  function fireEvent(element, event)
+	{
+    if(document.createEvent){
+      // dispatch for firefox + others
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+      return !element.dispatchEvent(evt);
+    }
+    else {
+       // dispatch for IE
+      var evt = document.createEventObject();
+      return element.fireEvent('on' + event, evt)
+    }
+  }
+</script>
+鞋款：<% style_list = "<option value='-1'>選擇鞋款</option>" + options_from_collection_for_select(@styles, :id, :name)  %>
+  <%= select_tag :style_id, style_list %>
+  <%= observe_field :style_id,
+                    :on => 'change',
+                    :update => 'inventory',
+                    :url => { :action => 'get_inventory', :only_path => false },
+                    :with => "'style_id=' + get_styleId(true) + '&show_sold=' + get_soldvalue()" -%>
+										
+										
+類別：<% category_list = "<option value='-1'>選擇類別</option>" + options_from_collection_for_select(@categories, :id, :name) %>
+  <%= select_tag :category_id, category_list %>
+  <%= observe_field :category_id,
+                    :on => 'change',
+                    :update => 'inventory',
+                    :url => { :action => 'get_inventory_by_category', :only_path => false },
+                    :with => "'cat_id=' + value + '&show_sold=' + get_soldvalue()" -%>
+										
+&nbsp; 顯示已售出<input id="show_sold" name="show_sold" type="checkbox" value="0" />				
+
+  <%= observe_field :show_sold,
+                    :on => 'change',
+                    :update => 'inventory',
+                    :url => { :action => 'get_inventory', :only_path => false },
+                    :with => "'style_id=' + get_styleId() + '&show_sold=' + get_soldvalue()" -%>
+
+
+<br/><br/>
+<div id="inventory"></div>
+
+<script type="text/javascript">
+	
+	 if (sessionStorage.getItem('show_sold') != null) {
+    document.getElementById("style_id").selectedIndex = sessionStorage.getItem('style_selectIndex');
+		if (sessionStorage.getItem('show_sold') == 'true') {
+      document.getElementById("show_sold").checked = true;		
+		} else {
+      document.getElementById("show_sold").checked = false;		
+		}
+		
+		fireEvent(document.getElementById("style_id"),'change');
+  }
+  else {
+  }
+ </script>

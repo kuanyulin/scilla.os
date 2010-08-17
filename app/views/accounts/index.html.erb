@@ -1,0 +1,23 @@
+<h1>科目列表</h1>
+<%= link_to '新增科目', new_account_path %>
+<br />
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+  	<th width="200">類別</th>
+    <th width="70">科目代碼</th>
+    <th width="90">科目</th>
+    <th width="250">內容</th>
+		<th width="50"> </th>
+  </tr>
+
+<% @accounts.each do |account| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+  	<td><%=h Account::ACCOUNT_TYPES.rassoc(account.account_type)[0] %></td>
+    <td><%= link_to account.subject_num, account %></td>
+		<td><%=h account.subject %></td>
+    <td><%=h account.description %></td>
+    <td><%= link_to '修改', edit_account_path(account) %><!--<%= link_to '刪除', account, :confirm => '確定刪除？', :method => :delete %>--></td>
+  </tr>
+<% end %>
+</table>
+

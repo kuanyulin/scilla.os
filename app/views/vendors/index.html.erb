@@ -1,0 +1,28 @@
+<h1>合作廠商</h1>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="120">廠商</th>
+    <th width="100">連絡人</th>
+    <th width="120">電話</th>
+    <th width="120">傳真</th>
+    <th width="120">統編</th>
+    <th> </th>
+  </tr>
+
+<% @vendors.each do |vendor| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td><%= link_to vendor.name, vendor %></td>
+    <td><%=h vendor.contact1 %></td>
+    <td><%=h vendor.phone1 %></td>
+    <td><%=h vendor.fax %></td>
+    <td><%=h vendor.tax_id %></td>
+    <td><%= link_to '修改', edit_vendor_path(vendor) %> | 
+	<%= link_to '刪除', vendor, :confirm => '確定刪除此筆廠商資料?', :method => :delete %></td>
+  </tr>
+<% end %>
+
+</table>
+
+<br />
+<%= link_to '新增', new_vendor_path %>

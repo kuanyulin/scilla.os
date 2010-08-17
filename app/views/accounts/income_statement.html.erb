@@ -1,0 +1,100 @@
+<h1>損益表 Income Statement</h1>
+
+<div class='at-form'>
+<fieldset>
+  <legend>損益表</legend>
+	
+<% form_tag do %>
+  
+	<div>
+    <%= label '起始日', '起始日' %><%= date_select :range, :start_date, :default => 1.year.ago %>
+  </div>
+  <div>
+    <%= label '結束日', '結束日' %><%= date_select :range, :end_date, :default => Date.today %> &nbsp; &nbsp; <%= submit_tag 'Build' %>
+  </div>
+	
+<% end %>
+
+</div>
+
+<br/><br/>
+
+<% if @has_report %>
+<div class="f_report">
+<h2><%= @start_date %> ~ <%= @end_date %></h2>
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="30"></td>
+    <td width="300"></td>
+    <td width="120"></td>
+    <td width="120"></td>
+  </tr>
+	<tr>
+    <td colspan="4"><b>收入</b></td>
+  </tr>
+	<tr>
+    <td></td>
+    <td><a href="/accounts/17">營業收入</a></td>
+    <td></td>
+    <td align="right"><%= show_currency @report[:sales_income] %></td>
+  </tr>
+<% unless @report[:sales_return] == 0 %>
+  <tr>
+    <td></td>
+    <td><a href="/accounts/18">銷售退回</a></td>
+    <td align="right"><%= show_currency @report[:sales_return] %></td>
+    <td></td>
+  </tr>
+<% end %>
+<% unless @report[:service_income] == 0 %>
+  <tr>
+    <td></td>
+    <td><a href="/accounts/19">服務收入</a></td>
+    <td></td>
+    <td align="right"><%= show_currency @report[:service_income] %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td></td>
+    <td class="subtotal"></td>
+    <td class="subtotal"></td>
+    <td align="right" class="subtotal"><%= show_currency @report[:gross_income] %></td>
+  </tr>
+	<tr><td colspan="4"> &nbsp; </td></tr>
+	<tr>
+  	<td colspan="4"><b>支出/費用</b></td>
+	</tr>
+<% @report[:costs].each do |account, data| %>
+  <tr>
+    <td></td>
+    <td><%= link_to account, data[0] %></td>
+    <td align="right"><%= show_currency data[1] %></td>
+		<td></td>
+  </tr>
+<% end %>	
+<% @report[:expenses].each do |account, data| %>
+  <tr>
+    <td></td>
+    <td><%= link_to account, data[0] %></td>
+    <td align="right"><%= show_currency data[1] %></td>
+    <td></td>
+  </tr>
+<% end %> 
+  <tr>
+    <td></td>
+    <td class="subtotal"></td>
+    <td align="right" class="subtotal"> <%= show_currency @report[:expense_costs] %></td>
+    <td></td>
+  </tr>
+  <tr><td colspan="4"> &nbsp; </td></tr>
+	<tr>
+		<td></td>
+    <td></td>
+    <td></td>
+		<td align="right" class="netincome"> <%= show_currency @report[:net_income] %></td>
+	</tr>
+</table>
+
+</div>
+
+<% end %>

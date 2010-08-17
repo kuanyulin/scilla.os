@@ -1,0 +1,15 @@
+<div class='at-form'>
+<fieldset>
+  <legend>修改訂單</legend>
+
+<% form_for(@refill) do |f| %>
+  <%= render :partial => 'form_edit', :locals => { :f => f } %>
+  <p>
+    <%= f.submit '修改' %>
+  </p>
+<% end %>
+
+</div>
+
+<%= link_to 'Show', @refill %> |
+<%= link_to 'Back', refills_path %>

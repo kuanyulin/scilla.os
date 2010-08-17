@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  order_date: 2010-04-02
+  arrive_date: 2010-04-02
+  description: MyString
+  made_by: 1
+  note: MyText
+
+two:
+  order_date: 2010-04-02
+  arrive_date: 2010-04-02
+  description: MyString
+  made_by: 1
+  note: MyText

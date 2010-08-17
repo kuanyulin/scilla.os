@@ -1,0 +1,23 @@
+<option value=""> 指定商品 </option>
+<% for p in @pairs %>
+  <%
+#	  pair_info = "[" + p.id.to_s + "] " 
+    pair_info = "(" + Pair::PAIR_STATUS.rassoc(p.status)[0] + ") " + p.size.to_s
+    if p.at_rakuten
+      pair_info += "::樂天" 
+    end
+    if p.at_pchome
+      pair_info += "::PChome" 
+    end
+    if p.at_gohappy
+      pair_info += "::GoHappy" 
+    end
+    if p.at_payeasy
+      pair_info += "::PayEasy" 
+    end
+
+    pair_info += " [" + p.id.to_s + "]"
+
+  %>
+  <option value="<%= p.id %>"><%= pair_info %></option>
+<% end %>

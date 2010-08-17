@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  subject: MyString
+  description: MyString
+  is_debit: false
+  subject_num: 1
+
+two:
+  subject: MyString
+  description: MyString
+  is_debit: false
+  subject_num: 1

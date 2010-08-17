@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customer_id: 1
+  order_date: 2010-04-12
+  recipient: MyString
+  phone: MyString
+  shipping_address: MyString
+  shipping_method: 1
+  shipping_charge: 9.99
+  total_amount: 9.99
+  payment_type: 1
+  paid_date: 2010-04-12
+  status: 1
+  order_from: 1
+  order_number: MyString
+  note: MyText
+
+two:
+  customer_id: 1
+  order_date: 2010-04-12
+  recipient: MyString
+  phone: MyString
+  shipping_address: MyString
+  shipping_method: 1
+  shipping_charge: 9.99
+  total_amount: 9.99
+  payment_type: 1
+  paid_date: 2010-04-12
+  status: 1
+  order_from: 1
+  order_number: MyString
+  note: MyText

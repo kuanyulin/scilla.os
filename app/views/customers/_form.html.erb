@@ -1,0 +1,32 @@
+<%= f.error_messages %>
+
+  <div>
+    <%= f.label '姓名' %> <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label '生日' %> <%= f.date_select :birthdate, :start_year => 1940, :end_year => 1995 %>
+  </div>
+  <div>
+    <%= f.label '會員' %> <%= f.select :membership, Customer::MEMBER_STATUS %>
+  </div>
+  <div>
+    <%= f.label 'email' %> <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label '手機' %> <%= f.text_field :mobile %>
+  </div>
+  <div>
+    <%= f.label '電話' %> <%= f.text_field :phone %>
+  </div>
+  <div>
+    <%= f.label '地址' %> <%= f.text_field :address %>
+  </div>
+  <div>
+    <%= f.label '匯款銀行' %> <%= f.text_field :bank %>
+  </div>
+  <div>
+    <%= f.label '帳號' %> <%= f.text_field :bank_account %>
+  </div>
+  <div>
+    <%= f.label '備註' %> <%= f.text_area :note, :cols => 60, :rows => 10  %>
+  </div>
