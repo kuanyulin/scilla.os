@@ -17,11 +17,11 @@ class ApplicationController < ActionController::Base
  
   def authorize
 #    unless User.find_by_id(session[:user_id])
-#    unless session[:user] and User.find_by_id(session[:user].id)
-#      session[:original_uri] = request.request_uri
-#      flash[:notice] = "請先登入"
-#      redirect_to :controller => 'admin', :action => 'login'
-#    end
+    unless session[:user] and User.find_by_id(session[:user].id)
+      session[:original_uri] = request.request_uri
+      flash[:notice] = "請先登入"
+      redirect_to :controller => 'admin', :action => 'login'
+    end
   end
   
 end
