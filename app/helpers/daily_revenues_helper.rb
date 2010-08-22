@@ -1,0 +1,2 @@
+module DailyRevenuesHelper
+end

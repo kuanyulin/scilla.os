@@ -11,22 +11,15 @@ bank1:
   id: 2
   account_type: 1000
   subject_num: 1102
-  subject: 彰化銀行
-  description: 彰化銀行存款。
+  subject: 富邦銀行
+  description: 富邦銀行存款。
 
 bank2:
   id: 3
   account_type: 1000
   subject_num: 1103
-  subject: 中國信託
-  description: 中國信託存款。
-
-bank3:
-  id: 4
-  account_type: 1000
-  subject_num: 1104
-  subject: 上海商銀
-  description: 上海商銀存款。
+  subject: 聯邦銀行
+  description: 聯邦銀行存款。
 
 acctReceivable:
   id: 5
@@ -152,14 +145,14 @@ transportation:
   account_type: 5000
   subject_num: 5401
   subject: 運輸成本
-  description: 凡各項運輸費用屬之。
+  description: 凡各項運輸費用屬之。進貨海、空運費。
   
 commission:
   id: 23
   account_type: 5000
   subject_num: 5607
   subject: 佣金成本
-  description: 此為紀錄平台佣金成本。
+  description: 此為紀錄夠種手續費、服務費、平台佣金成本。
 
 misc_cost:
   id: 24
@@ -187,7 +180,7 @@ stationery_exp:
   account_type: 6000
   subject_num: 6253
   subject: 文具費用
-  description: 文具用品支出。
+  description: 文具用品支出。包含消耗品如色帶等。
 
 travel_exp:
   id: 28

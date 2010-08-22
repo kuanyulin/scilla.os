@@ -18,10 +18,10 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: atoffice_devel
+  database: scioffice_devel
   pool: 5
-  username: atoffice_devel
-  password: atoffice_devel
+  username: scioffice_devel
+  password: scioffice_devel
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -31,18 +31,18 @@ test:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: atoffice_test
+  database: scioffice_test
   pool: 5
-  username: atoffice_test
-  password: atoffice_test
+  username: scioffice_test
+  password: scioffice_test
   socket: /tmp/mysql.sock
 
 production:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: atoffice_prod
+  database: scioffice_prod
   pool: 5
-  username: atoffice_prod
-  password: atoffice_prod
+  username: scioffice_prod
+  password: scioffice_prod
   socket: /tmp/mysql.sock

@@ -9,8 +9,7 @@ class CreateStyles < ActiveRecord::Migration
       t.string :picture1
       t.string :picture2
       t.string :picture3
-      t.string :picture5
-      t.string :picture6
+      t.string :picture4
       t.string :thumbnail
       t.text :note
       t.decimal :cost, :precision => 7, :scale => 2

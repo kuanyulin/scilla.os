@@ -1,0 +1,32 @@
+<h1>Listing daily_revenues</h1>
+
+<table>
+  <tr>
+    <th>Sale date</th>
+    <th>Revenue</th>
+    <th>Credit card</th>
+    <th>Cash</th>
+    <th>Cash depois</th>
+    <th>Reserve cash</th>
+    <th>Total discount</th>
+  </tr>
+
+<% @daily_revenues.each do |daily_revenue| %>
+  <tr>
+    <td><%=h daily_revenue.sale_date %></td>
+    <td><%=h daily_revenue.revenue %></td>
+    <td><%=h daily_revenue.credit_card %></td>
+    <td><%=h daily_revenue.cash %></td>
+    <td><%=h daily_revenue.cash_depois %></td>
+    <td><%=h daily_revenue.reserve_cash %></td>
+    <td><%=h daily_revenue.total_discount %></td>
+    <td><%= link_to 'Show', daily_revenue %></td>
+    <td><%= link_to 'Edit', edit_daily_revenue_path(daily_revenue) %></td>
+    <td><%= link_to 'Destroy', daily_revenue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New daily_revenue', new_daily_revenue_path %>

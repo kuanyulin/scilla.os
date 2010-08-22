@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100427041352) do
+ActiveRecord::Schema.define(:version => 20100822040953) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "account_type", :limit => 2
@@ -45,10 +45,22 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
     t.string   "address"
     t.string   "bank",           :limit => 80
     t.string   "bank_account",   :limit => 20
+    t.integer  "total_purchase", :limit => 7,   :precision => 7, :scale => 0, :default => 0
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "total_purchase", :limit => 7,   :precision => 7, :scale => 0, :default => 0
+  end
+
+  create_table "daily_revenues", :force => true do |t|
+    t.date     "sale_date",                                                                :null => false
+    t.integer  "revenue",        :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "credit_card",    :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "cash",           :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "cash_depois",    :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "reserve_cash",   :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "total_discount", :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "entries", :force => true do |t|
@@ -66,13 +78,14 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
     t.integer  "order_id"
     t.integer  "pair_id"
     t.integer  "style_id"
-    t.decimal  "size",                      :precision => 3, :scale => 1
-    t.integer  "price",        :limit => 7, :precision => 7, :scale => 0, :default => 0
-    t.integer  "discount",     :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.decimal  "size",                       :precision => 3, :scale => 1
+    t.integer  "list_price",    :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "discount",      :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "paid_amount",   :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "percent_off",                                              :default => 0
     t.integer  "status"
-    t.date     "shipped_date"
+    t.date     "purchase_date",                                                           :null => false
     t.text     "note"
-    t.boolean  "cancelled",                                               :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -89,35 +102,24 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
   end
 
   create_table "orders", :force => true do |t|
-    t.integer  "customer_id",                                                                 :null => false
-    t.date     "order_date",                                                                  :null => false
-    t.string   "recipient",        :limit => 80
-    t.string   "phone",            :limit => 20
-    t.string   "shipping_address"
-    t.integer  "shipping_method"
-    t.integer  "shipping_charge",  :limit => 7,  :precision => 7, :scale => 0, :default => 0
-    t.integer  "total_amount",     :limit => 7,  :precision => 7, :scale => 0, :default => 0
+    t.integer  "customer_id"
+    t.date     "purchase_date",                                                              :null => false
+    t.integer  "total_list_price", :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "total_discount",   :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "extra_discount",   :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "total_paid",       :limit => 7, :precision => 7, :scale => 0, :default => 0
     t.integer  "payment_type"
-    t.date     "paid_date"
     t.integer  "status"
-    t.integer  "order_from"
-    t.string   "order_number"
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "pairs", :force => true do |t|
-    t.integer  "style_id",                                                    :null => false
-    t.integer  "refill_id",                                                   :null => false
-    t.integer  "item_id"
-    t.decimal  "size",       :precision => 3, :scale => 1,                    :null => false
-    t.boolean  "special",                                  :default => false, :null => false
-    t.integer  "status",                                   :default => 0,     :null => false
-    t.boolean  "at_rakuten",                               :default => false, :null => false
-    t.boolean  "at_pchome",                                :default => false, :null => false
-    t.boolean  "at_gohappy",                               :default => false, :null => false
-    t.boolean  "at_payeasy",                               :default => false, :null => false
+    t.integer  "style_id",                                                :null => false
+    t.integer  "refill_id",                                               :null => false
+    t.decimal  "size",       :precision => 3, :scale => 1,                :null => false
+    t.integer  "status",                                   :default => 0, :null => false
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -126,9 +128,9 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
   create_table "prices", :force => true do |t|
     t.integer  "style_id",                                 :null => false
     t.decimal  "price",      :precision => 7, :scale => 2
+    t.datetime "start_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "start_date"
   end
 
   create_table "refills", :force => true do |t|
@@ -174,14 +176,12 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
     t.string   "picture1"
     t.string   "picture2"
     t.string   "picture3"
-    t.string   "picture5"
-    t.string   "picture6"
+    t.string   "picture4"
     t.string   "thumbnail"
     t.text     "note"
     t.decimal  "cost",         :precision => 7, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "picture4"
   end
 
   create_table "users", :force => true do |t|
@@ -189,9 +189,9 @@ ActiveRecord::Schema.define(:version => 20100427041352) do
     t.string   "email"
     t.string   "hashed_password"
     t.string   "salt"
+    t.integer  "privilege",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "privilege"
   end
 
   create_table "vendors", :force => true do |t|

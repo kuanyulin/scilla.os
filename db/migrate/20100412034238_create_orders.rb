@@ -1,19 +1,14 @@
 class CreateOrders < ActiveRecord::Migration
   def self.up
     create_table :orders do |t|
-      t.integer :customer_id,     :null => false
-      t.date    :order_date,         :null => false
-      t.string  :recipient,        :limit => 80
-      t.string  :phone,            :limit => 20
-      t.string  :shipping_address, :limit => 255
-      t.integer :shipping_method, :size => 2
-      t.decimal :shipping_charge, :precision => 7, :scale => 0, :default => 0
-      t.decimal :total_amount,    :precision => 7, :scale => 0, :default => 0
-      t.integer :payment_type,    :size => 2
-      t.date    :paid_date
-      t.integer :status,          :size => 2
-      t.integer :order_from,      :size => 2
-      t.string  :order_number,     :size => 40
+      t.integer :customer_id
+      t.date    :purchase_date,   :null => false
+      t.decimal :total_list_price, :precision => 7, :scale => 0, :default => 0
+      t.decimal :total_discount,   :precision => 7, :scale => 0, :default => 0
+      t.decimal :extra_discount,   :precision => 7, :scale => 0, :default => 0
+      t.decimal :total_paid,       :precision => 7, :scale => 0, :default => 0
+      t.integer :payment_type,     :size => 2
+      t.integer :status,           :size => 2
       t.text    :note
 
       t.timestamps

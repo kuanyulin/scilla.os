@@ -15,8 +15,8 @@
 <body id="store">
 	<table cellspacing="0" cellpadding="0" border="0">
     <tr>
-      <td><a href="/admin/login"><img src="http://avitarsi.shop.rakuten.tw/gold/img2/logo.jpg" border="0"></a></td>
-      <td><img src="http://avitarsi.shop.rakuten.tw/gold/img2/logo_header.jpg" border="0"></td>
+      <td><a href="/admin/login"><%= image_tag('logo_header.png', :alt => "home", :border => 0 ) %></a></td>
+      <td> </td>
     </tr>
   </table>
  <!--   <div id="banner">
@@ -53,10 +53,9 @@
           	<li><%= link_to '損益報表', '/report/income_statement' %></li>
             <li><%= link_to '全部科目', :controller => 'accounts'  %></li>
 						<li><%= link_to '現金帳', :controller => 'accounts', :action => 'show', :id => 1  %></li>
-						<li><%= link_to '彰化銀行', :controller => 'accounts', :action => 'show', :id => 2  %></li>
-						<li><%= link_to '中國信託', :controller => 'accounts', :action => 'show', :id => 3  %></li>
-						<li><%= link_to '上海商銀', :controller => 'accounts', :action => 'show', :id => 4  %></li>
-            <li><%= link_to '傳票', :controller => 'journals'  %>（<%= link_to '＋', new_journal_path, :title => "新增傳票" %>）</li>
+						<li><%= link_to '台北富邦', :controller => 'accounts', :action => 'show', :id => 2  %></li>
+						<li><%= link_to '聯邦銀行', :controller => 'accounts', :action => 'show', :id => 3  %></li>
+						<li><%= link_to '傳票', :controller => 'journals'  %>（<%= link_to '＋', new_journal_path, :title => "新增傳票" %>）</li>
 					</ul>
 			  <li>Report</li>
 				  <ul>
@@ -87,7 +86,7 @@
             <%= link_to 'Products', :controller => 'products' %><br /> -->
 			
 		<% else %>
-            <p>Welcome to Avi Tarsi back office!</p>
+            <p>Welcome to Scilla back office!</p>
 			<p>You need to login first to enjoy the ride.</p>
         <% end %>
 

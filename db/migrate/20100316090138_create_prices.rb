@@ -3,7 +3,7 @@ class CreatePrices < ActiveRecord::Migration
     create_table :prices do |t|
       t.integer :style_id, :null => false
       t.decimal :price, :precision => 7, :scale => 2
-      t.time :start_date, :null => false, :default => Time.now
+      t.datetime :start_date
 
       t.timestamps
     end

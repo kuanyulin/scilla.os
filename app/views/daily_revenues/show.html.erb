@@ -1,0 +1,38 @@
+<p>
+  <b>Sale date:</b>
+  <%=h @daily_revenue.sale_date %>
+</p>
+
+<p>
+  <b>Revenue:</b>
+  <%=h @daily_revenue.revenue %>
+</p>
+
+<p>
+  <b>Credit card:</b>
+  <%=h @daily_revenue.credit_card %>
+</p>
+
+<p>
+  <b>Cash:</b>
+  <%=h @daily_revenue.cash %>
+</p>
+
+<p>
+  <b>Cash depois:</b>
+  <%=h @daily_revenue.cash_depois %>
+</p>
+
+<p>
+  <b>Reserve cash:</b>
+  <%=h @daily_revenue.reserve_cash %>
+</p>
+
+<p>
+  <b>Total discount:</b>
+  <%=h @daily_revenue.total_discount %>
+</p>
+
+
+<%= link_to 'Edit', edit_daily_revenue_path(@daily_revenue) %> |
+<%= link_to 'Back', daily_revenues_path %>

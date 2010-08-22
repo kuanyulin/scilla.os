@@ -10,6 +10,7 @@ class CreateCustomers < ActiveRecord::Migration
       t.string  :address,      :limit => 255
       t.string  :bank,         :limit => 80
       t.string  :bank_account, :limit => 20
+      t.decimal :total_purchase, :precision => 7, :scale => 0, :default => 0
       t.text    :note
 
       t.timestamps

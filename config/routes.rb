@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :daily_revenues
+
   map.resources :items
 
   map.resources :orders

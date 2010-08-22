@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :hashed_password
       t.string :salt
+      t.integer :privilege, :default => 0
 
       t.timestamps
     end

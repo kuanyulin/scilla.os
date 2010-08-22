@@ -1,0 +1,40 @@
+<h1>Editing daily_revenue</h1>
+
+<% form_for(@daily_revenue) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :sale_date %><br />
+    <%= f.date_select :sale_date %>
+  </p>
+  <p>
+    <%= f.label :revenue %><br />
+    <%= f.text_field :revenue %>
+  </p>
+  <p>
+    <%= f.label :credit_card %><br />
+    <%= f.text_field :credit_card %>
+  </p>
+  <p>
+    <%= f.label :cash %><br />
+    <%= f.text_field :cash %>
+  </p>
+  <p>
+    <%= f.label :cash_depois %><br />
+    <%= f.text_field :cash_depois %>
+  </p>
+  <p>
+    <%= f.label :reserve_cash %><br />
+    <%= f.text_field :reserve_cash %>
+  </p>
+  <p>
+    <%= f.label :total_discount %><br />
+    <%= f.text_field :total_discount %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @daily_revenue %> |
+<%= link_to 'Back', daily_revenues_path %>
