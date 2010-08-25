@@ -1,40 +1,10 @@
-<h1>Editing daily_revenue</h1>
-
+<div class='at-form'>
+<fieldset>
+  <legend>日結明細</legend>
+  
 <% form_for(@daily_revenue) do |f| %>
-  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <div><%= f.submit 'Update' %></div>
+<% end %> 
 
-  <p>
-    <%= f.label :sale_date %><br />
-    <%= f.date_select :sale_date %>
-  </p>
-  <p>
-    <%= f.label :revenue %><br />
-    <%= f.text_field :revenue %>
-  </p>
-  <p>
-    <%= f.label :credit_card %><br />
-    <%= f.text_field :credit_card %>
-  </p>
-  <p>
-    <%= f.label :cash %><br />
-    <%= f.text_field :cash %>
-  </p>
-  <p>
-    <%= f.label :cash_depois %><br />
-    <%= f.text_field :cash_depois %>
-  </p>
-  <p>
-    <%= f.label :reserve_cash %><br />
-    <%= f.text_field :reserve_cash %>
-  </p>
-  <p>
-    <%= f.label :total_discount %><br />
-    <%= f.text_field :total_discount %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @daily_revenue %> |
-<%= link_to 'Back', daily_revenues_path %>
+</div>

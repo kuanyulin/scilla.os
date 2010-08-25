@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20100822040953) do
     t.integer  "reserve_cash",   :limit => 7, :precision => 7, :scale => 0, :default => 0
     t.integer  "total_discount", :limit => 7, :precision => 7, :scale => 0, :default => 0
     t.integer  "total_extra",    :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "made_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

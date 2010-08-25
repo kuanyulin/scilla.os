@@ -1,0 +1,69 @@
+<script type="text/javascript">
+
+function totalRevenue() {
+  var creditCard = document.getElementById('daily_revenue_credit_card');
+  var cash = document.getElementById('daily_revenue_cash');
+	var revenue = document.getElementById('daily_revenue_revenue');
+  
+	revenue.value = parseFloat(creditCard.value) + parseFloat(cash.value);
+}
+
+function totalCash() {
+  var cash         = document.getElementById('daily_revenue_cash');
+  var last_reserve = document.getElementById('last_reserve');
+  var accum_cash   = document.getElementById('accum_cash');
+  var cash_deposit = document.getElementById('daily_revenue_cash_deposit');	
+  var reserve_cash = document.getElementById('daily_revenue_reserve_cash'); 
+
+  accum_cash.value   = parseFloat(cash.value) + parseFloat(last_reserve.value);
+	reserve_cash.value = parseFloat(accum_cash.value) - parseFloat(cash_deposit.value);
+}
+</script>
+
+  <%= f.error_messages %>
+  <%= f.hidden_field :made_by, :value => session[:user].id %>
+  <div>
+    <%= f.label '日期' %> &nbsp; <%= f.text_field :sale_date, :size => 10 %>
+  </div>
+<table cellspacing="0" cellpadding="0" width="700px">
+  <tr valign="top">
+    <td width="350px" valign="top">
+  <div>
+    <%= f.label '信用卡' %> &nbsp; $ <%= f.text_field :credit_card, :size => 8, :onchange => 'totalRevenue()'  %>
+  </div>
+  <div>
+    <%= f.label '＋ 現金' %> &nbsp; $ <%= f.text_field :cash, :size => 8, :onchange => 'totalRevenue();totalCash()'  %>
+  </div>
+  <div style="border-top:solid 1px black; width:250px">
+    <%= f.label '＝ 當日營業額' %> &nbsp; $ <%= f.text_field :revenue, :readonly => true, :size => 8 %>
+  </div>    	
+    </td>
+		<td width="350px" valign="top">
+  <div>
+    <%= f.label '前日餘額' %> &nbsp; $ <input id="last_reserve" readonly="readonly" size="8" type="text" value="<%= @last_entry_reserve %>">
+  </div>
+  <div>
+    <%= f.label '累積現金' %> &nbsp; $ <input id="accum_cash" readonly="readonly" size="8" type="text" value="<%= @accum_cash%>">
+	</div>
+  <div>
+    <%= f.label '- 現金存入' %> &nbsp; $ <%= f.text_field :cash_deposit, :size => 8, :onchange => 'totalCash()'  %>
+  </div>
+  <div style="border-top:solid 1px black; width:250px">
+    <%= f.label '= 現金餘額' %> &nbsp; $ <%= f.text_field :reserve_cash,  :size => 8  %>
+  </div>
+    </td>
+	</tr>
+</table>
+  <div>
+    <%= f.label '折扣' %> &nbsp; $ <%= f.text_field :total_discount, :size => 8  %>
+  </div>
+  <div>
+    <%= f.label '折讓' %> &nbsp; $ <%= f.text_field :total_extra, :size => 8  %>
+  </div>
+	<% if @daily_revenue.user %><p><small>(Last edited by <%= @daily_revenue.user.name %> on <%= @daily_revenue.updated_at %>)</small></p><% end %>
+<div id="last_cash_reserve"></div>
+
+<%= observe_field 'daily_revenue_sale_date',
+                  :update => 'last_cash_reserve',
+                  :url => { :action => 'get_last_reserve', :only_path => false },
+                  :with => "'sale_date=' + value" -%>

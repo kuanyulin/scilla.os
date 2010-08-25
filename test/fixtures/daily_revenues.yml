@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sale_date: 2010-08-22
+  revenue: 9.99
+  credit_card: 9.99
+  cash: 9.99
+  cash_depois: 9.99
+  reserve_cash: 9.99
+  total_discount: 9.99
+
+two:
+  sale_date: 2010-08-22
+  revenue: 9.99
+  credit_card: 9.99
+  cash: 9.99
+  cash_depois: 9.99
+  reserve_cash: 9.99
+  total_discount: 9.99

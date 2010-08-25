@@ -1,32 +1,31 @@
-<h1>Listing daily_revenues</h1>
+<h1>每日營業額</h1>
 
-<table>
+<%= link_to '新增日結', new_daily_revenue_path %>
+<br/>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
   <tr>
-    <th>Sale date</th>
-    <th>Revenue</th>
-    <th>Credit card</th>
-    <th>Cash</th>
-    <th>Cash depois</th>
-    <th>Reserve cash</th>
-    <th>Total discount</th>
+    <th width="100">日期</th>
+    <th width="100">營業額</th>
+    <th width="100">信用卡</th>
+    <th width="100">現金</th>
+    <th width="100">現金存入</th>
+    <th width="100">現金餘額</th>
+    <th width="100">折扣總數</th>
+    <th width="100">折讓總數</th>
+		<th width="100"> - </th>
   </tr>
 
 <% @daily_revenues.each do |daily_revenue| %>
   <tr>
-    <td><%=h daily_revenue.sale_date %></td>
-    <td><%=h daily_revenue.revenue %></td>
-    <td><%=h daily_revenue.credit_card %></td>
-    <td><%=h daily_revenue.cash %></td>
-    <td><%=h daily_revenue.cash_depois %></td>
-    <td><%=h daily_revenue.reserve_cash %></td>
-    <td><%=h daily_revenue.total_discount %></td>
-    <td><%= link_to 'Show', daily_revenue %></td>
-    <td><%= link_to 'Edit', edit_daily_revenue_path(daily_revenue) %></td>
-    <td><%= link_to 'Destroy', daily_revenue, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to daily_revenue.sale_date, edit_daily_revenue_path(daily_revenue) %></td>
+    <td><%=h show_currency daily_revenue.revenue %></td>
+    <td><%=h show_currency daily_revenue.credit_card %></td>
+    <td><%=h show_currency daily_revenue.cash %></td>
+    <td><%=h show_currency daily_revenue.cash_deposit %></td>
+    <td><%=h show_currency daily_revenue.reserve_cash %></td>
+    <td><%=h show_currency daily_revenue.total_discount %></td>
+    <td><%=h show_currency daily_revenue.total_extra %></td>
+    <td><%= link_to '刪除', daily_revenue, :confirm => '確定刪除?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New daily_revenue', new_daily_revenue_path %>

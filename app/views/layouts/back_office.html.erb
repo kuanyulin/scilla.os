@@ -71,8 +71,9 @@
 		        <li><%= link_to '尺寸搜尋', :controller => 'sizes'  %></li>
 						<li><%= link_to '庫存查詢', :controller => 'pairs'  %> （<%= link_to '總覽', :controller => 'pairs', :action => 'inventory_summary', :id => 0  %>）</li>  	  	  
 				  </ul>
-				<li>訂單／客戶管理</li>
+				<li>銷售／客戶管理</li>
 				  <ul>
+				  	<li><%= link_to '日營業額', :controller => 'daily_revenues' %></li>
 				  	<li><%= link_to '顧客', :controller => 'customers'  %></li>
 						<li><%= link_to '訂單', :controller => 'orders'  %></li>
 						<li><%= link_to '未完成訂單', :controller => 'orders', :incomplete => true  %></li>
