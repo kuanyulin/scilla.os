@@ -17,14 +17,14 @@
 
 <% @daily_revenues.each do |daily_revenue| %>
   <tr>
-    <td><%= link_to daily_revenue.sale_date, edit_daily_revenue_path(daily_revenue) %></td>
-    <td><%=h show_currency daily_revenue.revenue %></td>
-    <td><%=h show_currency daily_revenue.credit_card %></td>
-    <td><%=h show_currency daily_revenue.cash %></td>
-    <td><%=h show_currency daily_revenue.cash_deposit %></td>
-    <td><%=h show_currency daily_revenue.reserve_cash %></td>
-    <td><%=h show_currency daily_revenue.total_discount %></td>
-    <td><%=h show_currency daily_revenue.total_extra %></td>
+    <td align="center"><%= link_to daily_revenue.sale_date, edit_daily_revenue_path(daily_revenue) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.revenue, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.credit_card, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.cash, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.cash_deposit, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.reserve_cash, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.total_discount, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.total_extra, false ) %></td>
     <td><%= link_to '刪除', daily_revenue, :confirm => '確定刪除?', :method => :delete %></td>
   </tr>
 <% end %>

@@ -6,7 +6,7 @@ module ApplicationHelper
     return "" if price.nil?
     
     if price == 0
-      return hide_zero ? "" : "$ 0"
+      return hide_zero ? "" : "0"
     else
 #      begin
           parts = number_with_delimiter(price).split('.')
