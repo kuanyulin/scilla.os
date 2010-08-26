@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100822040953) do
+ActiveRecord::Schema.define(:version => 20100825223200) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "account_type", :limit => 2
