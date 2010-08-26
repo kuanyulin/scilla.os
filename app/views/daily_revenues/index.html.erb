@@ -12,7 +12,9 @@
     <th width="100">現金餘額</th>
     <th width="100">折扣總數</th>
     <th width="100">折讓總數</th>
+  <% if session[:user].is_manager %>
 		<th width="100"> - </th>
+  <% end %>
   </tr>
 
 <% @daily_revenues.each do |daily_revenue| %>
@@ -25,7 +27,9 @@
     <td align="right"><%=h show_currency( daily_revenue.reserve_cash, false ) %></td>
     <td align="right"><%=h show_currency( daily_revenue.total_discount, false ) %></td>
     <td align="right"><%=h show_currency( daily_revenue.total_extra, false ) %></td>
+	<% if session[:user].is_manager %>
     <td><%= link_to '刪除', daily_revenue, :confirm => '確定刪除?', :method => :delete %></td>
+	<% end %>
   </tr>
 <% end %>
 </table>

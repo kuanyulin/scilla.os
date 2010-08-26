@@ -10,7 +10,7 @@
   <%= javascript_include_tag 'nested_attributes.js' %>
   <%= javascript_include_tag :defaults %>
 	
-	<title>Avi Tarsi::Back Office - <%= controller.controller_name + "::" + controller.action_name %></title>
+	<title>S C I L L A :: 管理後台 - <%= controller.controller_name + "::" + controller.action_name %></title>
 </head>
 <body id="store">
 	<table cellspacing="0" cellpadding="0" border="0">
@@ -19,11 +19,6 @@
       <td> </td>
     </tr>
   </table>
- <!--   <div id="banner">
-        <%= image_tag("logo.png") %>
-        <%= @page_title || "Avi Tarsi Back Office" %> 
-    </div> -->
-
     <div id="columns">
         <div id="side"> 
         <% if @cart %>
@@ -73,10 +68,9 @@
 				  </ul>
 				<li>銷售／客戶管理</li>
 				  <ul>
-				  	<li><%= link_to '日營業額', :controller => 'daily_revenues' %></li>
-				  	<li><%= link_to '顧客', :controller => 'customers'  %></li>
-						<li><%= link_to '訂單', :controller => 'orders'  %></li>
-						<li><%= link_to '未完成訂單', :controller => 'orders', :incomplete => true  %></li>
+				  	<li><%= link_to '日營業額', :controller => 'daily_revenues' %>（<%= link_to '＋', new_daily_revenue_path, :title => "新增日結" %>）</li>
+				  	<li><%= link_to '顧客資料', :controller => 'customers'  %></li>
+						<li><%= link_to '售貨單', :controller => 'orders'  %>（<%= link_to '＋', new_order_path, :title => "新增售貨單" %>）</li>
 				  </ul>
 				
 			</ul>					

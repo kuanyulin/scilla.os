@@ -60,7 +60,6 @@ function totalCash() {
   <div>
     <%= f.label '折讓' %> &nbsp; $ <%= f.text_field :total_extra, :size => 8  %>
   </div>
-	<% if @daily_revenue.user %><p><small>(Last edited by <%= @daily_revenue.user.name %> on <%= @daily_revenue.updated_at %>)</small></p><% end %>
 <div id="last_cash_reserve"></div>
 
 <%= observe_field 'daily_revenue_sale_date',
