@@ -48,4 +48,4 @@ end
 
 #require "will_paginate"
 
-#require 'chronic'
+require 'chronic'
