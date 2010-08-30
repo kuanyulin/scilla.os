@@ -51,8 +51,8 @@ class StylesController < ApplicationController
 
     respond_to do |format|
       if @style.save
-        flash[:notice] = 'Style was successfully created.'
-        format.html { redirect_to(@style) }
+        flash[:notice] = '款式新增成功'
+        format.html { redirect_to :action => 'index' }
         format.xml  { render :xml => @style, :status => :created, :location => @style }
       else
         @vendors = Vendor.all 

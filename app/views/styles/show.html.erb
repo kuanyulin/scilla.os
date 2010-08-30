@@ -18,27 +18,9 @@
   </tr>
 <% end %>
 	<tr rowspan="2">
-    <th>Thumbnail</th><td><img src="<%=h @style.thumbnail %>" border="0" /></td>
+    <th>Thumbnail</th><td><img src="<%=h @style.thumbnail %>" border="0" width="350" /></td>
     <th>備註</th><td colspan="3"><%=h @style.note %></td>
   </tr>
-<!--	<tr>
-	  <th>Picture1</th><td><%=h @style.picture1 %></td>
-	</tr>
-	<tr>
-	  <th>Picture2</th> <td><%=h @style.picture2 %></td>
-	</tr>
-	<tr>
-	  <th>Picture3</th> <td><%=h @style.picture3 %></td>
-	</tr>
-	<tr>
-	  <th>Picture4</th> <td><%=h @style.picture4 %></td>
-	</tr>
-	<tr>
-	  <th>Picture5</th> <td><%=h @style.picture5 %></td>
-	</tr>
-	<tr>
-	  <th>Picture6</th> <td><%=h @style.picture6 %></td>
-	</tr> -->
 	<tr>
 		<th>可做尺寸</th><td colspan="3"> <% for size in @style.sizes %><%= size.size %> &nbsp;  
     <% end %>
