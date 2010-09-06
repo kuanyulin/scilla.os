@@ -1,11 +1,11 @@
-<h1>更改訂單</h1>
-
 <div class='at-form'>
+<fieldset>
+  <legend>修改售貨紀錄</legend>
 
 <% form_for(@order) do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <p>
-    <%= f.submit '更改訂單' %>
+    <%= f.submit '更改紀錄' %>
   </p>
 <% end %>
 

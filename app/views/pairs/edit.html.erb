@@ -6,8 +6,10 @@
   <%= f.error_messages %>
 
   <%= f.hidden_field :style_id %>
-
-  <div>
+<table width="700px">
+	<tr>
+		<td width="400px">
+	<div>
     <%= f.label '商品單號' %> <%= @pair.id %>
   </div>
   <div>
@@ -23,22 +25,7 @@
     <%= f.label '尺寸' %> <%= f.text_field :size, :size => 3 %>
   </div>
   <div>
-    <%= f.label '特殊訂製' %> <%= f.check_box :special, :readonly => true %>
-  </div>
-  <div>
     <%= f.label '狀態' %> <%= f.select :status, Pair::PAIR_STATUS %>
-  </div>
-  <div>
-    <%= f.label '樂天' %> <%= f.check_box :at_rakuten %>
-  </div>
-  <div>
-    <%= f.label 'PChome' %> <%= f.check_box :at_pchome %>
-  </div>
-  <div>
-    <%= f.label 'GoHappy' %> <%= f.check_box :at_gohappy %>
-  </div>
-  <div>
-    <%= f.label 'PayEasy' %> <%= f.check_box :at_payeasy %>
   </div>
   <div>
     <%= f.label '備註' %> <%= f.text_field :note %>
@@ -47,6 +34,12 @@
   <div>
     <%= f.submit '更新' %>
   </div>
+  	</td>
+		<td width="300"><img src='<%=h @pair.style.thumbnail %>' border="0" width="300px"></td>
+  </tr>
+</table>
+	
+	
 <% end %>
 
 <%= link_to '檢視', @pair %> | <%= link_to 'Back', :back %> | <%= link_to '刪除', @pair, :confirm => '確定刪除？', :method => :delete %>

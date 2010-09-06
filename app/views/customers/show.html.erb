@@ -25,84 +25,64 @@
 </table>
 <br/>
 
-<table cellspacing=0 cellpadding=0 width="700">
+<table cellspacing=0 cellpadding=0 width="450">
   <tr>
-		<td width="200" align="left"><%= link_to '＋新增訂單', :controller => 'orders', :action => 'new', :customer_id => @customer.id %></td>
 		<td width="200" align="center"><%= link_to '修改顧客資料', edit_customer_path(@customer) %></td>
     <td width="150" align="center"><%= link_to '{顧客總覽}', customers_path %></td>
     <td width="150" align="right"><%= link_to '{訂單總覽}', orders_path %></td>
   </tr>	
 </table>
-
-
 <br/>
-<h1><%=h @customer.name %>的所有訂單</h1>
-<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="880">
-  <tr>
-    <th width="40"> </th>
-    <th width="80">狀態</th>
-    <th width="80">訂單日期</th>
-    <th width="100">收件人</th>
-    <th width="100">電話</th>
-<!--    <th width="200">收件地址</th> -->
-    <th width="50">運費</th>
-		<th width="80">總價</th>
-    <th width="60">配送</th>
-    <!--<th>Shipping charge</th>
-    <th>Total amount</th>
-    <th>Payment type</th>
-    <th>Paid date</th> -->
-    <th width="70">購買處</th>
-<!--    <th>Order number</th>
-    <th>Note</th> -->
-    <th width="140"> </th>
-  </tr>
+<h1>購買紀錄</h1>
 
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="770">
+  <tr>
+    <th width="50">狀態</th>
+    <th width="80">日期</th>
+    <th width="100">顧客</th>   
+    <th width="100">定價</th>
+    <th width="80">折扣</th>
+    <th width="80">折讓</th>
+    <th width="100">實付金額</th>
+    <th width="100">付款方式</th>
+    <th width="80"> </th>
+  </tr>
 <% @customer.orders.each do |order| %>
 <% shading = cycle('even', 'odd') %>
   <tr class="<%= shading %>">
-    <td><%= link_to '出貨', :controller => 'orders', :action => 'packing', :id => order.id %></td>
     <td><%= show_order_status(order.status) %></td>
-    <td><small><%=h order.order_date %></small></td>
-    <td><%=h order.recipient %></td>
-    <td><small><%=h order.phone %></small></td>
-		<td><%= show_currency(order.shipping_charge, false) %></td>
-		<td><b><%= show_currency(order.total_amount) %></b></td>
-<!--    <td><%=h order.shipping_address %></td> -->
-    <td><small><%=h Order::SHIPPING_METHOD.rassoc(order.shipping_method)[0] if order.shipping_method %></small></td>
- <!--   <td><%=h order.shipping_charge %></td>
-    <td><%=h order.total_amount %></td>
-    <td><%=h order.payment_type %></td>
-    <td><%=h order.paid_date %></td> -->
-    <td><%=h Order::ORDER_LOCATION.rassoc(order.order_from)[0] %></td>
- <!--   <td><%=h order.order_number %></td>
-    <td><%=h order.note %></td> -->
+    <td><small><%=h order.purchase_date %></small></td>
+    <td><%= link_to order.customer.name, :controller => 'customers', :action => 'show', :id => order.customer_id if not order.customer.nil? %> 
+        <%= show_member_icon(order.customer.membership) if not order.customer.nil? %></td>
+    <td><%= show_currency(order.total_list_price) %></td>
+    <td><%= show_currency(order.total_discount, false) if not order.total_discount.nil? %></td>
+    <td><%= show_currency(order.extra_discount, false) if not order.extra_discount.nil? %></td>
+    <td><b><%= show_currency(order.total_paid) %></b></td>
+    <td><%=h Order::PAYMENT_TYPE.rassoc(order.payment_type)[0] if order.payment_type %></td>
     <td><%= link_to '細節', edit_order_path(order) -%>
-    <% if session[:user].is_manager %>
-		 | <%= link_to '刪除', order, :confirm => 'Are you sure?', :method => :delete -%>
-		<% end %></td>
+    <% if session[:user].is_admin %>
+     | <%= link_to '刪除', order, :confirm => '確定要刪除?', :method => :delete -%>
+    <% end %></td>
   </tr>
-	<% order.items.each do |item| %>
-	<%   
+  <% order.items.each do |item| %>
+  <%   
       itemstatus = "" 
-      if [Order::PAY_ATM, Order::PAY_IBON, Order::PAY_IN_STORE, Order::PAY_DIRECT_ATM].include?(order.payment_type) and order.paid_date.nil?
-        itemstatus = image_tag('money_32.png', :alt => "未付款", :border => 0, :width => "24" )
-      elsif item.status == Item::ITEM_PENDING and !item.pair.nil? and item.pair.status == Pair::SOLD
-        itemstatus = image_tag('truck_32.png', :alt => "趕快出貨囉！", :border => 0, :width => "24" )
+      if item.status == Item::ITEM_PENDING and !item.pair.nil? and item.pair.status == Pair::SOLD
+        itemstatus = image_tag('truck_32.png', :alt => "等客人領貨", :border => 0, :width => "24" )
       elsif !item.pair.nil? and item.pair.status == Pair::IN_TRANSIT
         itemstatus = image_tag('redcar_32.png', :alt => "等退回", :border => 0, :width => "24")
+      elsif !item.pair.nil? and item.pair.status == Pair::BACK_ORDER_SOLD
+        itemstatus = image_tag('xcode_32.png', :alt => "訂製中", :border => 0, :width => "24")
       end
   %>
-	<tr class="<%= shading %>">
-		<td><%= itemstatus %></td>
-		<td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
-		<td><small><%= item.shipped_date %></small></td>
-		<td colspan="3"><b><%= item.style.name %></b> <small>(size: <%= item.size %>)</small> 
-		<td colspan="3"><%= show_currency(item.price, false) %> - <%= show_currency(item.discount) %></td>
-		
-		<td><%= item.pair ? show_pair_status(item.pair.status) + "<small>" + link_to( "("+item.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => item.pair_id) + "</small>" : 
-                        "<span class='red'>" + link_to('快出貨', edit_item_path(item.id)) + "</span>" %></td>
-	</tr>
-	<% end %>
+  <tr class="<%= shading %>">
+    <td><%= itemstatus %></td>
+    <td><!-- <%= Item::ITEM_STATUS.rassoc(item.status)[0] %> --> </td>
+    <td colspan="3"><b><%= item.style.name if not item.style.nil? %> <small>(<%= item.size %>)</small></b></td> 
+    <td colspan="2"><%= show_currency(item.list_price, false) %> - <%= show_currency(item.discount, false) %></td>    
+    <td><% if item.percent_off != 0  %><small>(<%= item.percent_off %>% off)</small><% end %></td>
+    <td><%= show_pair_status(item.pair.status) + "<small>" + link_to( "("+item.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => item.pair_id) + "</small>"  if item.pair %></td>
+  </tr>
+  <% end %>
 <% end %>
 </table>

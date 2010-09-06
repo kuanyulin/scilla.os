@@ -31,7 +31,7 @@ class PairsController < ApplicationController
       @stats['total'] = @pairs.size
       @stats['num_sold'] = 0
       @stats['count_size'] = Hash.new
-      @stats['count_platform'] = Hash.new
+#      @stats['count_platform'] = Hash.new
       @pairs.each do |p|
         if p.status == Pair::SOLD and not p.items.empty?
           @stats['num_sold'] += 1 
@@ -40,11 +40,11 @@ class PairsController < ApplicationController
           else
             @stats['count_size'][p.size] = 1
           end
-          if @stats['count_platform'].has_key?(p.items[0].order.order_from)
-            @stats['count_platform'][p.items[0].order.order_from] += 1
-          else
-            @stats['count_platform'][p.items[0].order.order_from] = 1
-          end
+#          if @stats['count_platform'].has_key?(p.items[0].order.order_from)
+#            @stats['count_platform'][p.items[0].order.order_from] += 1
+#          else
+#            @stats['count_platform'][p.items[0].order.order_from] = 1
+#          end
         end
       end      
       render :partial => 'inventory', :layout => false

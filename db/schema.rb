@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20100825223200) do
     t.decimal  "size",                       :precision => 3, :scale => 1
     t.integer  "list_price",    :limit => 7, :precision => 7, :scale => 0, :default => 0
     t.integer  "discount",      :limit => 7, :precision => 7, :scale => 0, :default => 0
-    t.integer  "paid_amount",   :limit => 7, :precision => 7, :scale => 0, :default => 0
+    t.integer  "subtotal",      :limit => 7, :precision => 7, :scale => 0, :default => 0
     t.integer  "percent_off",                                              :default => 0
     t.integer  "status"
     t.date     "purchase_date",                                                           :null => false

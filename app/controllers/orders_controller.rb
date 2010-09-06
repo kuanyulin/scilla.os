@@ -1,15 +1,17 @@
 class OrdersController < ApplicationController
-  # GET /orders
-  # GET /orders.xml
+
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
-    #@orders = Order.all(:order => 'order_date DESC')
+    
     if params[:incomplete] and params[:incomplete] == "true"
       @orders = Order.paginate :page => params[:page], 
-                               :order => "order_date DESC", 
+                               :order => "purchase_date DESC", 
                                :conditions => ["status <> ? and status <> ?", Order::ORDER_COMPLETE, Order::ORDER_CANCEL], 
                                :per_page => 50 
     else
-      @orders = Order.paginate :page => params[:page], :order => "order_date DESC", :per_page => 50      
+      @orders = Order.paginate :page => params[:page], :order => "purchase_date DESC", :per_page => 50      
     end
     @order_count = Order.count
     
@@ -19,8 +21,9 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /orders/1
-  # GET /orders/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @order = Order.find(params[:id])
 
@@ -30,69 +33,87 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /orders/new
-  # GET /orders/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
-    if params[:customer_id].blank?
-      flash[:notice] = '請從顧客資料頁新增訂單'
-      redirect_to :controller => 'customers'
-    else
-      @customer = Customer.find(params[:customer_id])
-      
-      @order = Order.new
-      @order.customer = @customer
-      @order.recipient = @customer.name
-      if @customer.mobile.blank?
-        @order.phone = @customer.phone
-      else
-        @order.phone = @customer.mobile
-      end
-      @order.shipping_address = @customer.address
-      
-      @styles = Style.find_all_for_selection
-      
-      respond_to do |format|
-        format.html # new.html.erb
-        format.xml  { render :xml => @order }
-      end
-    end    
+    
+    @order = Order.new
+    @order.purchase_date = Date.today
+    
+    @styles = Style.find_all_for_selection
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @order }
+    end
   end
 
+  #--------------------------------------------------
+  #  search_customer
+  #--------------------------------------------------
+  def search_customer
+    unless params[:search].blank?
+      if params[:search] == "all"
+        @customers = Customer.all(:order => 'membership')
+      else
+        @customers = Customer.find(:all, :conditions=> ["name like ?", "%" + params[:search] + "%"])      
+      end
+    else
+      @customers = Array.new # return an empty array
+    end
+    # logger.info("----- rendering partial size=" + @customers.size.to_s)
+    render :partial => 'search', :layout => false
+  end
+
+  #--------------------------------------------------
+  #  get_inventory
+  #--------------------------------------------------
   def get_inventory
     @pairs = Pair.find(:all, :conditions => { :style_id => params[:style_id] , :status => [Pair::BACK_ORDER, Pair::ON_SALE] }, :order => 'size')
     #logger.info("**************** FOUND " + @pairs.size.to_s + " pairs")
     render :partial => 'get_inventory', :layout => false
   end
  
-  
+  #--------------------------------------------------
+  #  get_sizes
+  #--------------------------------------------------
   def get_sizes
     unless params[:style_id].blank?
       @style = Style.find(params[:style_id])
       @temp_record = params[:temp_record]
-      @sizes = @style.sizes;
+      
+      @sizes = Array.new
+      
+      for pair in @style.pairs
+        @sizes[@sizes.length] = pair.size if not @sizes.include?(pair.size) and pair.status == Pair::ON_SALE
+      end
+      
       render :partial => 'get_sizes', :layout => false
     else
       render :nothing => true
     end
   end
   
-  
-  # GET /orders/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @order = Order.find(params[:id])
     @styles = Style.find_all_for_selection
   end
 
 
-  # POST /orders
-  # POST /orders.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @order = Order.new(remove_empty_item(params[:order]))
 
     respond_to do |format|
       if @order.save
         flash[:notice] = '訂單新增成功！'
-        format.html { redirect_to :controller => 'customers', :action => 'show', :id => @order.customer_id  }
+        format.html { redirect_to :controller => 'orders', :action => 'index' }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
         @styles = Style.find_all_for_selection
@@ -102,15 +123,16 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PUT /orders/1
-  # PUT /orders/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @order = Order.find(params[:id])
 
     respond_to do |format|
       if @order.update_attributes(remove_empty_item(params[:order]))
         flash[:notice] = '訂單更新成功！'
-        format.html { redirect_to :controller => 'customers', :action => 'show', :id => @order.customer_id }
+        format.html { redirect_to :controller => 'orders', :action => 'index' }
         format.xml  { head :ok }
       else
         @styles = Style.find_all_for_selection
@@ -120,14 +142,17 @@ class OrdersController < ApplicationController
     end
   end
   
+  #--------------------------------------------------
+  #  packing
+  #--------------------------------------------------
   def packing
     @order = Order.find(params[:id])
     @styles = Style.find_all_for_selection
   end
   
-
-  # DELETE /orders/1
-  # DELETE /orders/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
@@ -140,10 +165,23 @@ class OrdersController < ApplicationController
   
   private
   
+  #--------------------------------------------------
+  # remove_empty_item
+  #
+  # removes item that have not selected a style. Or when "updating" there's a weird NEW_RECORD.
+  #--------------------------------------------------  
   def remove_empty_item(params)
+#    logger.info("-------- BEGIN remove_empty_item");
     if params[:items_attributes]
-      params[:items_attributes].each_key { |key| params[:items_attributes].delete(key) if params[:items_attributes][key][:style_id] == "" }
+      params[:items_attributes].keys.each do |key|
+#        logger.info("----- key =  " + key)
+        if params[:items_attributes][key][:style_id] == "" or key == 'NEW_RECORD' then
+#          logger.info("----- removing key =  " + key)
+          params[:items_attributes].delete(key) 
+        end
+      end
     end
+#    logger.info("-------- END remove_empty_item");
     return params
   end
   

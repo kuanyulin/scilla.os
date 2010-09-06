@@ -1,30 +1,30 @@
 <div class="child">
-  <table cellspacing="0" cellpadding="0" class="entryTable" width="790">
+  <table cellspacing="0" cellpadding="0" class="entryTable" width="770">
     <tr>
-    	<td width="80"><%= f.hidden_field :_destroy, :class => 'delete' %><%= remove_child_link '刪除', f %></td>
-			<td width="40"><%= f.object.pair ? f.check_box(:cancelled) : "" %></td>  
+    	<td width="50"><%= f.hidden_field :_destroy, :class => 'delete' %><input id="order_items_attributes_NEW_RECORD__delete" name="order[items_attributes][NEW_RECORD][_delete]" type="hidden"><a href="#" onclick="remove_child2(this); return false;">刪除</a></td>
       <td width="70"><%= f.select :status, Item::ITEM_STATUS %></td>
 <% if f.object.style_id %>
       <td width="150"><%= f.select :style_id, @styles, {:disabled => 1..1000, :prompt => "鞋款"} -%></td>
-      <td width="40"><%= f.text_field :size, :size => 3, :readonly => true -%></td>
+      <td width="60"><%= f.text_field :size, :size => 3, :readonly => true, :class => "acctPriceRO" -%></td>
 <% else %>	
-      <td width="150"><%= f.select :style_id, @styles, :prompt => "鞋款" -%></td>
-      <td width="40"><%= f.select :size, [ ['尺寸', 0] ] %></td>
+      <td width="150"><%= f.select :style_id, @styles, :prompt => "鞋款", :onchange => "sum();" -%></td>
+      <td width="60"><%= f.select :size, [ ['尺寸', 0] ] %></td>
 <% end %>
-      <td width="65"><%= f.text_field :price, :size => 5, :class => 'acctPrice' %></td>
-      <td width="85"> -<%= f.text_field :discount, :size => 4, :class => 'acctPrice' %></td>
-			
+      <td width="50"><%= f.text_field :percent_off, :size => 4, :class => "acctPrice", :onchange => "changeDisc(this); return false;" %></td>
+      <td width="70"><%= f.text_field :list_price, :size => 5, :class => 'acctPriceRO', :readonly => true  %></td>
+      <td width="70"> - <%= f.text_field :discount, :size => 4, :class => 'acctPriceRO', :readonly => true %></td>
+			<td width="80"><%= f.text_field :subtotal, :size => 5, :class => "acctPriceRO", :readonly => true %></td>
 <% if f.object.style_id %>
-      <td width="180"><%= f.object.pair ? f.object.shipped_date : "" %></td>
-<td width="100"><%= f.object.pair ? link_to( "("+f.object.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => f.object.pair_id) + show_pair_status(f.object.pair.status) : 
-                                          '未出貨' %></td>
+      <td width="120"><%= f.object.pair ? f.object.purchase_date : "" %></td>
+<td width="50"><%= f.object.pair ? link_to( "("+f.object.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => f.object.pair_id) + show_pair_status(f.object.pair.status) : 
+                                          "" %></td>
 <% else %>
-      <td width="180"> </td><td width="100"> </td>		
+      <td width="120"><%= f.text_field :purchase_date , :size => 8, :readonly => true, :class => "acctPriceRO" %></td><td width="50"> </td>		
 <% end %>
     </tr>
 		<tr>
 			<td colspan="2"> </td>
-		  <td colspan="6" valign="top" align="right">備註：<%= f.text_area :note, :cols => 40, :rows => 4 %></td> 
+		  <td colspan="6" valign="top" align="right">備註：<%= f.text_area :note, :cols => 40, :rows => 1 %></td> 
     </tr>
   </table> 
 <% if !f.object.style_id %>
@@ -34,4 +34,7 @@
                   :with => "'style_id=' + value + '&temp_record=NEW_RECORD'" -%>
 		<div id="test_NEW_RECORD_js"></div>
 <% end %>
+<script type="text/javascript">
+document.getElementById('order_items_attributes_NEW_RECORD_purchase_date').value = document.getElementById('order_purchase_date').value;
+</script>
 </div>
