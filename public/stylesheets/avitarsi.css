@@ -163,10 +163,17 @@ table.showDetail th {
   background-color:#E0F8F8;
   color:#333;
 }
+input[type=text] {
+	background-color:#FFFFDD;
+}
 input.acctPrice {
 	text-align:right;
 }
-
+input.acctPriceRO {
+  text-align:right;
+	background-color:#FFFFFF;
+	border-style:solid;
+}
 td.subtotal {
 	border-top: 1px #333 solid;
 	font-weight:bold;
