@@ -19,7 +19,7 @@ class Pair < ActiveRecord::Base
   PAIR_STATUS = [
     # display       value in DB, 0 is the default
     [ "訂製中",      BACK_ORDER ],
-    [ "退回中",      IN_TRANSIT ],
+    [ "退回",      IN_TRANSIT ],
     [ "訂製中（售）", BACK_ORDER_SOLD ],
     [ "發售中",      ON_SALE ],
     [ "已售出",      SOLD ],

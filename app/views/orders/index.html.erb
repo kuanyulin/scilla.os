@@ -45,13 +45,14 @@
       end
   %>
   <tr class="<%= shading %>">
-    <td><%= itemstatus %></td>
-    <td><!-- <%= Item::ITEM_STATUS.rassoc(item.status)[0] %> --> </td>
+    <td><!-- <%= itemstatus %> --></td>
+    <td><small><%= Item::ITEM_STATUS.rassoc(item.status)[0] if not item.status == Item::ITEM_SOLD %></small></td>
     <td colspan="3"><b><%= item.style.name if not item.style.nil? %> <small>(<%= item.size %>)</small></b></td> 
     <td colspan="2"><%= show_currency(item.list_price, false) %> - <%= show_currency(item.discount, false) %></td>    
     <td><% if item.percent_off != 0  %><small>(<%= item.percent_off %>% off)</small><% end %></td>
-		<td><%= show_pair_status(item.pair.status) + "<small>" + link_to( "("+item.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => item.pair_id) + "</small>"  if item.pair %></td>
-  </tr>
+		<td><%= item.pair ? show_pair_status(item.pair.status) + "<small>" + link_to( "("+item.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => item.pair_id) + "</small>" : 
+                        "<span class='red'>" + link_to('出貨', edit_item_path(item.id)) + "</span>" %></td>
+	</tr>
   <% end %>
 <% end %>
 

@@ -86,7 +86,8 @@ class OrdersController < ApplicationController
       @sizes = Array.new
       
       for pair in @style.pairs
-        @sizes[@sizes.length] = pair.size if not @sizes.include?(pair.size) and pair.status == Pair::ON_SALE
+        #@sizes[@sizes.length] = pair.size if not @sizes.include?(pair.size) and pair.status == Pair::ON_SALE
+        @sizes[@sizes.length] = pair.size if pair.status == Pair::ON_SALE
       end
       
       render :partial => 'get_sizes', :layout => false
@@ -112,7 +113,16 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        flash[:notice] = '訂單新增成功！'
+        
+        @order.items.each do |item|
+          pair = Pair.find(:first, :conditions => ['style_id = ? and size = ? and status = ?', item.style_id, item.size, Pair::ON_SALE] )
+          pair.status = Pair::SOLD
+          item.pair_id = pair.id
+          pair.save
+          item.save
+        end
+        
+        flash[:notice] = '出售紀錄新增成功！'
         format.html { redirect_to :controller => 'orders', :action => 'index' }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
@@ -131,7 +141,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.update_attributes(remove_empty_item(params[:order]))
-        flash[:notice] = '訂單更新成功！'
+        flash[:notice] = '出售紀錄更新成功！'
         format.html { redirect_to :controller => 'orders', :action => 'index' }
         format.xml  { head :ok }
       else

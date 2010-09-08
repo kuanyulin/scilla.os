@@ -1,10 +1,9 @@
+require 'chronic'
+
 class Order < ActiveRecord::Base
-  
-  # we can create purchse without customer now.
-  #validates_presence_of   :customer_id
     
   belongs_to :customer
-  
+  validate :test_purchase_date
   validates_numericality_of :total_list_price, :total_discount, :extra_discount, :total_paid
  
   has_many :items
@@ -43,6 +42,21 @@ class Order < ActiveRecord::Base
     [ "退貨退款",  ORDER_RETURN ],
     [ "其他",      ORDER_OTHER ]
   ]
-  
-  
+
+#  def before_save
+#    logger.info("-------------------- Order.before_save " + self.purchase_date_before_type_cast)
+#    self.purchase_date = Chronic.parse(self.purchase_date_before_type_cast) if attribute_present?("purchase_date")
+#    logger.info("-------------------- Order.before_save ==> purchase_date = " + self.purchase_date.to_s) if self.purchase_date    
+#  end
+    
+#  def purcahse_date=(val)
+#    val = Chronic.parse(val) if val.is_a?(String)
+#    write_attribute(:purcahse_date, val)
+#  end
+
+protected
+
+  def test_purchase_date
+    errors.add :purchase_date, '日期格式錯誤' if Chronic.parse(purchase_date).nil?
+  end
 end

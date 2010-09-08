@@ -76,7 +76,7 @@ function changeDisc(element) {
 			<div id="customer_search"></div></td>
 	</tr>
   <tr>
-    <th width="100"><%= f.label '購買日期' %></th><td width="300"><%= f.text_field :purchase_date, :size => 10, :onchange => "sync_date();" %></td>
+    <th width="100"><%= f.label '購買日期' %></th><td width="300"><%= f.text_field :purchase_date, :size => 11, :onchange => "sync_date();" %></td>
     <th width="100"><%= f.label '訂單狀態' %></th><td width="280"><%= f.select :status, Order::ORDER_STATUS %></td>
   </tr>
   <tr>

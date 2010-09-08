@@ -172,7 +172,6 @@ input.acctPrice {
 input.acctPriceRO {
   text-align:right;
 	background-color:#FFFFFF;
-	border-style:solid;
 }
 td.subtotal {
 	border-top: 1px #333 solid;

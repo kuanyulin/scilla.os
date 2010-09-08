@@ -122,7 +122,7 @@ class CustomersController < ApplicationController
       
       if customer.orders
         customer.orders.each do |order|
-          customer.total_purchase += order.total_amount          
+          customer.total_purchase += order.total_paid          
         end
       else
         @idle_customers << customer

@@ -34,19 +34,15 @@
 		<th width="80">item.id</th>
     <th width="60">狀態</th>
     <th width="60">購買人</th>
-    <th width="100">出貨日期</th>
-    <th width="80">配送方式</th>
-    <th width="100">購買地點</th>
+    <th width="100">日期</th>
 		<th> </th>
   </tr>
 <% @pair.items.each do |item| %>
   <tr>
   	<td><%= item.id %></td>
   	<td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
-    <td><%= item.order.customer.name %></td>
+    <td><%= item.order.customer.name if item.order.customer %></td>
 		<td><%= item.purchase_date %></td>
-		<td><%= Order::SHIPPING_METHOD.rassoc(item.order.shipping_method)[0] if item.order.shipping_method %></td>
-		<td><%= Order::ORDER_LOCATION.rassoc(item.order.order_from)[0] %></td>
 		<td><%= link_to edit_image, :controller => 'items', :action => 'edit', :id => item.id %></td>
   </tr>
 <% end %>

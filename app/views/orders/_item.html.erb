@@ -19,7 +19,7 @@
 <td width="50"><%= f.object.pair ? link_to( "("+f.object.pair_id.to_s+")", :controller => 'pairs', :action => 'show', :id => f.object.pair_id) + show_pair_status(f.object.pair.status) : 
                                           "" %></td>
 <% else %>
-      <td width="120"><%= f.text_field :purchase_date , :size => 8, :readonly => true, :class => "acctPriceRO" %></td><td width="50"> </td>		
+      <td width="120"><%= f.text_field :purchase_date , :size => 11, :readonly => true, :class => "acctPriceRO" %></td><td width="50"> </td>		
 <% end %>
     </tr>
 		<tr>
