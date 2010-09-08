@@ -29,36 +29,36 @@ function totalCash() {
   <tr valign="top">
     <td width="350px" valign="top">
   <div>
-    <%= f.label '信用卡' %> &nbsp; $ <%= f.text_field :credit_card, :size => 8, :onchange => 'totalRevenue()'  %>
+    <%= f.label '信用卡' %> &nbsp; $ <%= f.text_field :credit_card, :size => 8, :onchange => 'totalRevenue()', :class => 'acctPrice'  %>
   </div>
   <div>
-    <%= f.label '＋ 現金' %> &nbsp; $ <%= f.text_field :cash, :size => 8, :onchange => 'totalRevenue();totalCash()'  %>
+    <%= f.label '＋ 現金' %> &nbsp; $ <%= f.text_field :cash, :size => 8, :onchange => 'totalRevenue();totalCash()', :class => 'acctPrice'  %>
   </div>
   <div style="border-top:solid 1px black; width:250px">
-    <%= f.label '＝ 當日營業額' %> &nbsp; $ <%= f.text_field :revenue, :readonly => true, :size => 8 %>
+    <%= f.label '＝ 當日營業額' %> &nbsp; $ <%= f.text_field :revenue, :readonly => true, :size => 8, :class => 'acctPriceRO'  %>
   </div>    	
     </td>
 		<td width="350px" valign="top">
   <div>
-    <%= f.label '前日餘額' %> &nbsp; $ <input id="last_reserve" readonly="readonly" size="8" type="text" value="<%= @last_entry_reserve %>">
+    <%= f.label '前日餘額' %> &nbsp; $ <input id="last_reserve" readonly="readonly" size="8" type="text" value="<%= @last_entry_reserve %>" class="acctPriceRO">
   </div>
   <div>
-    <%= f.label '累積現金' %> &nbsp; $ <input id="accum_cash" readonly="readonly" size="8" type="text" value="<%= @accum_cash%>">
+    <%= f.label '累積現金' %> &nbsp; $ <input id="accum_cash" readonly="readonly" size="8" type="text" value="<%= @accum_cash%>" class="acctPriceRO">
 	</div>
   <div>
-    <%= f.label '- 現金存入' %> &nbsp; $ <%= f.text_field :cash_deposit, :size => 8, :onchange => 'totalCash()'  %>
+    <%= f.label '- 現金存入' %> &nbsp; $ <%= f.text_field :cash_deposit, :size => 8, :onchange => 'totalCash()', :class => 'acctPrice'  %>
   </div>
   <div style="border-top:solid 1px black; width:250px">
-    <%= f.label '= 現金餘額' %> &nbsp; $ <%= f.text_field :reserve_cash,  :size => 8  %>
+    <%= f.label '= 現金餘額' %> &nbsp; $ <%= f.text_field :reserve_cash,  :size => 8, :readonly => true, :class => 'acctPriceRO'  %>
   </div>
     </td>
 	</tr>
 </table>
   <div>
-    <%= f.label '折扣' %> &nbsp; $ <%= f.text_field :total_discount, :size => 8  %>
+    <%= f.label '折扣' %> &nbsp; $ <%= f.text_field :total_discount, :size => 8, :class => 'acctPrice'  %>
   </div>
   <div>
-    <%= f.label '折讓' %> &nbsp; $ <%= f.text_field :total_extra, :size => 8  %>
+    <%= f.label '折讓' %> &nbsp; $ <%= f.text_field :total_extra, :size => 8, :class => 'acctPrice'  %>
   </div>
 <div id="last_cash_reserve"></div>
 

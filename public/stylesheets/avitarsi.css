@@ -48,12 +48,15 @@ ul {padding-left:20px;}
   padding-left: 1em; 
   padding-bottom: 1em; 
   width: 14em; 
-  background: #333;
-  color: #aaa;
+  background: #806D7E;
+  color: #eee;
 }
 #side a { 
-  color: #aaa; 
+  color: #E3E4FA; 
   font-size: small;
+}
+#side a:hover {
+	color:#E8A317;
 }
 h1 { 
   font: 150% sans-serif; 
@@ -69,7 +72,7 @@ table.tableList {
 	border-right: 1px dotted #333;
 }
 table.tableList th {
-	background-color:#555;
+	background-color:#806D7E;
 	color:#fff;
 	border-left: 1px dotted #ccc;
 }
@@ -136,7 +139,7 @@ table.showDetail th {
 	padding-right: 0.5em;
 	margin-right: 0.2em; 
 	display: block;
-	background-color:#ccc;
+	background-color:#EBDDE2;
 	color:#333;
 }
 .at-form .submit { 

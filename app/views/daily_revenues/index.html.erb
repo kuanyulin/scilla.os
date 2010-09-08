@@ -18,7 +18,8 @@
   </tr>
 
 <% @daily_revenues.each do |daily_revenue| %>
-  <tr>
+<%   shading = cycle('even', 'odd') %>
+  <tr class="<%= shading %>">
     <td align="center"><%= link_to daily_revenue.sale_date, edit_daily_revenue_path(daily_revenue) %></td>
     <td align="right"><%=h show_currency( daily_revenue.revenue, false ) %></td>
     <td align="right"><%=h show_currency( daily_revenue.credit_card, false ) %></td>

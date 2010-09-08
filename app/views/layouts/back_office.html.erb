@@ -28,9 +28,9 @@
         <% end %>
 
         <% if session[:user] %>
-            <p>hi <%= session[:user].name %> 歡迎光臨</p>
+            <p>hi <%= session[:user].name %>, play hard!</p>
 			
-			<p>Your rank: <%= User::PRIVILEGE_TYPES.rassoc(session[:user].privilege)[0] %></p>
+			<p>Rank: <%= User::PRIVILEGE_TYPES.rassoc(session[:user].privilege)[0] %></p>
             
 			<% if session[:user].is_employee %>
 
