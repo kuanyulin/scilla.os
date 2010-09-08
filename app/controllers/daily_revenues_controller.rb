@@ -1,6 +1,7 @@
 class DailyRevenuesController < ApplicationController
-  # GET /daily_revenues
-  # GET /daily_revenues.xml
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
     @daily_revenues = DailyRevenue.all :order => 'sale_date'
 
@@ -10,8 +11,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
 
-  # GET /daily_revenues/1
-  # GET /daily_revenues/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @daily_revenue = DailyRevenue.find(params[:id])
 
@@ -21,8 +23,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
 
-  # GET /daily_revenues/new
-  # GET /daily_revenues/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @daily_revenue = DailyRevenue.new
     @daily_revenue.sale_date = Date.today
@@ -37,6 +40,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
 
+  #--------------------------------------------------
+  #  get_last_reserve
+  #--------------------------------------------------
   def get_last_reserve
     unless params[:sale_date].blank? 
       @target_date = Chronic::parse(params[:sale_date])
@@ -48,7 +54,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
   
-  # GET /daily_revenues/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @daily_revenue = DailyRevenue.find(params[:id])
     @last_entry = DailyRevenue.find(:first, :conditions => ["sale_date < ?", @daily_revenue.sale_date], :order => 'sale_date DESC' )
@@ -56,11 +64,63 @@ class DailyRevenuesController < ApplicationController
     @accum_cash = @daily_revenue.cash + @last_entry_reserve
   end
 
-  # POST /daily_revenues
-  # POST /daily_revenues.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
+    logger.info("**************** daily_revenues_controller.create")
     @daily_revenue = DailyRevenue.new(params[:daily_revenue])
-
+    
+    if @daily_revenue.credit_card > 0 then
+      description = @daily_revenue.sale_date.to_s + " 信用卡營業額"
+      amount = (@daily_revenue.credit_card * 0.98).round
+      entry_date = @daily_revenue.sale_date + 1
+      journal = Journal.new(:title => description,
+                            :edited_by => session[:user] ? session[:user].id : 1,
+                            :entry_date => entry_date,
+                            :total_credit => amount, 
+                            :total_debit => amount)
+      journal.entries = Array.new
+      # 富邦銀行 id = 2
+      journal.entries[0] = Entry.new(:entry_date => entry_date,
+                                     :account_id => 2,
+                                     :description => description,
+                                     :debit => amount,
+                                     :credit => 0)
+      # 營業收入 id = 17
+      journal.entries[1] = Entry.new(:entry_date => entry_date,
+                                     :account_id => 17,
+                                     :description => description,
+                                     :debit => 0,
+                                     :credit => amount)                        
+      journal.save
+    end
+    
+    if @daily_revenue.cash_deposit > 0 then
+      description = @daily_revenue.sale_date.to_s + " 收入現金存入"
+      amount = @daily_revenue.cash_deposit
+      entry_date = @daily_revenue.sale_date
+      journal = Journal.new(:title => description,
+                            :edited_by => session[:user] ? session[:user].id : 1,
+                            :entry_date => entry_date,
+                            :total_credit => amount, 
+                            :total_debit => amount)
+      journal.entries = Array.new
+      # 聯邦銀行 id = 3
+      journal.entries[0] = Entry.new(:entry_date => entry_date,
+                                     :account_id => 3,
+                                     :description => description,
+                                     :debit => amount,
+                                     :credit => 0)
+      # 營業收入 id = 17
+      journal.entries[1] = Entry.new(:entry_date => entry_date,
+                                     :account_id => 17,
+                                     :description => description,
+                                     :debit => 0,
+                                     :credit => amount)                        
+      journal.save
+    end
+    
     respond_to do |format|
       if @daily_revenue.save
         flash[:notice] = '日營業額新增成功'
@@ -73,8 +133,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
 
-  # PUT /daily_revenues/1
-  # PUT /daily_revenues/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @daily_revenue = DailyRevenue.find(params[:id])
 
@@ -90,8 +151,9 @@ class DailyRevenuesController < ApplicationController
     end
   end
 
-  # DELETE /daily_revenues/1
-  # DELETE /daily_revenues/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @daily_revenue = DailyRevenue.find(params[:id])
     @daily_revenue.destroy
