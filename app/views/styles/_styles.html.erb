@@ -3,7 +3,6 @@
     <th width="60">廠商</th>
     <th width="100">型號</th>
     <th width="100">款式</th>
-    <th width="100">Avi Tarsi型號</th>
     <th width="80">售價</th>
     <th> </th>
 		<% if session[:user].is_manager %>
@@ -17,14 +16,13 @@
     <td><%=h vendors.assoc(style.vendor_id)[1] %></td>
     <td><%=h style.vendor_model %></td>
     <td><%= link_to style.name, style %></td>
-    <td><%=h style.at_model %></td>
     <td><%=h show_currency(style.price_of_today) %></td>
     <td><img src='<%=h style.thumbnail %>' border="0" width="128px"></td>
-    <% if session[:user].is_manager %>
+  <% if session[:user].is_manager %>
 		<td><%=h show_currency(style.cost) if style.cost %></td>
     <td><%= link_to '修改', edit_style_path(style) %> <br/> 
     <%= link_to '刪除', style, :confirm => '確定刪除商品？', :method => :delete %></td>
-		<% end %>
+	<% end %>
   </tr>
 <% end %>
 </table>
