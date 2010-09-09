@@ -3,7 +3,9 @@ class DailyRevenuesController < ApplicationController
   #  index
   #--------------------------------------------------
   def index
-    @daily_revenues = DailyRevenue.all :order => 'sale_date'
+    @daily_revenues = session[:user].is_manager ? 
+      DailyRevenue.all(:order => 'sale_date') : 
+      DailyRevenue.find(:all, :conditions => ["sale_date < ? and sale_date > ?", Date.today, Date.today - 7], :order => 'sale_date')
 
     respond_to do |format|
       format.html # index.html.erb
