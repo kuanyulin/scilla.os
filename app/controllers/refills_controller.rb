@@ -1,6 +1,7 @@
 class RefillsController < ApplicationController
-  # GET /refills
-  # GET /refills.xml
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
     @refills = Refill.all(:order => 'order_date DESC')
 
@@ -10,8 +11,9 @@ class RefillsController < ApplicationController
     end
   end
 
-  # GET /refills/1
-  # GET /refills/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @refill = Refill.find(params[:id])
     @styles = Style.find_all
@@ -22,8 +24,9 @@ class RefillsController < ApplicationController
     end
   end
 
-  # GET /refills/new
-  # GET /refills/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @refill = Refill.new
     @styles = Style.find_all
@@ -34,6 +37,9 @@ class RefillsController < ApplicationController
     end
   end
 
+  #--------------------------------------------------
+  #  get_sizes
+  #--------------------------------------------------
   def get_sizes
     unless params[:style_id].blank?
       @style = Style.find(params[:style_id])
@@ -44,18 +50,20 @@ class RefillsController < ApplicationController
     end
   end
   
-  
-  # GET /refills/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @refill = Refill.find(params[:id])
     @styles = Style.find_all
   end
 
-  # POST /refills
-  # POST /refills.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @refill = Refill.new(params[:refill])
-    @refill.pairs = create_refill_pairs(params[:style_size])
+    @refill.pairs = create_refill_pairs(params[:style_size], @refill.arrived)
 
     respond_to do |format|
       if @refill.save
@@ -70,8 +78,9 @@ class RefillsController < ApplicationController
     end
   end
 
-  # PUT /refills/1
-  # PUT /refills/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @refill = Refill.find(params[:id])
     old_status = @refill.arrived
@@ -92,6 +101,9 @@ class RefillsController < ApplicationController
     end
   end
 
+  #--------------------------------------------------
+  #  print_fax
+  #--------------------------------------------------
   def print_fax
     @refill = Refill.find(params[:id])
     @styles = Hash.new
@@ -104,9 +116,9 @@ class RefillsController < ApplicationController
     render :layout => false
   end
   
-  
-  # DELETE /refills/1
-  # DELETE /refills/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @refill = Refill.find(params[:id])
     @refill.destroy
@@ -120,7 +132,10 @@ class RefillsController < ApplicationController
   
   private
   
-  def create_refill_pairs(params)
+  #--------------------------------------------------
+  #  create_refill_pairs
+  #--------------------------------------------------
+  def create_refill_pairs(params, arrived)
     pairs = Array.new
  
 #    pairs[0] = Pair.new (:style_id => 4, :size => 35.0, :status => 0, :note => "")
@@ -129,7 +144,7 @@ class RefillsController < ApplicationController
         unless quantity.blank? 
           Integer(quantity).times { |i| pairs << Pair.new(:style_id => Integer(style),
                                                           :size => size.to_f, 
-                                                          :status => 0, 
+                                                          :status => arrived ? Pair::ON_SALE : Pair::BACK_ORDER, 
                                                           :note => "") }
         end
       end
@@ -137,7 +152,10 @@ class RefillsController < ApplicationController
     
     return pairs
   end
-  
+
+  #--------------------------------------------------
+  #  update_pair_status
+  #--------------------------------------------------
   def update_pair_status(pairs, arrived)
 #    logger.info("***** updating pairs from refill ....")
 #    new_status = arrived ? Pair::ON_SALE : Pair::BACK_ORDER
