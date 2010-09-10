@@ -1,8 +1,9 @@
 class StylesController < ApplicationController
-  # GET /styles
-  # GET /styles.xml
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
-    @styles = Style.all(:order => 'vendor_id')
+    @styles = Style.all(:order => 'vendor_id, name')
     @vendors = Vendor.all.map {|v| [v.id, v.name] }
     
     respond_to do |format|
@@ -11,8 +12,9 @@ class StylesController < ApplicationController
     end
   end
 
-  # GET /styles/1
-  # GET /styles/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @style = Style.find(params[:id])
 
@@ -22,8 +24,9 @@ class StylesController < ApplicationController
     end
   end
 
-  # GET /styles/new
-  # GET /styles/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @style = Style.new
     @vendors = Vendor.all 
@@ -36,7 +39,9 @@ class StylesController < ApplicationController
     end
   end
 
-  # GET /styles/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @style = Style.find(params[:id])
     @vendors = Vendor.all 
@@ -44,8 +49,9 @@ class StylesController < ApplicationController
     @sizes = Size.all
   end
 
-  # POST /styles
-  # POST /styles.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @style = Style.new(params[:style])
 
@@ -64,8 +70,9 @@ class StylesController < ApplicationController
     end
   end
 
-  # PUT /styles/1
-  # PUT /styles/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @style = Style.find(params[:id])
 
@@ -84,8 +91,9 @@ class StylesController < ApplicationController
     end
   end
 
-  # DELETE /styles/1
-  # DELETE /styles/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @style = Style.find(params[:id])
     @style.destroy
