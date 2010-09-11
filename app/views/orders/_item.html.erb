@@ -11,7 +11,7 @@
       <td width="60"><%= f.select :size, [ ['尺寸', 0] ] %></td>
 <% end %>
       <td width="50"><%= f.text_field :percent_off, :size => 4, :class => "acctPrice", :onchange => "changeDisc(this); return false;" %></td>
-      <td width="70"><%= f.text_field :list_price, :size => 5, :class => 'acctPriceRO', :readonly => true  %></td>
+      <td width="70"><% if session[:user].is_manager %><%= f.text_field :list_price, :size => 5, :class => 'acctPrice', :onchange => "changeListPrice(this);" %><% else %><%= f.text_field :list_price, :size => 5, :class => 'acctPriceRO', :readonly => true  %><% end %></td>
       <td width="70"> - <%= f.text_field :discount, :size => 4, :class => 'acctPriceRO', :readonly => true %></td>
 			<td width="80"><%= f.text_field :subtotal, :size => 5, :class => "acctPriceRO", :readonly => true %></td>
 <% if f.object.style_id %>
