@@ -6,27 +6,30 @@
     <th>Pair</th>
     <th>Style</th>
     <th>Size</th>
-    <th>Price</th>
+    <th>List Price</th>
     <th>Discount</th>
+		<th>% off</th>
+		<th>Subtotal</th>
     <th>Status</th>
     <th>Note</th>
     <th>Cancelled</th>
+		<th> </th>
   </tr>
 
 <% @items.each do |item| %>
   <tr>
-    <td><%=h item.order_id %></td>
+    <td><%= link_to item.order_id, item %></td>
     <td><%=h item.pair_id %></td>
     <td><%=h item.style_id %></td>
     <td><%=h item.size %></td>
-    <td><%=h item.price %></td>
+    <td><%=h item.list_price %></td>
     <td><%=h item.discount %></td>
+    <td><%=h item.percent_off %></td>		
+    <td><%=h item.subtotal %></td> 
     <td><%=h item.status %></td>
     <td><%=h item.note %></td>
     <td><%=h item.cancelled %></td>
-    <td><%= link_to 'Show', item %></td>
-    <td><%= link_to 'Edit', edit_item_path(item) %></td>
-    <td><%= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
