@@ -1,0 +1,29 @@
+<h1>通聯紀錄</h1>
+<%= link_to '新增紀錄', new_contact_path %>
+<br/>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th>狀態</th>
+    <th>日期</th>
+    <th>顧客</th>
+    <th>方式</th>
+    <th>內容</th>
+    <th>聯絡人</th>
+		<th> </th>
+  </tr>
+
+<% @contacts.each do |contact| %>
+<%   shading = cycle('even', 'odd') %>
+  <tr class="<%= shading %>">
+    <td><%=h Contact::CONTACT_STATUS.rassoc(contact.status)[0] %></td>
+    <td><%= link_to contact.contact_date, edit_contact_path(contact) %></td>
+		<td><%=h contact.customer.name %></td>
+    <td><%=h Contact::CONTACT_METHODS.rassoc(contact.method)[0] %></td>
+    <td><%=h contact.content %></td>
+    <td><%=h contact.contacted_by.name %></td>
+    <td><%= link_to '刪除', contact, :confirm => '確定刪除紀錄?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= link_to '新增紀錄', new_contact_path %>

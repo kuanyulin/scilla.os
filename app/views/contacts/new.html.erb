@@ -1,0 +1,12 @@
+ <div class='at-form'>
+
+<% form_for(@contact) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit '新增' %>
+  </p>
+
+<% end %>
+</div>
+
+<%= link_to 'Back', :controller => 'customers', :action => 'show', :id => @contact.customer.id %>

@@ -3,6 +3,8 @@ class Customer < ActiveRecord::Base
   validates_presence_of   :name
   
   has_many :orders, :order => "purchase_date DESC"
+
+  has_many :contacts, :order => "contact_date"
   
   #validates_format_of :email,
   #                    :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,

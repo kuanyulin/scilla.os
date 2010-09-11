@@ -1,0 +1,34 @@
+<%= f.error_messages %>
+
+<fieldset>
+  <legend>新增使用者</legend>
+<%= f.hidden_field :customer_id, :value => @contact.customer.id %>
+<table cellspacing=1 cellpadding=1 border=0 width="600">
+<tr>
+	<th width="100"><%= f.label '顧客'%></th>
+	<td colspan="3"><input id="customer_name" value="<%= @contact.customer.name %>" readonly></td>
+</tr>	
+<tr>
+	<th width="100"><%= f.label '日期'%></th>
+	<td width="200"><%= f.text_field :contact_date, :size => 11 %></td>
+	<th width="100"><%= f.label '狀態' %></th>
+	<td width="200">OK<%= radio_button("contact","status", Contact::OK, :checked => true) %>
+    需再連絡<%= radio_button("contact","status", Contact::NEED_FOLLOWUP) %> </td>
+</tr>
+<tr>
+	<th width="100" valign="top"><%= f.label '連絡方式' %></th>
+	<td width="200" colspan="3">電話 <%= radio_button("contact","method", Contact::PHONE, :checked => true) %> <%= @contact.customer.phone %><br/> 
+    簡訊 <%= radio_button("contact","method", Contact::SMS) %> <%= @contact.customer.mobile %><br/>
+    email <%= radio_button("contact","method", Contact::EMAIL) %> <%= @contact.customer.email %></td>
+</tr>
+<tr>
+  <th><%= f.label '聯絡人' %></th>
+	<td colspan="3"><%= f.select :contacted_by, @users, :prompt => "聯絡人" %></td>
+</tr>
+<tr>
+  <th valign="top"><%= f.label '內容' %></th> 
+	<td colspan="3"><%= f.text_area :content %></td>
+</tr>
+</table>
+
+</fieldset>

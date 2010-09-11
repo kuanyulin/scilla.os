@@ -27,14 +27,35 @@
 
 <table cellspacing=0 cellpadding=0 width="450">
   <tr>
+  	<td><%= link_to '＋新增通聯紀錄', :controller => 'contacts', :action => 'new', :customer_id => @customer.id %></td>
 		<td width="200" align="center"><%= link_to '修改顧客資料', edit_customer_path(@customer) %></td>
-    <td width="150" align="center"><%= link_to '{顧客總覽}', customers_path %></td>
-    <td width="150" align="right"><%= link_to '{訂單總覽}', orders_path %></td>
   </tr>	
 </table>
 <br/>
-<h1>購買紀錄</h1>
-
+<h3>通聯紀錄</h3>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="60">狀態</th>
+    <th width="100">日期</th>
+    <th width="70">方式</th>
+    <th width="450">內容</th>
+    <th width="80">聯絡人</th>
+    <th width="40"> </th>
+  </tr>
+<% @customer.contacts.each do |contact| %>
+<%   shading = cycle('even', 'odd') %>
+  <tr class="<%= shading %>">
+    <td><%=h Contact::CONTACT_STATUS.rassoc(contact.status)[0] %></td>
+    <td><%= link_to contact.contact_date, edit_contact_path(contact) %></td>
+    <td><%=h Contact::CONTACT_METHODS.rassoc(contact.method)[0] %></td>
+    <td><%=h truncate(contact.content, 30, "....") %></td>
+    <td><%=h contact.user.name %></td>
+    <td><%= link_to '刪除', contact, :confirm => '確定刪除紀錄?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<h3>購買紀錄</h3>
 <table class="tableList" cellspacing="0" cellpadding="0" border="0" width="770">
   <tr>
     <th width="50">狀態</th>

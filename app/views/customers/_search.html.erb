@@ -20,13 +20,13 @@
 
 <% @customers.each do |customer| %>
   <tr>
-  	<td><%= link_to '＋', :controller => 'orders', :action => 'new', :customer_id => customer %></td>
+  	<td><%= link_to '＋', :controller => 'contacts', :action => 'new', :customer_id => customer %></td>
     <td><%= show_member_icon(customer.membership) %> <%= link_to customer.name, :action => 'show', :id => customer %></td>
     <td><%=h customer.birthdate %></td>
     <td><%=h customer.mobile %></td>
     <td><%=h customer.phone %></td>
     <td><%=h customer.address %></td>
-    <td><%= link_to '更新', edit_customer_path(customer) %><br/><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
