@@ -80,7 +80,7 @@ function changeDisc(element) {
     <th width="100"><%= f.label '訂單狀態' %></th><td width="280"><%= f.select :status, Order::ORDER_STATUS %></td>
   </tr>
   <tr>
-    <th><%= f.label '定價' %></th><td><%= f.text_field :total_list_price, :size => 10, :readonly => true, :class => 'acctPriceRO' %></td>
+    <th><%= f.label '定價' %></th><td><% if session[:user].is_manager %><%= f.text_field :total_list_price, :size => 10, :onchange => "sum();", :class => 'acctPriceRO' %><% else %><%= f.text_field :total_list_price, :size => 10, :readonly => true, :class => 'acctPriceRO' %><% end %></td>
 		<th><%= f.label '付款方式' %></th><td>信用卡<%= radio_button("order","payment_type",Order::PAY_CREDIT_CARD, :checked => true) %>
 		現金<%= radio_button("order","payment_type", Order::PAY_CASH) %> 
 		積點<%= radio_button("order","payment_type", Order::PAY_CREDIT) %></td>
