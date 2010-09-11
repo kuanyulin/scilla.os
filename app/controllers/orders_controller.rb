@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     
     if params[:incomplete] and params[:incomplete] == "true"
       @orders = Order.paginate :page => params[:page], 
-                               :order => "purchase_date DESC, id DESC", 
+                               :order => "purchase_date DESC, id", 
                                :conditions => ["status <> ? and status <> ?", Order::ORDER_COMPLETE, Order::ORDER_CANCEL], 
                                :per_page => 50 
     else
