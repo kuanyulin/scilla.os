@@ -89,9 +89,9 @@ function changeListPrice(element) {
   </tr>
   <tr>
     <th><%= f.label '定價' %></th><td><%= f.text_field :total_list_price, :size => 10, :readonly => true, :class => 'acctPriceRO' %></td>
-		<th><%= f.label '付款方式' %></th><td>信用卡<%= radio_button("order","payment_type",Order::PAY_CREDIT_CARD, :checked => true) %>
-		現金<%= radio_button("order","payment_type", Order::PAY_CASH) %> 
-		積點<%= radio_button("order","payment_type", Order::PAY_CREDIT) %></td>
+		<th><%= f.label '付款方式' %></th><td><%= radio_button("order","payment_type",Order::PAY_CREDIT_CARD, :checked => true) %>信用卡 &nbsp; &nbsp;
+		<%= radio_button("order","payment_type", Order::PAY_CASH) %>現金 &nbsp; &nbsp;  
+		<%= radio_button("order","payment_type", Order::PAY_CREDIT) %>積點</td>
   </tr>
   <tr>
     <th><%= f.label '折扣' %></th><td><%= f.text_field :total_discount, :size => 10, :readonly => true, :class => 'acctPriceRO' %></td>
