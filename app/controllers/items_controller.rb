@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
-  # GET /items
-  # GET /items.xml
+
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
     @items = Item.all
 
@@ -10,8 +12,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/1
-  # GET /items/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @item = Item.find(params[:id])
 
@@ -21,8 +24,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/new
-  # GET /items/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @item = Item.new
 
@@ -32,14 +36,17 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @item = Item.find(params[:id])
     @style = Style.find(@item.style_id)
   end
 
-  # POST /items
-  # POST /items.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @item = Item.new(params[:item])
 
@@ -55,8 +62,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PUT /items/1
-  # PUT /items/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @item = Item.find(params[:id])
 
@@ -84,8 +92,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
@@ -96,6 +105,9 @@ class ItemsController < ApplicationController
     end
   end
   
+  #--------------------------------------------------
+  #  calculate_COGS
+  #--------------------------------------------------  
   def calculate_COGS
     @has_result = false
     if params[:range] != nil
@@ -103,24 +115,14 @@ class ItemsController < ApplicationController
       @start_date = Date.civil(params[:range][:"start_date(1i)"].to_i, params[:range][:"start_date(2i)"].to_i, params[:range][:"start_date(3i)"].to_i)
       @end_date   = Date.civil(params[:range][:"end_date(1i)"].to_i,   params[:range][:"end_date(2i)"].to_i,   params[:range][:"end_date(3i)"].to_i)
       
-      if params[:use_order_date] == '0'
-        orders = Order.find(:all, :conditions => { :order_date => @start_date..@end_date}, :order => 'order_date' )
-        @items = Array.new
-        orders.each do |order|
-          order.items.each do |item|
-            @items << item if not item.cancelled  
-          end
-        end
-      else
-        @items = Item.find(:all, :conditions => { :shipped_date => @start_date..@end_date, :cancelled => false, :status => Item::ITEM_SHIPPED }, :order => 'shipped_date' )         
-      end
-
+      @items = Item.find(:all, :conditions => { :purchase_date => @start_date..@end_date, :cancelled => false, :status => Item::ITEM_SOLD }, :order => 'purchase_date' )         
+      
       @total_COGS = 0
       @total_sales = 0
       @total_discount = 0
       @items.each do |item|
         @total_COGS += item.style.cost
-        @total_sales += item.price
+        @total_sales += item.list_price
         @total_discount += item.discount
       end
       @net_income = @total_sales - @total_discount - @total_COGS

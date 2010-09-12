@@ -5,7 +5,7 @@
 <% form_tag do %>
   
   <div>
-    <%= label '起始日', '起始日' %><%= date_select :range, :start_date, :default => 1.month.ago, :use_month_numbers => true, :start_year => 2009 %> &nbsp; &nbsp; 依訂購日<input id="use_order_date" name="use_order_date" type="checkbox" value="0" />    
+    <%= label '起始日', '起始日' %><%= date_select :range, :start_date, :default => 1.month.ago, :use_month_numbers => true, :start_year => 2009 %>    
   </div>
   <div>
     <%= label '結束日', '結束日' %><%= date_select :range, :end_date, :default => Date.today, :use_month_numbers => true, :start_year => 2009 %> &nbsp; &nbsp; <%= submit_tag 'Build' %>
@@ -40,8 +40,7 @@
     <th width="80">item.id</th>
     <th width="60">狀態</th>
     <th width="80">購買人</th>
-		<th width="100">訂購日期</th>
-    <th width="100">出貨日期</th>
+		<th width="100">出售日期</th>
     <th width="120">款式</th>
     <th width="80">成本</th>
     <th width="80">售價</th>
@@ -51,12 +50,11 @@
   <tr>
     <td><%= link_to item.id, :controller => 'items', :action => 'edit', :id => item.id %></td>
     <td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
-    <td><%= item.order.customer.name %></td>
-		<td><%= item.order.order_date %></td>
-    <td><%= item.shipped_date %></td>
+    <td><%= item.order.customer.name if item.order.customer %></td>
+		<td><%= item.order.purchase_date %></td>
     <td><%= item.style.name %></td>
     <td align="right"><%= show_currency(item.style.cost) %></td>
-		<td align="right"><%= show_currency(item.price, false) %></td>
+		<td align="right"><%= show_currency(item.list_price, false) %></td>
 		<td align="right"><%= show_currency(item.discount) %></td>
   </tr>
 <% end %>
