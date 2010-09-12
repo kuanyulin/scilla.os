@@ -115,7 +115,7 @@ class ItemsController < ApplicationController
       @start_date = Date.civil(params[:range][:"start_date(1i)"].to_i, params[:range][:"start_date(2i)"].to_i, params[:range][:"start_date(3i)"].to_i)
       @end_date   = Date.civil(params[:range][:"end_date(1i)"].to_i,   params[:range][:"end_date(2i)"].to_i,   params[:range][:"end_date(3i)"].to_i)
       
-      @items = Item.find(:all, :conditions => { :purchase_date => @start_date..@end_date, :cancelled => false, :status => Item::ITEM_SOLD }, :order => 'purchase_date' )         
+      @items = Item.find(:all, :conditions => { :purchase_date => @start_date..@end_date, :status => Item::ITEM_SOLD }, :order => 'purchase_date' )         
       
       @total_COGS = 0
       @total_sales = 0
