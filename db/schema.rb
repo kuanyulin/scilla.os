@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100825223200) do
+ActiveRecord::Schema.define(:version => 20100910161945) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "account_type", :limit => 2
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(:version => 20100825223200) do
   create_table "categories_styles", :id => false, :force => true do |t|
     t.integer  "style_id"
     t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.integer  "customer_id"
+    t.date     "contact_date"
+    t.text     "content"
+    t.integer  "method"
+    t.integer  "status"
+    t.integer  "contacted_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
