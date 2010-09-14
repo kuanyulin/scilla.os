@@ -12,7 +12,6 @@
 		<th>Subtotal</th>
     <th>Status</th>
     <th>Note</th>
-    <th>Cancelled</th>
 		<th> </th>
   </tr>
 
@@ -28,7 +27,6 @@
     <td><%=h item.subtotal %></td> 
     <td><%=h item.status %></td>
     <td><%=h item.note %></td>
-    <td><%=h item.cancelled %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
