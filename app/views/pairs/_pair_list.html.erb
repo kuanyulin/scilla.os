@@ -31,7 +31,7 @@
     <td align="center"><%= show_pair_status(p.status) %></td>
     <td align="center"><small><%= link_to p.refill.order_date, :controller => 'refills', :action => 'show', :id => p.refill_id if not p.refill.nil? %></small></td>
     <td align="center"><small><%=h p.refill.arrive_date if not p.refill.nil? %></small></td>
-		<td align="center"><%= link_to p.items[p.items.length-1].order.customer.name, :controller => 'customers', :action => 'show', :id => p.items[p.items.length-1].order.customer.id if not p.items.empty? and p.items[p.items.length-1].order.customer %></td>
+		<td align="center"><%= link_to p.items[p.items.length-1].order.customer.name, :controller => 'customers', :action => 'show', :id => p.items[p.items.length-1].order.customer.id if not p.items.empty? and p.items[p.items.length-1].order and p.items[p.items.length-1].order.customer %></td>
     <td align="center"><small><%= link_to p.items[p.items.length-1].purchase_date, :controller => 'orders', :action => 'edit', :id => p.items[p.items.length-1].order_id if not p.items.empty?  %></small></td>
     <td><%= link_to edit_image, edit_pair_path(p.id) %></td> 
   </tr>
