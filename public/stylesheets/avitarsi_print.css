@@ -44,6 +44,7 @@ table.replenish td {
 table.invent {
   border:1px solid #333;
   font-size: 14px;
+  border-collapse:collapse;
 }
 table.invent th {
   background-color:#666;

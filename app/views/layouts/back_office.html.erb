@@ -64,8 +64,9 @@
 		        <li><%= link_to '款式類別', :controller => 'categories'  %></li>
 		        <li><%= link_to '商品款式', :controller => 'styles'  %>（<%= link_to '＋', new_style_path, :title => "新增商品" %>）</li>
 		        <li><%= link_to '尺寸搜尋', :controller => 'sizes'  %></li>
-						<li><%= link_to '庫存查詢', :controller => 'pairs'  %> （<%= link_to '總覽', :controller => 'pairs', :action => 'inventory_summary', :id => 0  %>）</li>  	  	  
-				  </ul>
+						<li><%= link_to '庫存查詢', :controller => 'pairs'  %> （<%= link_to '存貨', :controller => 'pairs', :action => 'inventory_summary', :id => 0  %>）</li>  	  	  
+				    <li><%= link_to '庫存全覽', :controller => 'pairs', :action => 'inventory_complete', :id => 0  %>
+					</ul>
 				<li>銷售／客戶管理</li>
 				  <ul>
 				  	<li><%= link_to '日營業額', :controller => 'daily_revenues' %>（<%= link_to '＋', new_daily_revenue_path, :title => "新增日結" %>）</li>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <%= stylesheet_link_tag "avitarsi_print", :media => "all"%>
+  <title>庫存總覽 <%= Date.today %></title>
+</head>
+<style type="text/css">
+table.sci th {
+	line-height: 24px;
+	background-color:#806D7E;
+	color:#FFFFFF;
+	border:#333 1px solid;
+}
+table.sci tr.even2 {
+	background-color:#888888;
+}
+table.sci tr.odd2 {
+  background-color:#555555;
+}
+table.sci td {
+  line-height: 24px;	
+  color:#ffffff;
+	vertical-align:top;
+}
+span.pair {
+	display:block;
+	float:left;
+	width:50px;
+	line-height:24px;
+	border:#333 1px solid;
+	background-color:#fff;
+	color:#000;
+	font-size:12px;
+	text-align:center;
+}
+</style>
+<body>
+<h3>庫存總覽 <%= Date.today %></h3>
+
+<table cellspacing="0" cellpadding="0" border="0" class="invent sci" width="960">
+  <tr>
+    <th width="150">款式</th>
+		<th width="60px">5</th>
+    <th width="120px">6</th>
+    <th width="170px">7</th>
+    <th width="170px">8</th>
+    <th width="170px">9</th>
+    <th width="120px">10</th>
+  </tr>
+<%  
+  @styles.each do |style|
+    if not style.name == '大底'
+      shading = cycle('even2', 'odd2')
+%>
+  <tr class="<%= shading %>">
+    <td class="left"><%= style.name %></td>
+		<td class="left"><%    
+      pairs = style.pairs
+      current_size = 5
+      pairs.each do |pair|
+        if not pair.size == current_size 
+          Integer(pair.size-current_size).times { %></td><td class="left"><% } 
+          current_size = pair.size
+        end %><%= '<span class="pair">' + pair.items[pair.items.length-1].purchase_date.strftime("%m/%d") + '</span>' if pair.status == Pair::SOLD %>
+			<%= '<span class="pair">XXX</span>' if pair.status == Pair::DEFECT %>
+			<%= '<span class="pair">  &nbsp;</span>' if pair.status == Pair::ON_SALE %>
+
+<%    end %></td>
+      <% Integer(10-current_size).times { %><td> </td><% } %>
+	</tr>
+<%
+  end 
+  end
+%></table>		
+</body>
+</html>
+		

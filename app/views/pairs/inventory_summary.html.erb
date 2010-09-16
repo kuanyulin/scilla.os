@@ -13,21 +13,12 @@
 <table cellspacing="0" cellpadding="0" border="0" class="invent">
   <tr>
     <th width="110">款式</th>
-		<th width="40">33</th>
-    <th width="40">33.5</th>
-    <th width="40">34</th>
-    <th width="40">34.5</th>
-    <th width="40">35</th>
-    <th width="40">35.5</th>
-    <th width="40">36</th>
-    <th width="40">36.5</th>
-    <th width="40">37</th>
-    <th width="40">37.5</th>
-    <th width="40">38</th>
-    <th width="40">38.5</th>
-    <th width="40">39</th>
-    <th width="40">39.5</th>
-    <th width="40">40</th>
+		<th width="50">5</th>
+    <th width="50">6</th>
+    <th width="50">7</th>
+    <th width="50">8</th>
+    <th width="50">9</th>
+    <th width="50">10</th>
 		<th width="50">小計</th>
 		<% if session[:user].is_manager %>
 		<th width="70">成本</th>
@@ -46,12 +37,12 @@
     <% sizes = @styles[style.name] %>
 		
     <% sizes.each_with_index do |size, i| %>
-    <td<%= " class='ligray'" if i == 7 -%><%= " class='dark'" if i == 15 -%>><%= size unless size == 0 %></td>
+    <td<%= " class='ligray'" if i == 2 -%><%= " class='dark'" if i == 6 -%>><%= size unless size == 0 %></td>
     <% end %>
 		<% if session[:user].is_manager %>
 		<td><%= show_currency(style.cost) %></td>
 		<% 
-       style_cost = style.cost * sizes[15] 
+       style_cost = style.cost * sizes[6] 
        total_cost += style_cost 
     %>
 		<td><%= show_currency(style_cost) %></td>

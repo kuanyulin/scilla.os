@@ -1,6 +1,8 @@
 class PairsController < ApplicationController
-  # GET /pairs
-  # GET /pairs.xml
+  
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
    # @pairs = Pair.all(:order =>'style_id, size, status')
     #@styles = Style.all(:order => 'vendor_id, name')
@@ -13,6 +15,9 @@ class PairsController < ApplicationController
     end
   end
 
+  #--------------------------------------------------
+  #  get_inventory (AJAX)
+  #--------------------------------------------------
   def get_inventory
     unless params[:style_id].blank? or params[:style_id] == "-1"
       @style = Style.find(params[:style_id])
@@ -31,7 +36,6 @@ class PairsController < ApplicationController
       @stats['total'] = @pairs.size
       @stats['num_sold'] = 0
       @stats['count_size'] = Hash.new
-#      @stats['count_platform'] = Hash.new
       @pairs.each do |p|
         if p.status == Pair::SOLD and not p.items.empty?
           @stats['num_sold'] += 1 
@@ -40,11 +44,6 @@ class PairsController < ApplicationController
           else
             @stats['count_size'][p.size] = 1
           end
-#          if @stats['count_platform'].has_key?(p.items[0].order.order_from)
-#            @stats['count_platform'][p.items[0].order.order_from] += 1
-#          else
-#            @stats['count_platform'][p.items[0].order.order_from] = 1
-#          end
         end
       end      
       render :partial => 'inventory', :layout => false
@@ -56,6 +55,9 @@ class PairsController < ApplicationController
     end
   end
   
+  #--------------------------------------------------
+  #  get_inventory_by_category (AJAX)
+  #--------------------------------------------------  
   def get_inventory_by_category
     unless params[:cat_id].blank? or params[:cat_id] == "-1"
       @cat = Category.find(params[:cat_id])
@@ -82,8 +84,9 @@ class PairsController < ApplicationController
     end
   end
   
-  # GET /pairs/1
-  # GET /pairs/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @pair = Pair.find(params[:id])
 
@@ -93,8 +96,9 @@ class PairsController < ApplicationController
     end
   end
 
-  # GET /pairs/new
-  # GET /pairs/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @pair = Pair.new
 
@@ -104,13 +108,16 @@ class PairsController < ApplicationController
     end
   end
 
-  # GET /pairs/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @pair = Pair.find(params[:id])
   end
 
-  # POST /pairs
-  # POST /pairs.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @pair = Pair.new(params[:pair])
 
@@ -126,8 +133,9 @@ class PairsController < ApplicationController
     end
   end
 
-  # PUT /pairs/1
-  # PUT /pairs/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @pair = Pair.find(params[:id])
 
@@ -147,27 +155,38 @@ class PairsController < ApplicationController
     end
   end
 
+  #--------------------------------------------------
+  #  inventory_summary
+  #--------------------------------------------------
   def inventory_summary
     pairs = Pair.find(:all, :conditions => ['status = ?', Pair::ON_SALE], :order => 'style_id, size')
-    @style_list = Style.find(:all, :order => 'vendor_id, name')
+    @style_list = Style.find(:all, :order => 'name')
     @styles = Hash.new
-    @size_total = Array.new(16,0)
+    @size_total = Array.new(7, 0)
     
     pairs.each do |pair|
-      @styles[pair.style.name] = Array.new(16, 0) unless @styles.has_key?(pair.style.name)
-      size_index = Integer((pair.size-33)*2)
+      @styles[pair.style.name] = Array.new(7, 0) unless @styles.has_key?(pair.style.name)
+      size_index = Integer(pair.size - 5)
       @styles[pair.style.name][size_index] += 1
-      @styles[pair.style.name][15] += 1
+      @styles[pair.style.name][6] += 1
       @size_total[size_index] += 1
-      @size_total[15] += 1
+      @size_total[6] += 1
     end
     
     render :layout => false
   end
   
+  #--------------------------------------------------
+  #  inventory_complete
+  #--------------------------------------------------
+  def inventory_complete
+    @styles = Style.find(:all, :order => 'name')
+    render :layout => false
+  end
   
-  # DELETE /pairs/1
-  # DELETE /pairs/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @pair = Pair.find(params[:id])
     @pair.destroy
