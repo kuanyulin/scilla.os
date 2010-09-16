@@ -20,12 +20,12 @@
 
 <% @customers.each do |customer| %>
   <tr>
-  	<td><%= link_to '＋', :controller => 'contacts', :action => 'new', :customer_id => customer %></td>
+  	<td><%= link_to image_tag('shopping_24.png', :title => "新增售貨紀錄", :border => 0, :width => 16), :controller => 'orders', :action => 'new', :customer_id => customer %></td>
     <td><%= show_member_icon(customer.membership) %> <%= link_to customer.name, :action => 'show', :id => customer %></td>
     <td><%=h customer.birthdate %></td>
     <td><%=h customer.mobile %></td>
     <td><%=h customer.phone %></td>
-    <td><%=h customer.address %></td>
+    <td><%= link_to image_tag('phone_16.png', :title => "新增通聯紀錄", :border => 0, :width => 14), :controller => 'contacts', :action => 'new', :customer_id => customer %> <%=h customer.address %></td>
     <td><%= link_to '刪除', customer, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

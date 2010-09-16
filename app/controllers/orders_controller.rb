@@ -37,8 +37,12 @@ class OrdersController < ApplicationController
   #  new
   #--------------------------------------------------
   def new
-    
     @order = Order.new
+    if not params[:customer_id].blank?
+      @customer = Customer.find(params[:customer_id])
+      @order.customer = @customer
+    end
+    
     @order.purchase_date = Date.today
     
     @styles = Style.find_all_for_selection

@@ -75,7 +75,8 @@ function changeListPrice(element) {
 		<% end %>
 		搜尋客戶：<%= text_field_tag 'search' %></td>
   </tr>
-	<tr><td colspan="4"><%= f.hidden_field :customer_id %>
+	<tr><td colspan="4"><% if @order.customer %><%= f.hidden_field :customer_id, :value => @order.customer.id %><%
+	                       else %><%= f.hidden_field :customer_id %><% end %>
 		<%= observe_field :search, 
                   :frequency => 0.5, 
                   :update => 'customer_search',
