@@ -1,4 +1,25 @@
 <h1>客戶資料</h1>
+<script type="text/javascript">
+	function saveSession(value) {
+    sessionStorage.setItem('find_customer', document.getElementById("search").value);
+		return encodeURIComponent(value);
+	}
+	
+  function fireEvent(element, event)
+  {
+    if(document.createEvent){
+      // dispatch for firefox + others
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+      return !element.dispatchEvent(evt);
+    }
+    else {
+       // dispatch for IE
+      var evt = document.createEventObject();
+      return element.fireEvent('on' + event, evt)
+    }
+  }
+</script>
 
 <table cellspacing="0" cellpadding="0" width="650">
 <tr>
@@ -10,10 +31,18 @@
                   :frequency => 0.5, 
                   :update => 'customer_search',
                   :url => {:action => 'search', :only_path => false},
-                  :with => "'search=' + encodeURIComponent(value)" %>
+                  :with => "'search=' + saveSession(value)" %>
 <br/>
 <div id="customer_search">
 <%= render :partial => "search" %>
 </div>
+<script type="text/javascript">
+  
+   if (sessionStorage.getItem('find_customer') != null) {
+    document.getElementById("search").value = sessionStorage.getItem('find_customer');   
+    fireEvent(document.getElementById("search"),'change');
+  }
+  
+ </script>
 
 

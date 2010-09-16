@@ -1,6 +1,8 @@
 class CustomersController < ApplicationController
-  # GET /customers
-  # GET /customers.xml
+  
+  #--------------------------------------------------
+  #  index
+  #--------------------------------------------------
   def index
    # @customers = Customer.all
     @customers = Array.new
@@ -11,6 +13,9 @@ class CustomersController < ApplicationController
     end
   end
   
+  #--------------------------------------------------
+  #  search
+  #--------------------------------------------------
   def search
     unless params[:search].blank?
       if params[:search] == "all"
@@ -19,16 +24,15 @@ class CustomersController < ApplicationController
         @customers = Customer.find(:all, :conditions=> ["name like ?", "%" + params[:search] + "%"])      
       end
     else
-   #   @customers = Customer.all
    @customers = Array.new
     end
     # logger.info("----- rendering partial size=" + @customers.size.to_s)
     render :partial => 'search', :layout => false
   end
   
-  
-  # GET /customers/1
-  # GET /customers/1.xml
+  #--------------------------------------------------
+  #  show
+  #--------------------------------------------------
   def show
     @customer = Customer.find(params[:id])
 
@@ -38,8 +42,9 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /customers/new
-  # GET /customers/new.xml
+  #--------------------------------------------------
+  #  new
+  #--------------------------------------------------
   def new
     @customer = Customer.new
 
@@ -49,13 +54,16 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /customers/1/edit
+  #--------------------------------------------------
+  #  edit
+  #--------------------------------------------------
   def edit
     @customer = Customer.find(params[:id])
   end
 
-  # POST /customers
-  # POST /customers.xml
+  #--------------------------------------------------
+  #  create
+  #--------------------------------------------------
   def create
     @customer = Customer.new(params[:customer])
 
@@ -71,8 +79,9 @@ class CustomersController < ApplicationController
     end
   end
 
-  # PUT /customers/1
-  # PUT /customers/1.xml
+  #--------------------------------------------------
+  #  update
+  #--------------------------------------------------
   def update
     @customer = Customer.find(params[:id])
 
@@ -88,8 +97,9 @@ class CustomersController < ApplicationController
     end
   end
 
-  # DELETE /customers/1
-  # DELETE /customers/1.xml
+  #--------------------------------------------------
+  #  destroy
+  #--------------------------------------------------
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
@@ -99,7 +109,10 @@ class CustomersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+ 
+  #--------------------------------------------------
+  #  report
+  #--------------------------------------------------
   def report
     #@elite_member = Customer.count(:conditions => ["membership = ?", Customer::ELITE_MEMBER])
     #@style_member = Customer.count(:conditions => ["membership = ?", Customer::STYLE_MEMBER])
@@ -109,6 +122,9 @@ class CustomersController < ApplicationController
     
   end
   
+  #--------------------------------------------------
+  #  calculate_membership
+  #--------------------------------------------------
   def calculate_membership
     @customers = Customer.all
     
