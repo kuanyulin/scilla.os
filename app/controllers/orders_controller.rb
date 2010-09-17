@@ -36,19 +36,15 @@ class OrdersController < ApplicationController
       begin
         record_dayTime = Chronic.parse(params[:record_day])
         @record_day = Date.parse(record_dayTime.strftime('%Y-%m-%d'))
-        
         @orders = Order.find(:all, :conditions=> { :purchase_date => @record_day..@record_day}, :order => 'id' ) 
-        logger.info("----- found partial order size = " + @orders.size.to_s)
+        
       rescue Exception
-        #logger.info("----- parsing date error")
         flash[:notice] = "試試輸入「today」「yesterday」或「2010/7/3」日期格式..."
         @orders = Array.new
       end
     else
       @orders = Array.new
     end
-    
-    logger.info("----- rendering partial order size = " + @orders.size.to_s)
     render :partial => 'day_records', :layout => false
   end
   
