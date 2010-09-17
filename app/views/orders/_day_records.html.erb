@@ -14,7 +14,18 @@
     <th width="100">付款方式</th>
     <th width="80"> </th>
   </tr>
-<% @orders.each do |order| %>
+<% 
+   total_cc = 0
+   total_cash = 0
+   total_discount = 0
+   total_off = 0
+   
+   @orders.each do |order| 
+     
+     order.payment_type == Order::PAY_CREDIT_CARD ? total_cc += order.total_paid : total_cash += order.total_paid
+     total_discount += order.total_discount
+     total_off += order.extra_discount
+%>
 <% shading = cycle('even', 'odd') %>
   <tr class="<%= shading %>">
     <td><%= show_order_status(order.status) %></td>
@@ -53,5 +64,27 @@
 	</tr>
   <% end %>
 <% end %>
-
 </table>
+<table class="tableList" cellspacing="0" cellpadding="0" border="0" width="770">
+  <tr>
+    <th width="50"> </th>
+    <th width="80"> </th>
+    <th width="80">折扣總數</th>   
+    <th width="80">折讓總數</th>
+    <th width="100">信用卡總額</th>
+    <th width="100">現金總額</th>
+    <th width="100">總銷售額</th>
+    <th width="100"> </th>
+    <th width="80"> </th>
+  </tr>
+  <tr>
+    <th width="50"> </th>
+    <th width="80"> </th>
+    <th width="80"><%= show_currency(total_discount, false) %></th>   
+    <th width="80"><%= show_currency(total_off, false) %></th>
+    <th width="100"><%= show_currency(total_cc, false) %></th>
+    <th width="100"><%= show_currency(total_cash, false) %></th>
+    <th width="100"><%= show_currency(total_cash+total_cc, false) %></th>
+    <th width="100"> </th>
+    <th width="80"> </th>
+  </tr>
