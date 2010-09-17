@@ -1,8 +1,7 @@
-<h1>訂單一覽 （共 <%= @order_count %> 筆）</h1>
-<br/>
-<%= link_to image_tag('shopping_32.png', :title => "新增售貨紀錄", :border => 0), new_order_path, :title => "新增售貨紀錄" %>
-<br/><br/>
-<%= will_paginate @orders %>
+<% if flash[:notice] -%> 
+  <div id="notice"><%= flash[:notice] %></div>
+<% end -%>
+（共 <%= @orders.length %> 筆）
 <table class="tableList" cellspacing="0" cellpadding="0" border="0" width="770">
 	<tr>
     <th width="50">狀態</th>
@@ -56,4 +55,3 @@
 <% end %>
 
 </table>
-<%= will_paginate @orders %>

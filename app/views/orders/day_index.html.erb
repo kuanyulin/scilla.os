@@ -1,0 +1,46 @@
+<h1>每日銷售紀錄</h1>
+<script type="text/javascript">
+  function saveSession(value) {
+    sessionStorage.setItem('record_day', document.getElementById("record_day").value);
+    return encodeURIComponent(value);
+  }
+  
+  function fireEvent(element, event)
+  {
+    if(document.createEvent){
+      // dispatch for firefox + others
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent(event, true, true ); // event type,bubbling,cancelable
+      return !element.dispatchEvent(evt);
+    }
+    else {
+       // dispatch for IE
+      var evt = document.createEventObject();
+      return element.fireEvent('on' + event, evt)
+    }
+  }
+</script>
+
+<table cellspacing="0" cellpadding="0" width="650">
+<tr>
+  <td width="50%">日期：<%= text_field_tag 'record_day' %></td>
+  <td width="50%"><%= link_to image_tag('shopping_32.png', :title => "新增售貨紀錄", :border => 0), new_order_path %></td>
+</tr>
+</table>
+<%= observe_field :record_day, 
+                  :frequency => 0.5, 
+                  :update => 'day_records',
+                  :url => {:action => 'find_day_records', :only_path => false},
+                  :with => "'record_day=' + saveSession(value)" %>
+<br/>
+<div id="day_records">
+<%= render :partial => "day_records" %>
+</div>
+<script type="text/javascript">
+  
+  if (sessionStorage.getItem('record_day') != null) {
+    document.getElementById("record_day").value = sessionStorage.getItem('record_day');   
+    fireEvent(document.getElementById("record_day"),'change');
+  }
+
+ </script>

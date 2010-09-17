@@ -22,6 +22,37 @@ class OrdersController < ApplicationController
   end
 
   #--------------------------------------------------
+  #  day_index
+  #--------------------------------------------------
+  def day_index
+    @orders = Array.new
+  end
+  
+  #--------------------------------------------------
+  #  find_day_records
+  #--------------------------------------------------
+  def find_day_records
+    unless params[:record_day].blank?
+      begin
+        record_dayTime = Chronic.parse(params[:record_day])
+        @record_day = Date.parse(record_dayTime.strftime('%Y-%m-%d'))
+        
+        @orders = Order.find(:all, :conditions=> { :purchase_date => @record_day..@record_day}, :order => 'id' ) 
+        logger.info("----- found partial order size = " + @orders.size.to_s)
+      rescue Exception
+        #logger.info("----- parsing date error")
+        flash[:notice] = "試試輸入「today」「yesterday」或「2010/7/3」日期格式..."
+        @orders = Array.new
+      end
+    else
+      @orders = Array.new
+    end
+    
+    logger.info("----- rendering partial order size = " + @orders.size.to_s)
+    render :partial => 'day_records', :layout => false
+  end
+  
+  #--------------------------------------------------
   #  show
   #--------------------------------------------------
   def show
@@ -127,7 +158,7 @@ class OrdersController < ApplicationController
         end
         
         flash[:notice] = '出售紀錄新增成功！'
-        format.html { redirect_to :controller => 'orders', :action => 'index' }
+        format.html { redirect_to :controller => 'orders', :action => 'day_index', :id => 0 }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
         @styles = Style.find_all_for_selection
