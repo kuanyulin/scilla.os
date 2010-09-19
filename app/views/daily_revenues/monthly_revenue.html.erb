@@ -1,0 +1,89 @@
+<div class='at-form'>
+<fieldset>
+  <legend>計算營業額</legend>
+  
+<% form_tag do %>
+
+  <div>
+    <%= label '起始日', '起始日' %><%= text_field_tag :start_date, @start_date %>    
+  </div>
+  <div>
+    <%= label '結束日', '結束日' %><%= text_field_tag :end_date, @end_date %> &nbsp; &nbsp; <%= submit_tag '計算' %>
+  </div>
+  
+<% end %>
+
+</fieldset>
+</div>
+
+<br/><br/>
+
+<div class="f_report">
+<h2><%= @start_date %> ~ <%= @end_date %> 營業額總計 </h2>
+
+<table class="tableList" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <th width="120">日期</th>
+    <th width="100">營業額</th>
+    <th width="100">信用卡</th>
+    <th width="100">現金</th>
+    <th width="100">現金存入</th>
+    <th width="100">現金餘額</th>
+    <th width="100">折扣總數</th>
+    <th width="100">折讓總數</th>
+    <th width="100"> - </th>
+  </tr>
+
+<% 
+   revenue = credit_card = cash = cash_deposit = discount = extra = 0
+
+   @records.each do |daily_revenue| 
+	   revenue      += daily_revenue.revenue
+		 credit_card  += daily_revenue.credit_card
+		 cash         += daily_revenue.cash
+		 cash_deposit += daily_revenue.cash_deposit
+		 discount     += daily_revenue.total_discount
+		 extra        += daily_revenue.total_extra 
+
+     shading = cycle('even', 'odd') %>
+  <tr class="<%= shading %>">
+    <td align="center"><%= link_to daily_revenue.sale_date, edit_daily_revenue_path(daily_revenue) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.revenue, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.credit_card, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.cash, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.cash_deposit, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.reserve_cash, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.total_discount, false ) %></td>
+    <td align="right"><%=h show_currency( daily_revenue.total_extra, false ) %></td>
+    <td><%= link_to '刪除', daily_revenue, :confirm => '確定刪除?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <th width="120">Total</th>
+    <th width="100">營業額</th>
+    <th width="100">信用卡</th>
+    <th width="100">現金</th>
+    <th width="100">現金存入</th>
+    <th width="100"></th>
+    <th width="100">折扣總數</th>
+    <th width="100">折讓總數</th>
+    <th width="100"> - </th>
+  </tr>
+  <tr>
+  	<td align="center"> </td>
+    <td align="right"><%=h show_currency( revenue, false ) %></td>
+    <td align="right"><%=h show_currency( credit_card, false ) %></td>
+    <td align="right"><%=h show_currency( cash, false ) %></td>
+    <td align="right"><%=h show_currency( cash_deposit, false ) %></td>
+    <td align="right"></td>
+    <td align="right"><%=h show_currency( discount, false ) %></td>
+    <td align="right"><%=h show_currency( extra, false ) %></td>
+    <td> </td>
+  </tr>
+</table>
+<% 
+   total_list_price = revenue + discount + extra 
+%>
+  平均折扣率 = <%= discount %> / <%= total_list_price %> = <%= "%.2f" % (discount * 100.0 / total_list_price) %>%<br/>
+	平均折讓率 =   <%= extra %> / <%= total_list_price %> = <%= "%.2f" % (extra * 100.0 / total_list_price) %>%
+</div>

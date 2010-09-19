@@ -14,6 +14,33 @@ class DailyRevenuesController < ApplicationController
   end
 
   #--------------------------------------------------
+  #  monthly_revenue
+  #--------------------------------------------------
+  def monthly_revenue
+    
+    begin
+      if not params[:start_date].blank? and not params[:end_date].blank?
+        startTime = Chronic.parse(params[:start_date])
+        endTime   = Chronic.parse(params[:end_date])
+        @start_date = Date.parse(startTime.strftime('%Y-%m-%d'))
+        @end_date   = Date.parse(endTime.strftime('%Y-%m-%d'))
+      else
+        @start_date = Date.parse(Chronic.parse('1 month ago').strftime('%Y-%m-%d'))
+        @end_date = Date.today
+      end
+      @records = DailyRevenue.find(:all, :conditions => ["sale_date <= ? and sale_date >= ?", @end_date, @start_date], :order => 'sale_date')
+    rescue Exception
+      flash[:notice] = "試試輸入「today」「yesterday」或「2010/7/3」日期格式..."
+      @records = Array.new
+    end
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @daily_revenues }
+    end
+  end
+  
+  #--------------------------------------------------
   #  show
   #--------------------------------------------------
   def show
