@@ -50,8 +50,8 @@
   <tr>
     <td><%= link_to item.id, :controller => 'items', :action => 'edit', :id => item.id %></td>
     <td><%= Item::ITEM_STATUS.rassoc(item.status)[0] %></td>
-    <td><%= item.order.customer.name if item.order.customer %></td>
-		<td><%= item.order.purchase_date %></td>
+    <td><%= item.order.customer.name if item.order and item.order.customer %></td>
+		<td><%= item.order.purchase_date if item.order %></td>
     <td><%= item.style.name %></td>
     <td align="right"><%= show_currency(item.style.cost) %></td>
 		<td align="right"><%= show_currency(item.list_price, false) %></td>
