@@ -40,9 +40,10 @@ span.pair {
 <body>
 <h3>庫存總覽 <%= Date.today %></h3>
 
-<table cellspacing="0" cellpadding="0" border="0" class="invent sci" width="960">
+<table cellspacing="0" cellpadding="0" border="0" class="invent sci" width="1000">
   <tr>
-    <th width="150">款式</th>
+  	<th width="60">價格</th>
+    <th width="130">款式</th>
 		<th width="60px">5</th>
     <th width="120px">6</th>
     <th width="170px">7</th>
@@ -56,6 +57,7 @@ span.pair {
       shading = cycle('even2', 'odd2')
 %>
   <tr class="<%= shading %>">
+  	<td><%= show_currency(style.price_of_today) %></td>
     <td class="left"><%= style.name %></td>
 		<td class="left"><%    
       pairs = style.pairs
