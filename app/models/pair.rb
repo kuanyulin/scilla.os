@@ -3,7 +3,7 @@ class Pair < ActiveRecord::Base
   belongs_to :style
   belongs_to :refill
   has_many :items,
-           :dependent => :restrict,
+           :dependent => :nullify,
            :order => 'purchase_date, status DESC'
   
   validates_presence_of :style_id, :size
