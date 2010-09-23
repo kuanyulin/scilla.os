@@ -5,7 +5,11 @@
       <td width="70"><%= f.select :status, Item::ITEM_STATUS %></td>
 <% if f.object.style_id %>
       <td width="150"><%= f.select :style_id, @styles, {:disabled => 1..1000, :prompt => "鞋款"} -%></td>
-      <td width="60"><%= f.text_field :size, :size => 3, :readonly => true, :class => "acctPriceRO" -%></td>
+			<% if session[:user].is_manager %>
+      <td width="60"><%= f.text_field :size, :size => 3, :class => "acctPrice" -%></td>
+			<% else %>
+			<td width="60"><%= f.text_field :size, :size => 3, :readonly => true, :class => "acctPriceRO" -%></td>
+			<% end %>
 <% else %>	
       <td width="150"><%= f.select :style_id, @styles, :prompt => "鞋款", :onchange => "sum();" -%></td>
       <td width="60"><%= f.select :size, [ ['尺寸', 0] ] %></td>
