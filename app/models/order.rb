@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   validate :test_purchase_date
   validates_numericality_of :total_list_price, :total_discount, :extra_discount, :total_paid
  
-  has_many :items
+  has_many :items, :dependent => :destroy
   accepts_nested_attributes_for :items, :allow_destroy => true
   
   # Payment type
