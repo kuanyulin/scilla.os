@@ -119,7 +119,7 @@ class CustomersController < ApplicationController
     @customer_count = Customer.count
     @elite_members = Customer.all(:order => 'total_purchase DESC', :conditions => ["membership = ?", Customer::ELITE_MEMBER])
     @style_members = Customer.all(:order => 'total_purchase DESC', :conditions => ["membership = ?", Customer::STYLE_MEMBER])
-    
+    @standard_members = Customer.all(:order => 'total_purchase DESC', :conditions => ["membership = ?", Customer::STANDARD_MEMBER])
   end
   
   #--------------------------------------------------
@@ -150,6 +150,8 @@ class CustomersController < ApplicationController
       elsif customer.total_purchase > 7999
         customer.membership = Customer::STYLE_MEMBER
         @style_member += 1
+      else
+        customer.membership = Customer::STANDARD_MEMBER
       end
       
       customer.save!
