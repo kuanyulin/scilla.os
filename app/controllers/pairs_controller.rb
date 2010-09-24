@@ -185,6 +185,26 @@ class PairsController < ApplicationController
   end
   
   #--------------------------------------------------
+  #  problem_items_and_pairs
+  #--------------------------------------------------
+  def problem_items_and_pairs
+    #@items_no_order = Item.find(:all, :conditions => { :order_id => nil }, :order => 'purchase_date')
+    pairs = Pair.find(:all, :conditions => { :status => Pair::SOLD } )
+    
+    @duplicates = Array.new
+    pairs.each do |pair|
+      if pair.items.length > 1
+        sold = 0
+        pair.items.each do |item|
+          sold += 1 if item.status == Item::ITEM_SOLD
+        end
+        @duplicates << pair if sold > 1
+      end
+    end
+    logger.info( '-------- Found ' + @duplicates.length.to_s + ' duplicates')
+  end
+  
+  #--------------------------------------------------
   #  destroy
   #--------------------------------------------------
   def destroy

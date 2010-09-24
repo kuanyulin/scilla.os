@@ -75,7 +75,10 @@
 						<li><%= link_to '售貨紀錄', :controller => 'orders'  %>（<%= link_to '＋', new_order_path, :title => "新增售貨單" %>）</li>
 				    <li><%= link_to '每日售貨紀錄', :controller => 'orders', :action => 'day_index', :id => 0  %>
 					</ul>
-				
+				<li>Diagnotic / Debug</li>
+				  <ul>
+  					<li><%= link_to 'Items/Pairs', :controller => 'pairs', :action => 'problem_items_and_pairs', :id => 0 %></li>
+					</ul>
 			</ul>					
 			<% end %>
               
