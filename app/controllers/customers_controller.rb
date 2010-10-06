@@ -144,10 +144,10 @@ class CustomersController < ApplicationController
         @idle_customers << customer
       end
       
-      if customer.total_purchase > 19999
+      if customer.total_purchase > 14999
         customer.membership = Customer::ELITE_MEMBER
         @elite_member += 1
-      elsif customer.total_purchase > 7999
+      elsif customer.total_purchase > 4999
         customer.membership = Customer::STYLE_MEMBER
         @style_member += 1
       else
