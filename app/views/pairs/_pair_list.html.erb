@@ -1,8 +1,8 @@
+<img src='<%=h @style.thumbnail %>' border="0" width="128px">
+
 <% if not @stats.nil? %>
-共進貨：<%= @stats['total'] %> 雙。<br/>
-共售出：<%= @stats['num_sold'] %> 雙。<br/>
-<% end %>
-	
+共進貨：<%= @stats['total'] %> 雙。 &nbsp; &nbsp; 共售出：<%= @stats['num_sold'] %> 雙。
+<% end %>	
 <table class="tableList" cellspacing="0" cellpadding="0" border="0" width="900">
   <tr>
   	<th width="20">id</th>

@@ -26,8 +26,12 @@ class Style < ActiveRecord::Base
     Style.all(:order => 'vendor_id, name')
   end
   
+  def Style.find_all_by_name
+    Style.all(:order => 'name')
+  end
+  
   def Style.find_all_for_selection
-    Style.all(:order => 'vendor_id, name').map{|x| [x.name, x.id]}
+    Style.all(:order => 'name').map{|x| [x.name, x.id]}
   end
   
 end

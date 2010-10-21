@@ -7,13 +7,15 @@
   <%= stylesheet_link_tag "avitarsi_print", :media => "all"%>
   <title>庫存總覽 <%= Date.today %></title>
 </head>
-<style type="text/css">
+<style type="text/css" media="print,screen">
 table.sci th {
 	line-height: 24px;
 	background-color:#806D7E;
 	color:#FFFFFF;
 	border:#333 1px solid;
 }
+table.sci thead { display:table-header-group; }
+table.sci tbody { display:table-row-group; }
 table.sci tr.even2 {
 	background-color:#888888;
 }
@@ -40,20 +42,26 @@ span.pair {
 <body>
 <h3>庫存總覽 <%= Date.today %></h3>
 
-<table cellspacing="0" cellpadding="0" border="0" class="invent sci" width="1000">
-  <tr>
+<table cellspacing="0" cellpadding="0" border="0" class="invent sci" width="1035">
+	<thead><tr>
   	<th width="60">價格</th>
-    <th width="130">款式</th>
-		<th width="60px">5</th>
-    <th width="120px">6</th>
-    <th width="170px">7</th>
-    <th width="170px">8</th>
-    <th width="170px">9</th>
-    <th width="120px">10</th>
-  </tr>
+    <th width="120">款式</th>
+		<th width="65px">5</th>
+    <th width="40px">5.5</th>
+    <th width="65px">6</th>
+    <th width="65px">6.5</th>
+    <th width="120px">7</th>
+    <th width="65px">7.5</th>
+    <th width="120px">8</th>
+    <th width="65px">8.5</th>
+    <th width="120px">9</th>
+    <th width="65px">9.5</th>
+    <th width="65px">10</th>
+  </tr></thead>
+	<tbody>
 <%  
   @styles.each do |style|
-    if not style.name == '大底'
+    if not style.name == '888 大底'
       shading = cycle('even2', 'odd2')
 %>
   <tr class="<%= shading %>">
@@ -64,19 +72,19 @@ span.pair {
       current_size = 5
       pairs.each do |pair|
         if not pair.size == current_size 
-          Integer(pair.size-current_size).times { %></td><td class="left"><% } 
+          Integer((pair.size-current_size)*2).times { %></td><td class="left"><% } 
           current_size = pair.size
         end %><%= '<span class="pair">' + pair.items[pair.items.length-1].purchase_date.strftime("%m/%d") + '</span>' if pair.status == Pair::SOLD %>
 			<%= '<span class="pair">XXX</span>' if pair.status == Pair::DEFECT %>
-			<%= '<span class="pair">  &nbsp;</span>' if pair.status == Pair::ON_SALE %>
+			<%= '<span class="pair"> &nbsp;</span>' if pair.status == Pair::ON_SALE %>
 
 <%    end %></td>
-      <% Integer(10-current_size).times { %><td> </td><% } %>
+      <% Integer((10-current_size)*2).times { %><td> </td><% } %>
 	</tr>
 <%
   end 
   end
-%></table>		
+%></tbody></table>		
 </body>
 </html>
 		

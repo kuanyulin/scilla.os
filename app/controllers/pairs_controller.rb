@@ -6,7 +6,7 @@ class PairsController < ApplicationController
   def index
    # @pairs = Pair.all(:order =>'style_id, size, status')
     #@styles = Style.all(:order => 'vendor_id, name')
-    @styles = Style.find_all
+    @styles = Style.find_all_by_name
     @categories = Category.all
     
     respond_to do |format|
