@@ -10,8 +10,12 @@
 		<th width="130">Subtotal</th>
   </tr>
 <% subtotal = 0 %>
+<% totalDebit = 0 %>
+<% totalCredit = 0 %>
 <% @account.entries.each do |entry| %>
   <% subtotal = entry.add_to_subtotal(subtotal) %>
+  <% totalDebit += entry.debit %>
+  <% totalCredit += entry.credit %>
 	<tr class="<%= cycle('even', 'odd') %>">
 	  <td><% if entry.journal.blank? -%><%= entry.entry_date -%><%= "**" + entry.id.to_s -%><% else %><%= link_to entry.entry_date, edit_journal_path(entry.journal) -%><% end %></td>
     <td><%=h entry.description %></td>
@@ -20,6 +24,13 @@
     <td align="right"><%=h show_currency(subtotal) -%></td>
 	</tr>
 <% end %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td> </td>
+    <td><b>TOTAL : </b></td>
+    <td align="right"><b><%=h show_currency(totalDebit) -%></b></td>
+    <td align="right"><b><%=h show_currency(totalCredit) -%></b></td>
+    <td> </td>
+  </tr>   
 </table>
 <br/>
 <%= link_to 'Back', accounts_path %>
