@@ -54,6 +54,14 @@
     <td align="right"><%= show_currency @report[:service_income] %></td>
   </tr>
 <% end %>
+<% unless @report[:interest_inc] == 0 %>
+  <tr>
+    <td></td>
+    <td><a href="/accounts/38">利息收入</a></td>
+    <td></td>
+    <td align="right"><%= show_currency @report[:interest_inc] %></td>
+  </tr>
+<% end %>
   <tr>
     <td></td>
     <td class="subtotal"></td>

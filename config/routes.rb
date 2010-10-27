@@ -66,6 +66,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "admin"
 
   # See how all your routes lay out with "rake routes"
+  map.connect 'report/financial_reports', :controller => 'accounts', :action => 'financial_reports'  
   map.connect 'report/income_statement', :controller => 'accounts', :action => 'income_statement'  
   map.connect 'customer/report', :controller => 'customers', :action => 'report'
   # Install the default routes as the lowest priority.

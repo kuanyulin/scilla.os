@@ -45,7 +45,8 @@
         <% if session[:user].is_manager %>
         <li>Accounting</li>
           <ul>
-          	<li><%= link_to '損益報表', '/report/income_statement' %></li>
+          	<li><%= link_to '帳目總結', '/report/financial_reports' %></li>
+						<li><%= link_to '損益報表', '/report/income_statement' %></li>
             <li><%= link_to '全部科目', :controller => 'accounts'  %></li>
 						<li><%= link_to '現金帳', :controller => 'accounts', :action => 'show', :id => 1  %></li>
 						<li><%= link_to '台北富邦', :controller => 'accounts', :action => 'show', :id => 2  %></li>
