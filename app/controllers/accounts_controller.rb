@@ -159,7 +159,7 @@ class AccountsController < ApplicationController
     accts = Account.find(:all, :conditions => { :subject_num => fromAcct..toAcct})
     accts.each do |acct|
       subtotal = subtotal_account(acct.entries, debit, from_date, to_date)
-      accounts[acct.subject] = [acct, subtotal ] if subtotal > 0
+      accounts[acct.subject] = [acct, subtotal ] if not subtotal == 0
     end
     
     return accounts
