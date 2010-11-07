@@ -11,20 +11,20 @@
 table.sci th {
 	line-height: 24px;
 	background-color:#806D7E;
-	color:#FFFFFF;
+	color:#fff;
 	border:#333 1px solid;
 }
 table.sci thead { display:table-header-group; }
 table.sci tbody { display:table-row-group; }
 table.sci tr.even2 {
-	background-color:#888888;
+	background-color:#fff;
 }
 table.sci tr.odd2 {
-  background-color:#555555;
+  background-color:#ccc;
 }
 table.sci td {
   line-height: 24px;	
-  color:#ffffff;
+  color:#000;
 	vertical-align:top;
 }
 span.pair {
@@ -61,7 +61,7 @@ span.pair {
 	<tbody>
 <%  
   @styles.each do |style|
-    if not style.name == '888 大底'
+    if not style.name == '888 大底' and not style.name.start_with? '5'
       shading = cycle('even2', 'odd2')
 %>
   <tr class="<%= shading %>">
